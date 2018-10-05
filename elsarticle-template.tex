@@ -112,6 +112,18 @@ This template helps you to create a properly formatted \LaTeX\ manuscript.
 \end{figure}
 
 % REF compared to REF methane leakage?
+The comparison between the REF scenario with a methane leakage phase out scenario (see \autoref{fig:REF_mp} illustrates the impact, methane emissions have on the possible application of LNG and LBG in a climate emission reduction regime.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{figures/REF_mp_fuels_emissions.pdf}
+    \caption{Fuel consumption (y-axis left) and cumulative emissions (y-axis right) assuming methane leakage phase-out}
+    \label{fig:REF_mp}
+    % TODO: Figure einfügen und am besten auf einer zweiten y-Achse die kumulativen Emissionen reinbringen. Die fuels vll. einfach in % angeben, falls das mit den 16PJ nicht mehr herauszubekommen ist.
+\end{figure}
+
+% Demand variation - Cheapest?, Cost reduction bigger than transport reduction
+% aus Tills Arbeit: Since transport demand declines over time, less investments are needed so that the system costs fall by 25 % to 15 billion EUR2016. These overall cost reductions are much greater than the entire transport demand reduction of 17 %. The faster the demand curves in Fig. 8.12 fall before it reaches the year of major investments into new fuel technologies, the greater this cost benefit would be.
 
 
 % Cost variation: Methanol and Ammonia are close
@@ -121,7 +133,7 @@ Due to the high level of uncertainty of cost development of infrastructure, fuel
 For LBG, the development of the methane leakage problem is of outstanding importance. Under the assumption that methane leakage can be coped with until 2050 (dashed line), LBG is close to hydrogen, methanol and ammonia as choice to be the dominate fuel in 2050. Contrary to that, LNG would not only require a methane leakage phase out, but also a very favourable cost development to play a major role.
 
 % BATW has to be decreased significantly, but the conditions applied were rather unfavorable for BATW.
-
+Sailing cargo ships, driven by a combination of wind and electricity from batteries seem to only be cost efficient in case of very strong drops in costs. However, the influence factors have more dimensions than just the pure battery and ship costs. In this model, it is assumed that one third of the propulsion is done by electricity. For long distance cargo, that mainly has to use the engine for manoeuvring into and out of the harbour, the wind share and potentially additional solar input can be significantly increased and thus the required battery and electricity costs reduced.
 
 \begin{figure}[htb]
     \centering
@@ -131,15 +143,47 @@ For LBG, the development of the methane leakage problem is of outstanding import
     % TODO: Figure einfügen mit ausfuehrlicheren Fuel Namen
 \end{figure}
 
+% Compare all scenarios: Fuel composition total and 2050
+For comparison, the total fuel use of all scenarios for 2016-2050 is displayed in \autoref{fig:AllFuelTotal.pdf} and the fuel composition in the target year 2050 in \autoref{fig:AllFuel2050}. A general efficiency increase can be seen for all carbon budget scenarios. Due to higher efficiencies and thus a higher Tkm/GJfuel - rate, less fuel is applied in the carbon budget scenarios. Except the transport demand scenario all supply the same transport demand.
 
-% NOTES:
-Figures:
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{figures/AllFuelTotal.pdf}
+    \caption{Total fuel use from 2016-2050 for all scenarios}
+    \label{fig:AllFuelTotal}
+    % TODO: Figure einfügen mit ausfuehrlicheren Fuel Namen
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{figures/AllFuel2050.pdf}
+    \caption{Fuel composition in 2050 for all scenarios}
+    \label{fig:AllFuel2050}
+    % TODO: Figure einfügen (die hab ich bisher noch nicht gesehen, hoffe die ist nicht kompliziert zu machen?) EVENTUELL BEIDE GRAFIKEN NEBENEINANDER UND DAMIT IN EINE PACKEN
+\end{figure}
+
+% Compare all scenarios: Costs - not sure if there should be a figure - maybe rather include the full table of results
+
+% Costs - resulting EURO/CO2e
+Derived from the cost differences for fuel, ship and infrastructure, a carbon price in the range of 350--450 \euro(2016)/ton would be required for a renewable transition of the Danish shipping sector. [Rau17, p. 198] TODO:insert citation - reports similar prices of around 430 \euro2013/ton for a global transition.
+
+% Costs - what does that mean for the cargo cost
+
+Discussion:
 \begin{itemize}
-    \item Cost variation curve and its effect: When comes what in
-    \item Fuel comparison of all scenarios: Fuel composition in 2050 (relative or absolut?)
-    \item Maybe emission reduction over time for all scenarios (maybe including methane leakage)
+	\item other decisive factors than costs
+	\item mitigation costs or mitigation gains
+	\item weaknesses and strengths of the model
+	\item applicability of the model on other countries
+	\item applicability of the findings for the world shipping
+	\item some kind of recommendations?
 \end{itemize}
 
+\section{Conclusion}
+% 250 words
+% only draft until now!
+For the possibility to reach the ..., it is of great importance, that the shipping sector becomes CO2-neutral. It is possible for the Danish part of international shipping to become CO2-neutral until 2050 with existing technologies. H2, CH3OH and NH3 seem from today to be most compatible while there is no clear winner. Which one would be the best option from a soico-economic point of view will depend mainly on the cost development. For ammonia also safety. All would be applied in Fuel Cells due to its higher fuel efficiency. LNG is no option due to a short window of opportunity and its leakage problem. LBG only if a very optimistic pathway of methane leakage reduction is assumed. Battery and wind could be an option for the long range, but that is not fully displayed in the modelling configuration. Safety issues, infrastructure decisisons, questions of the transformation require a more detailed attempt.
+However, gives and indication, that either strong targets/carbon budgets or a carbon price of 350-450 EURO/TCO2 would be required to induce the changes. This would double the costs for cargo, but due to its low share on cargo value, on average only 6\% of the cargo value.
 
 Key findings:
 \begin{itemize}
@@ -151,12 +195,6 @@ Key findings:
     \item LNG s not an option due to costs and carbon emissions.
     \item Battery + wind could be if...
 \end{itemize}
-
-\section{Conclusion}
-% 250 words
-% only draft until now!
-For the possibility to reach the ..., it is of great importance, that the shipping sector becomes CO2-neutral. It is possible for the Danish part of international shipping to become CO2-neutral until 2050 with existing technologies. H2, CH3OH and NH3 seem from today to be most compatible while there is no clear winner. Which one would be the best option from a soico-economic point of view will depend mainly on the cost development. For ammonia also safety. All would be applied in Fuel Cells due to its higher fuel efficiency. LNG is no option due to a short window of opportunity and its leakage problem. LBG only if a very optimistic pathway of methane leakage reduction is assumed. Battery and wind could be an option for the long range, but that is not fully displayed in the modelling configuration. Safety issues, infrastructure decisisons, questions of the transformation require a more detailed attempt.
-However, gives and indication, that either strong targets/carbon budgets or a carbon price of 350-450 EURO/TCO2 would be required to induce the changes. This would double the costs for cargo, but due to its low share on cargo value, on average only 6\% of the cargo value.
 
 \section*{References}
 
