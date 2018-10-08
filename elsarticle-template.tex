@@ -5,6 +5,10 @@
 
 \journal{Journal of \LaTeX\ Templates}
 
+% Additional packages
+\usepackage{amsmath}
+\usepackage{cleveref}
+
 %%%%%%%%%%%%%%%%%%%%%%%
 %% Elsevier bibliography styles
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -65,8 +69,9 @@ This template helps you to create a properly formatted \LaTeX\ manuscript.
 \end{abstract}
 
 \begin{keyword}
-\texttt{elsarticle.cls}\sep \LaTeX\sep Elsevier \sep template
-\MSC[2010] 00-01\sep  99-00
+% \texttt{elsarticle.cls}\sep \LaTeX\sep Elsevier \sep template
+% \MSC[2010] 00-01\sep  99-00
+Maritime transport\sep Marine fuels\sep Energy modelling\sep Emission reduction\sep Danish case-study 
 \end{keyword}
 
 \end{frontmatter}
@@ -79,6 +84,113 @@ This template helps you to create a properly formatted \LaTeX\ manuscript.
 
 \section{Materials and Methods}
 % 1500-1750
+
+\subsection{Mathematical Formulation}
+The future marine fuels problem is formulated mathematically as a linear and divisible model with the following equations. It is a stock model, initialised with data for the first time step that allows for investments in new technologies in the further course. The investment options are on the one hand forced and on the other limited by the model constraints. They are in general used to give credit to regularities and behaviour patterns that shape the system under investigation. Since the objective's sense is the minimisation of the overall system's costs \cref{eq:objective}, investments are interpreted as adverse but inevitable actions to cope with the constraint's demands, such as: Lowering CO2e emissions to air, (over-)supplying the transport demand in each time-step or scrapping ships, when their lifetime is expired. The domains of all model variables are within non-negative real numbers, including zero $\left(R_{0}^{+}\right)$.
+
+\subsubsection{Objective function}
+\noindent The model's objective is the minimisation of the total system costs. It comprises the sum of all accumulated annual costs for fuel, infrastructure and ships. Asset costs account only with the annual added amounts and are multiplied with their respective lifetimes, since they are given to the model as annuities.
+\begin{subequations}
+    \begin{align}
+        min. &\sum_{\forall t \in T}\sum_{\forall s \in S}\left( CF_{t, s} + CI_{t, s} + CS_{t, s} \right)\label{eq:objective}\\
+        \intertext{s.t.}
+        CF_{t, s} &\geq fa_{t,s} \cdot cf_{t,s}\\
+        CI_{t, s} &\geq \left( faiup_{t,s} - fainit_{t, s} \right) \cdot li_{s} \cdot ci_{t,s}, \forall t \in T_0\\
+        CI_{t, s} &\geq faiup_{t,s} \cdot li_{s} \cdot ci_{t,s}, \forall t \in T_{>0}\\
+        CS_{t, s} &\geq \left( fasup_{t,s} - fainit_{t, s} \right) \cdot li_{s} \cdot ci_{t,s}, \forall t \in T_0\\
+        CS_{t, s} &\geq fasup_{t,s} \cdot ls_{s} \cdot cs_{t,s}, \forall t \in T_{>0}
+    \end{align}
+\end{subequations}
+
+\subsubsection{Fuel constraints}
+\noindent The following fuel constraints refer to the amounts of fuel per ship type in each time step. Investments in infrastructure, new-build and refit ships consider exclusively the sum of the added capacities per ship or infrastructure over the respective lifetime. Ships and infrastructure are separated, due to different costs and lifetimes, even if they belong to the same technology.
+\\
+Infrastructure Capacity: Sum of all added infrastructure capacity within the respective proceeded technical lifetime.
+\begin{subequations}
+    \begin{align}
+        faicap_{t,s} &\leq \sum_{\textbf{x}}^{t-1} \left( faiup_{x,s} \right), \forall t \in T_{>0}, \forall s \in S\label{eq:faicap}\\
+        \intertext{s.t.}
+        x &= T_0, \forall t \leq \left(li_{s} + T_0 - 1\right)\\
+        x &= t - li_{s} + 1, \forall t > \left(li_{s} + T_0 - 1\right)
+    \end{align}
+\end{subequations}
+\par\noindent
+Additional Infrastructure: Annual additional infrastructure capacity needed to supply the corresponding ship-types.
+\begin{equation}
+    faiup_{t,s} \geq fa_{t,s} - faicap_{t,s}, \forall t \in T_{>0}, \forall s \in S\label{eq:faiup}
+\end{equation}
+Ship Capacity: Sum of all added ships within the respective proceeded technical lifetime.
+\begin{subequations}
+    \begin{align}
+        fascap_{t,s} &\leq \sum_{\textbf{x}}^{t-1} \left(fasup_{x,s} \right), \forall t \in T_{>0}, \forall s \in S\label{eq:fascap}\\
+        \intertext{s.t.}
+        x &= T_0, \forall t \leq \left(ls_{s} + T_0 - 1\right)\\
+        x &= t - ls_{s} + 1, \forall t > \left(ls_{s} + T_0 - 1\right)
+    \end{align}
+\end{subequations}
+Added Ships: Annual additional ship capacity needed to satisfy the transport demand.
+\begin{equation}
+    fasup_{t,s} \geq fa_{t,s} - fascap_{t,s}, \forall t \in T_{>0}, \forall s \in S\label{eq:fasup}
+\end{equation}
+Refit: Defines in each time-step the fuel amount available for refit by old ships.
+\begin{subequations}\label{eq:refitships}
+    \begin{align}
+    fa_{t,s} + fa_{t,r} - fa_{T_0, s} &\leq 0, \forall t \in T_{<\left(T_0+ls_{s}\right)}, \forall s, r \in RO\\
+    fa_{t,s} + fa_{t,r} & = 0, \forall t \in T_{\geq\left(T_0+ls_{s}\right)}, \forall s, r \in RO
+    \end{align}
+\end{subequations}
+Bio-fuel: Limits the bio-fuel availability in each time step.
+\begin{equation}
+    \sum_{\forall s \in SB} \left(fa_{t,s} \right) - ba_{t} \leq 0, \forall t \in T\label{eq:biofuel}
+\end{equation}
+
+\subsubsection{Demand constraints}
+\noindent Transport Demand: The transport supply of all ships must either be greater or equal to the transport demand in each time-step.
+\begin{equation}
+    tdtotal_t \leq \sum_{\forall s \in S} \left( fa_{t,s} \cdot ts_{t,s}\right), \forall t \in T \label{eq:td_total}
+\end{equation}
+Short Transport Demand: The amount of fuel available for short range ships is limited by the transport demand of that range.
+\begin{equation}
+    tdshort_t \geq \sum_{\forall s \in SR} \left( fa_{t,s} \cdot ts_{t,s}\right), \forall t \in T \label{eq:td_short}
+\end{equation}
+Non-SECAs Transport Demand: The amount of fuel available for the ships that are not in compliance with the sulphur regulations, which is limited by the transport demand outside of the SECAs.
+\begin{equation}
+    tdnoneca_t \geq \sum_{\forall s \in SNE} \left( fa_{t,s} \cdot ts_{t,s}\right), \forall t \in T \label{eq:td_noneca}
+\end{equation}
+
+\subsubsection{Emission constraints}
+\noindent Emission Budget: The CO2e emission budget must be greater or equal to the total systems up- and downstream emissions.
+\begin{subequations}
+    \begin{align}
+    eb &\geq \sum_{\forall t \in T}\sum_{\forall s \in S}\left(EC_{t,s} + EM_{t,s} \right) \label{eq:co2ebudget}\\
+    \intertext{s.t.}
+    EC_{t,s} &= fa_{t,s} \cdot ec_{t,s}, \forall t \in T, \forall s \in S\\
+    EM_{t,s} &= fa_{t,s} \cdot em_{t,s}, \forall t \in T, \forall s \in S
+    \end{align}
+\end{subequations}
+\par\noindent
+Emission Target: Limits the CO2e emissions from the selected year (2050) on-wards.
+\begin{equation}
+    \frac{\sum_{\forall s \in S} \left(EC_{T_0,s}+EM_{T_0,s}\right)}{\sum_{\forall s \in S} \left(EC_{t,s}+EM_{t,s}\right)} \cdot et \geq 1, \forall t \in T_{\geq \left(etyr-T_0\right)}
+\end{equation}
+\par\noindent
+Global SOx Limit: From the year 2020 onwards the fuel amount of those ship types is set to zero, whose sulphur content exceeds the global sulphur limit and have no scrubber installed.
+\begin{equation}
+    fa_{t,s} = 0, \forall t \in T_{\geq slnonecayr-T_0}, \forall s \in SNG \label{eq:sox_global}
+\end{equation}
+\par\noindent
+Tier: Sets the fuel amount to zero for ships not in compliance with the NOx regulations inside the EU-NECAs from 2021 onward.
+\begin{equation}
+   fa_{t,s} = 0, \forall t \in T_{\geq tlecayr-T_0},\forall s \in NT \label{eq:tier}
+\end{equation}
+
+\subsection{Data}
+\subsubsection{Fuel data}
+
+\subsubsection{Ship data}
+
+\subsubsection{Emission budget}
+
 
 \section{Results and Discussion}
 % 2000 words
