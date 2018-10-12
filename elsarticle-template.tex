@@ -8,6 +8,7 @@
 % Additional packages
 \usepackage{amsmath}
 \usepackage{cleveref}
+\usepackage{eurosym}
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %% Elsevier bibliography styles
@@ -46,26 +47,23 @@
 \begin{frontmatter}
 
 \title{Future Marine Fuels - A Danish Case Study on Climate Compatible Energy Pathways}
-\tnotetext[mytitlenote]{Fully documented templates are available in the elsarticle package on \href{http://www.ctan.org/tex-archive/macros/latex/contrib/elsarticle}{CTAN}.}
+%\tnotetext[mytitlenote]{Fully documented templates are available in the elsarticle package on %\href{http://www.ctan.org/tex-archive/macros/latex/contrib/elsarticle}{CTAN}.}
 
 %% Group authors per affiliation:
-\author{Elsevier\fnref{myfootnote}}
-\address{Radarweg 29, Amsterdam}
-\fntext[myfootnote]{Since 1880.}
+\author[label1]{Till ben Brahim\corref{cor1}}
+\address[label1]{Technical University of Denmark, Produktionstorvet, Bygning 426, 2800 Kongens Lyngby, Denmark}
+\ead{tilseb@dtu.dk}
 
-%% or include affiliations in footnotes:
-\author[mymainaddress,mysecondaryaddress]{Elsevier Inc}
-\ead[url]{www.elsevier.com}
+\cortext[cor1]{Corresponding author}
 
-\author[mysecondaryaddress]{Global Customer Service\corref{mycorrespondingauthor}}
-\cortext[mycorrespondingauthor]{Corresponding author}
-\ead{support@elsevier.com}
-
-\address[mymainaddress]{1600 John F Kennedy Boulevard, Philadelphia}
-\address[mysecondaryaddress]{360 Park Avenue South, New York}
+\author[label1]{Frauke Wiese}
+\ead{frwi@dtu.dk}
 
 \begin{abstract}
 This template helps you to create a properly formatted \LaTeX\ manuscript.
+\\
+This research did not receive any specific grant from funding agencies in the public, commercial, or
+not-for-profit sectors.
 \end{abstract}
 
 \begin{keyword}
@@ -86,7 +84,7 @@ Maritime transport\sep Marine fuels\sep Energy modelling\sep Emission reduction\
 % 1500-1750
 
 \subsection{Mathematical Formulation}
-The future marine fuels problem is formulated mathematically as a linear and divisible model with the following equations. It is a stock model, initialised with data for the first time step that allows for investments in new technologies in the further course. The investment options are on the one hand forced and on the other limited by the model constraints. They are in general used to give credit to regularities and behaviour patterns that shape the system under investigation. Since the objective's sense is the minimisation of the overall system's costs \cref{eq:objective}, investments are interpreted as adverse but inevitable actions to cope with the constraint's demands, such as: Lowering CO2e emissions to air, (over-)supplying the transport demand in each time-step or scrapping ships, when their lifetime is expired. The domains of all model variables are within non-negative real numbers, including zero $\left(R_{0}^{+}\right)$.
+The future marine fuels problem is formulated mathematically as a linear and divisible model with the following equations. It is a stock model, initialised with data for the first time step that allows for investments in new technologies in the further course. The investment options are on the one hand forced and on the other limited by the model constraints. They are in general used to give credit to regularities and behaviour patterns that shape the system under investigation. Since the objective's sense is the minimisation of the overall system's costs \cref{eq:objective}, investments are interpreted as adverse but inevitable actions to cope with the constraint's demands, such as: Lowering CO$_2$e emissions to air, (over-)supplying the transport demand in each time-step or scrapping ships, when their lifetime is expired. The domains of all model variables are within non-negative real numbers, including zero $\left(R_{0}^{+}\right)$.
 
 \subsubsection{Objective function}
 \noindent The model's objective is the minimisation of the total system costs. It comprises the sum of all accumulated annual costs for fuel, infrastructure and ships. Asset costs account only with the annual added amounts and are multiplied with their respective lifetimes, since they are given to the model as annuities.
@@ -159,7 +157,7 @@ Non-SECAs Transport Demand: The amount of fuel available for the ships that are 
 \end{equation}
 
 \subsubsection{Emission constraints}
-\noindent Emission Budget: The CO2e emission budget must be greater or equal to the total systems up- and downstream emissions.
+\noindent Emission Budget: The CO$_2$e emission budget must be greater or equal to the total systems up- and downstream emissions.
 \begin{subequations}
     \begin{align}
     eb &\geq \sum_{\forall t \in T}\sum_{\forall s \in S}\left(EC_{t,s} + EM_{t,s} \right) \label{eq:co2ebudget}\\
@@ -169,7 +167,7 @@ Non-SECAs Transport Demand: The amount of fuel available for the ships that are 
     \end{align}
 \end{subequations}
 \par\noindent
-Emission Target: Limits the CO2e emissions from the selected year (2050) on-wards.
+Emission Target: Limits the CO$_2$e emissions from the selected year (2050) on-wards.
 \begin{equation}
     \frac{\sum_{\forall s \in S} \left(EC_{T_0,s}+EM_{T_0,s}\right)}{\sum_{\forall s \in S} \left(EC_{t,s}+EM_{t,s}\right)} \cdot et \geq 1, \forall t \in T_{\geq \left(etyr-T_0\right)}
 \end{equation}
@@ -197,7 +195,7 @@ Tier: Sets the fuel amount to zero for ships not in compliance with the NOx regu
 
 % BAU compared to IMO, compared to REF
 
-\autoref{fig:BAU} displays the fuel consumption and cumulative CO2-equivalent emissions in the business as usual scenario (BAU). Although SOx- and NOx-restriction area applied, no major change in fuel usage can be detected. If no carbon budget is applied, scrubbers instead of fuel switch are the most cost-efficient solution. Applying the IMO goal to halve climate emissions of shipping in 2050 of the IMO does not lead to significant changes except a minor switch to biodiesel instead of heavy fuel oil (see \autoref{fig:IMO}). In comparison, the climate emission budget restriction in the reference scenario  results in a significant fuel switch: Mainly hydrogen in fuel cells and biodiesel with scrubber in internal combustion engines are chosen (see \autoref{fig:REF}). The comparison shows, that without any kind of climate emission restriction, the emissions are twice as high and the IMO plans do not have a significant impact. 
+\autoref{fig:BAU} displays the fuel consumption and cumulative CO$_2$-equivalent emissions in the business as usual scenario (BAU). Although SOx- and NOx-restriction area applied, no major change in fuel usage can be detected. If no carbon budget is applied, scrubbers instead of fuel switch are the most cost-efficient solution. Applying the IMO goal to halve climate emissions of shipping in 2050 of the IMO does not lead to significant changes except a minor switch to biodiesel instead of heavy fuel oil (see \autoref{fig:IMO}). In comparison, the climate emission budget restriction in the reference scenario  results in a significant fuel switch: Mainly hydrogen in fuel cells and biodiesel with scrubber in internal combustion engines are chosen (see \autoref{fig:REF}). The comparison shows, that without any kind of climate emission restriction, the emissions are twice as high and the IMO plans do not have a significant impact. 
 
 \begin{figure}[htb]
     \centering
@@ -276,8 +274,8 @@ For comparison, the total fuel use of all scenarios for 2016-2050 is displayed i
 
 % Compare all scenarios: Costs - not sure if there should be a figure - maybe rather include the full table of results
 
-% Costs - resulting EURO/CO2e
-Derived from the cost differences for fuel, ship and infrastructure, a carbon price in the range of 350--450 \euro(2016)/ton would be required for a renewable transition of the Danish shipping sector. [Rau17, p. 198] TODO:insert citation - reports similar prices of around 430 \euro2013/ton for a global transition.
+% Costs - resulting EURO/CO$_2$e
+Derived from the cost differences for fuel, ship and infrastructure, a carbon price in the range of 350--450 \euro(2016)/ton CO$_2$e would be required for a renewable transition of the Danish shipping sector. [Rau17, p. 198] TODO:insert citation - reports similar prices of around 430 \euro(2013)/ton CO$_2$e for a global transition.
 
 % Costs - what does that mean for the cargo cost
 
@@ -294,19 +292,22 @@ Discussion:
 \section{Conclusion}
 % 250 words
 % only draft until now!
-For the possibility to reach the ..., it is of great importance, that the shipping sector becomes CO2-neutral. It is possible for the Danish part of international shipping to become CO2-neutral until 2050 with existing technologies. H2, CH3OH and NH3 seem from today to be most compatible while there is no clear winner. Which one would be the best option from a soico-economic point of view will depend mainly on the cost development. For ammonia also safety. All would be applied in Fuel Cells due to its higher fuel efficiency. LNG is no option due to a short window of opportunity and its leakage problem. LBG only if a very optimistic pathway of methane leakage reduction is assumed. Battery and wind could be an option for the long range, but that is not fully displayed in the modelling configuration. Safety issues, infrastructure decisisons, questions of the transformation require a more detailed attempt.
-However, gives and indication, that either strong targets/carbon budgets or a carbon price of 350-450 EURO/TCO2 would be required to induce the changes. This would double the costs for cargo, but due to its low share on cargo value, on average only 6\% of the cargo value.
+The achievement of CO$_2$-neutrality in the shipping sector is of great importance for reaching the targets of the Paris Agreement. Although this goal is underrepresented in the current discussion, this study shows, that it is possible for the Danish part of international shipping to become CO$_2$-neutral until 2050 with existing technologies. Regarding fuels, Hydrogen, methanol and ammonia are from a socio-economic cost perspective the most compatible. Due to high uncertainties regarding future cost developments and safety requirements (esp. ammonia), there is no clear winner. Regarding technologies, fuel cells are chosen for these fuel options, the decisive parameter being the higher fuel efficiency. Although LNG is the fuel option most prominently discussed as an alternative today, it would one have a short window of opportunity, mainly because of leakage problems of methane causing high greenhouse gas emissions. If this gaseous fuel is based on renewable sources, the so-called LBG can only play a role if methane leakage can be drastically reduced until 2050. The option of cargo-ships driven by a mixture of wind and electricity stored in batteries could not adequately be represented in the model setting. Their role would need a further refinement of the calculations.
+%Although additional conditions for the future application of fuel for shipping like safety issues or infrastructure decisions are not reflected in the model, ...
+The presented modelling approach indicates that either strong regulative carbon budgets or a carbon price of 350-450 \euro/t~CO$_2$ would be required to induce the necessary changes for a carbon neutral Danish shipping in 2050. This would double today's average cargo transport costs. However, due to the low share of transport cost on the value of transported goods, the average transported good would only increase by 6\% on average. This can be considered as the upper limit, since new fuel possibilities not reflected in this study might evolve.
 
+\iffalse
 Key findings:
 \begin{itemize}
-    \item It seems possible to become CO2e-neutral by 2050 with existing technologies
-    \item Carbon price of 350 to 450 Euro/tCO2 necessary
+    \item It seems possible to become CO$_2$e-neutral by 2050 with existing technologies
+    \item Carbon price of 350 to 450 \euro/tCO$_2$ necessary
     \item Transport costs increase on average by 6\% per cargo value
     \item H2, CH3OH and NH3 most compatible, no clear winner
     \item LBG needs significant reduction of methane leakage to be attractive option for climate and from socio-economic perspective.
     \item LNG s not an option due to costs and carbon emissions.
     \item Battery + wind could be if...
 \end{itemize}
+\fi
 
 \section*{References}
 
