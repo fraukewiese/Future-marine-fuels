@@ -3,9 +3,38 @@
 \usepackage{lineno,hyperref}
 \modulolinenumbers[5]
 
+%% Nomenclature divided into different sections
+\usepackage{framed}
+\usepackage{mdframed}
+\mdfdefinestyle{mdfexample1}{innerleftmargin=1cm,innerrightmargin=1cm,roundcorner=10pt,innertopmargin = 5pt, innerbottommargin = 5pt}
+
+\usepackage{multicol} 
+\usepackage[nonumberlist,nopostdot,nomain,automake]{glossaries}
+\newglossary{v}{vas}{vao}{Variables}
+\newglossary{s}{ses}{seo}{Sets}
+\newglossary{p}{pas}{pao}{Parameters}
+\newglossary{a}{aas}{aao}{Abbreviations}
+\makeglossaries
+
+\input{glossaries.tex}
+\usepackage{hyperref}
+\makeatletter
+\providecommand{\doi}[1]{%
+  \begingroup
+    \let\bibinfo\@secondoftwo
+    \urlstyle{rm}%
+    \href{http://dx.doi.org/#1}{%
+      doi:\discretionary{}{}{}%
+      \nolinkurl{#1}%
+    }%
+  \endgroup
+}
+\makeatother
+
+
 \journal{Journal of \LaTeX\ Templates}
 
-% Additional packages
+%% Additional packages
 \usepackage{amsmath}
 \usepackage{cleveref}
 \usepackage{eurosym}
@@ -100,6 +129,28 @@ Maritime transport\sep Marine fuels\sep Energy modelling\sep Emission reduction\
 \subsection{Mathematical Formulation}
 The future marine fuels problem is formulated mathematically as a linear and divisible model with the following equations. It is a stock model, initialised with data for the first time step that allows for investments in new technologies in the further course. The investment options are on the one hand forced and on the other limited by the model constraints. They are in general used to give credit to regularities and behaviour patterns that shape the system under investigation. Since the objective's sense is the minimisation of the overall system's costs \cref{eq:objective}, investments are interpreted as adverse but inevitable actions to cope with the constraint's demands, such as: Lowering CO$_2$e emissions to air, (over-)supplying the transport demand in each time-step or scrapping ships, when their lifetime is expired. The domains of all model variables are within non-negative real numbers, including zero $\left(R_{0}^{+}\right)$.
 
+The nomenclature used in the constraints in the following sections is given in the nomenclature list.
+\glsdisablehyper
+\glsaddall
+\begin{table*}[htb] 
+\renewcommand\tablename{Nomenclature list}
+\begin{mdframed}
+\footnotesize{
+%\begin{mdframed}[style=mdfexample1]
+\begin{multicols}{2}
+\printglossary[style=tree,type=a]
+\vspace{-0.3cm}
+\printglossary[style=tree,type=s]
+\vspace{-0.3cm}
+\printglossary[style=tree,type=v]
+\vspace{-0.3cm}
+\printglossary[style=tree,type=p]
+\end{multicols}
+}
+\end{mdframed}
+\caption{}
+\end{table*}
+
 \subsubsection{Objective function}
 \noindent The model's objective is the minimisation of the total system costs. It comprises the sum of all accumulated annual costs for fuel, infrastructure and ships. Asset costs account only with the annual added amounts and are multiplied with their respective lifetimes, since they are given to the model as annuities.
 \begin{subequations}
@@ -109,7 +160,7 @@ The future marine fuels problem is formulated mathematically as a linear and div
         CF_{t, s} &\geq fa_{t,s} \cdot cf_{t,s}\\
         CI_{t, s} &\geq \left( faiup_{t,s} - fainit_{t, s} \right) \cdot li_{s} \cdot ci_{t,s}, \forall t \in T_0\\
         CI_{t, s} &\geq faiup_{t,s} \cdot li_{s} \cdot ci_{t,s}, \forall t \in T_{>0}\\
-        CS_{t, s} &\geq \left( fasup_{t,s} - fainit_{t, s} \right) \cdot li_{s} \cdot ci_{t,s}, \forall t \in T_0\\
+        CS_{t, s} &\geq \left( fasup_{t,s} - fainit_{t, s} \right) \cdot ls_{s} \cdot cs_{t,s}, \forall t \in T_0\\
         CS_{t, s} &\geq fasup_{t,s} \cdot ls_{s} \cdot cs_{t,s}, \forall t \in T_{>0}
     \end{align}
 \end{subequations}
@@ -205,10 +256,10 @@ Tier: Sets the fuel amount to zero for ships not in compliance with the NOx regu
 
 \subsection{Scenarios}
 - Scenario description, general approach.
-\subsubsection{Scenario data}
+\subsubsection{Scenario characteristics and data}
 - Describing the manipulation of reference data
 \subsubsection{Scenario overview}
-- Give a scenario overvie: table with name description, manipultated parameters...
+- Give a scenario overview: table with name description, manipultated parameters...
 
 \section{Results and Discussion}
 % 2000 words
