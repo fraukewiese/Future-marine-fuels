@@ -1,4 +1,4 @@
-\documentclass[article]{elsarticle}
+﻿\documentclass[article]{elsarticle}
 
 \usepackage{lineno,hyperref}
 \modulolinenumbers[5]
@@ -125,6 +125,21 @@ Maritime transport\sep Marine fuels\sep Energy modelling\sep Emission reduction\
 
 \section{Materials and Methods}
 % 1500-1750
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{figures/model_boundary_paper.pdf}
+    \caption{Model boundray: The model considers the specifications inside the green box.}
+    \label{fig:model_boundary}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{figures/model_boxflow_paper.pdf}
+    \caption{Model boxflow: The core model consists of the components inside the green box.}
+    \label{fig:model_boxflow}
+\end{figure}
+
 
 \subsection{Mathematical Formulation}
 The future marine fuels problem is formulated mathematically as a linear and divisible model with the following equations. It is a stock model, initialised with data for the first time step that allows for investments in new technologies in the further course. The investment options are on the one hand forced and on the other limited by the model constraints. They are in general used to give credit to regularities and behaviour patterns that shape the system under investigation. Since the objective's sense is the minimisation of the overall system's costs \cref{eq:objective}, investments are interpreted as adverse but inevitable actions to cope with the constraint's demands, such as: Lowering CO$_2$e emissions to air, (over-)supplying the transport demand in each time-step or scrapping ships, when their lifetime is expired. The domains of all model variables are within non-negative real numbers, including zero $\left(R_{0}^{+}\right)$.
