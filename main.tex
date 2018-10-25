@@ -1,4 +1,4 @@
-﻿\documentclass[article]{elsarticle}
+\documentclass[article]{elsarticle}
 
 \usepackage{lineno,hyperref}
 \modulolinenumbers[5]
@@ -118,18 +118,27 @@ Maritime transport\sep Marine fuels\sep Energy modelling\sep Emission reduction\
     \item IMO doing studies but not getting the scale, but some are there looking at it worldwide (Sustainable Shipping Guys SSI) 
     \item in reality LNG seems to be the only alternative, but problem due to long investment cycles of ships
     \item just lately gained attention - some studies and this shipping initiative + many prototypes (cite)
-    \item But not only important to know which fuel for shipping, but also has influence on the land-based ones: Connections between energy system land-based and shipping
-    \item Why this approach: closes gap between local and international, soft-link energy system, approach to fair contribution of emissions, good to apply for other countries
-    \item auf den Rest verweisen.
 \end{itemize}
 
+% Rough formulation so far:
+% Why it is so bad that shipping is underrepresented in the current discussion
+% connection of the marine fuel question to land-based energy systems
+The problem about future fuels for shipping is underrepresented in current discussions. Although, the number of studies about alternative fuels and also pathways to climate emissions reduction has significantly increased, the importance cannot be underestimated. This is due to two reasons: Ships have very long investment cycles, thus decisions about the fuels to reach net zero emissions in 2050 are just around the corner. Furthermore, infrastructure requirements are essential. And connected to that, the interdependence between our land-based energy system (electricity, heat, fuels for transport) will increase due to e.g bio-refineries, infrastructure also for heavy transport, excess heat during fuel production, biomass scarcity, where to use the scarce biomass best? Thus, options have to be intensively looked at and also optimised in combination with the rest of the energy system. 
+
+% Which gap does this paper close?
+This paper describes an approach how emissions from international shipping could be taken into account in energy and climate modelling of countries. Although we describe the the example of Denmark, the methodology could be applied to other countries as well. Our research thus contributes to fill a gap between studies on local shipping with a high level of detail but limited scope and international shipping done in low resolution.  
+
+% What the reader can expect
+In \autoref{sec:Methods}, we describe the mathematical formulation (\autoref{subsec:Mat}), data sources and processing (\autoref{subsec:Dat})and give and explain our scenario approach (\autoref{subsec:Sce}. Subsequently, we present the scenario results and discuss their relevance, also describing strengths and weaknesses of the model approach (\autoref{sec:Results} and finally conclude (\autoref{sec:Conclusion}).  
+
 \section{Materials and Methods}
+\label{sec:Methods}
 % 1500-1750
 
 \begin{figure}[htb]
     \centering
     \includegraphics[width=\textwidth]{figures/model_boundary_paper.pdf}
-    \caption{Model boundray: The model considers the specifications inside the green box.}
+    \caption{Model boundary: The model considers the specifications inside the green box.}
     \label{fig:model_boundary}
 \end{figure}
 
@@ -142,6 +151,7 @@ Maritime transport\sep Marine fuels\sep Energy modelling\sep Emission reduction\
 
 
 \subsection{Mathematical Formulation}
+\label{subsec:Mat}
 The future marine fuels problem is formulated mathematically as a linear and divisible model with the following equations. It is a stock model, initialised with data for the first time step that allows for investments in new technologies in the further course. The investment options are on the one hand forced and on the other limited by the model constraints. They are in general used to give credit to regularities and behaviour patterns that shape the system under investigation. Since the objective's sense is the minimisation of the overall system's costs \cref{eq:objective}, investments are interpreted as adverse but inevitable actions to cope with the constraint's demands, such as: Lowering CO$_2$e emissions to air, (over-)supplying the transport demand in each time-step or scrapping ships, when their lifetime is expired. The domains of all model variables are within non-negative real numbers, including zero $\left(R_{0}^{+}\right)$.
 
 The nomenclature used in the constraints in the following sections is given in the nomenclature list.
@@ -263,6 +273,7 @@ Tier: Sets the fuel amount to zero for ships not in compliance with the NOx regu
 \end{equation}
 
 \subsection{Data}
+\label{subsec:Dat}
 \subsubsection{Fuel data}
 
 \subsubsection{Ship data}
@@ -270,6 +281,7 @@ Tier: Sets the fuel amount to zero for ships not in compliance with the NOx regu
 \subsubsection{Emission budget}
 
 \subsection{Scenarios}
+\label{subsec:Sce}
 - Scenario description, general approach.
 \subsubsection{Scenario characteristics and data}
 - Describing the manipulation of reference data
@@ -277,6 +289,7 @@ Tier: Sets the fuel amount to zero for ships not in compliance with the NOx regu
 - Give a scenario overview: table with name description, manipultated parameters...
 
 \section{Results and Discussion}
+\label{sec:Results}
 % 2000 words
 
 % BAU compared to IMO, compared to REF
@@ -323,7 +336,7 @@ The comparison between the REF scenario with a methane leakage phase out scenari
 
 
 % Cost variation: Methanol and Ammonia are close
-Due to the high level of uncertainty of cost development of infrastructure, fuel and propulsion technology of different marine fuel options, a wide range of cost variations is applied to test for its effect on fuel composition. The results are summarised in \autoref{fig:costVariation}. Depending on the cost rate change of a specific fuel (x-axis), its share in the total fuel consumption from 2016-2050 (y-axis) changes significantly. The black dashed line at a cost rate change of zero represents the reference scenario. Already at a change of 10\% cost change rate (including fuel, technology and infrastructure costs), methanol and ammonia gain relevance, reaching a dominant role at a 20\% cost change rate.
+Due to the high level of uncertainty of cost development of infrastructure, fuel and propulsion technology of different marine fuel options, a wide range of cost variations is applied to test for its effect on fuel composition. The results are summarised in \autoref{fig:costVariation}. Depending on the cost rate change of a specific fuel technology (x-axis), while keeping all other parameters constant, its share in the total fuel consumption from 2016-2050 (y-axis) changes significantly. The black dashed line at a cost rate change of zero represents the reference scenario. Already at a 10\% cost change rate (including fuel, technology and infrastructure costs), methanol and ammonia respectively gain relevance, reaching a dominant role at a 20\% cost change rate. Thus if the costs of either methanol or ammonia drop by 20\%, these would take over the role of hydrogen as the main renewable fuel of the future.
 
 % LNG is no option, LBG just if methane leakage phase out
 For LBG, the development of the methane leakage problem is of outstanding importance. Under the assumption that methane leakage can be coped with until 2050 (dashed line), LBG is close to hydrogen, methanol and ammonia as choice to be the dominate fuel in 2050. Contrary to that, LNG would not only require a methane leakage phase out, but also a very favourable cost development to play a major role.
@@ -340,7 +353,7 @@ Sailing cargo ships, driven by a combination of wind and electricity from batter
 \end{figure}
 
 % Compare all scenarios: Fuel composition total and 2050
-For comparison, the total fuel use of all scenarios for 2016-2050 is displayed in \autoref{fig:AllFuelTotal} and the fuel composition in the target year 2050 in \autoref{fig:AllFuel2050}. A general efficiency increase can be seen for all carbon budget scenarios. Due to higher efficiencies and thus a higher Tkm/GJfuel - rate, less fuel is applied in the carbon budget scenarios. Except the transport demand scenario all supply the same transport demand.
+For comparison, the total fuel use of all scenarios for 2016-2050 is displayed in \autoref{fig:AllFuelTotal} and the fuel composition in the target year 2050 in \autoref{fig:AllFuel2050}. A general efficiency increase can be seen for all carbon budget scenarios. Due to higher operational tank-to-propeller efficiency and thus a higher Tkm/GJfuel - rate, less fuel is applied in the carbon budget scenarios. Except the transport demand scenario all supply the same transport demand.
 
 \begin{figure}[htb]
     \centering
@@ -361,14 +374,14 @@ For comparison, the total fuel use of all scenarios for 2016-2050 is displayed i
 % Compare all scenarios: Costs - not sure if there should be a figure - maybe rather include the full table of results
 
 % Costs - resulting EURO/CO$_2$e
-Derived from the cost differences for fuel, ship and infrastructure, a carbon price in the range of 350--450 \euro(2016)/ton CO$_2$e would be required for a renewable transition of the Danish shipping sector. [Rau17, p. 198] TODO:insert citation - reports similar prices of around 430 \euro(2013)/ton CO$_2$e for a global transition.
+Derived from the cost differences for fuel, ship and infrastructure, a carbon price in the range of 350--450 \euro(2016)/ton CO$_2$e would be required for a renewable transition of the Danish shipping sector. \citep[p.197]{Raucci2017} reports similar prices of around 430 \$(2013)/ton CO$_2$ for a global transition.
 
 % applicability of the model on other countries
 % applicability of the findings for the world shipping
-The model code and most of the data references and preprocessing can also be applied for other countries, especially Europe. However, since shipping has a global perspective, the case study for Denmark already gives a good indication of the fuel shares chosen for a cost-optimal path to carbon neutrality in 2050 for the worldwide shipping. Conditions for shipping are similar, the basic parameters, technology, fuel and infrastructure costs are considered as world prices rather than reflecting local particularities. This is also reflected and validated by the similar CO$_2$e-cost range compared to other, worldwide studies. 
+The model code and most of the data references and pre-processing can also be applied for other countries, especially Europe. However, since shipping has a global perspective, the case study for Denmark already gives a good indication of the fuel shares chosen for a cost-optimal path to carbon neutrality in 2050 for the worldwide shipping. Conditions for shipping are similar, the basic parameters, technology, fuel and infrastructure costs are considered as world prices rather than reflecting local particularities. This is also reflected and validated by the similar CO$_2$e-cost range compared to other, worldwide studies. 
 
 % Why the mentioned costs are rather the upper end
-Compared to other sectors like electricity and heat, these mitigation costs per /ton CO$_2$e seem high, one has to consider several points. First, this is the upper bound of cost: Technologies considered are all applicable today, developments in other sectors applying similar fuel switch options could further increase costs, additional alternatives could evolve. Second, as shown in the demand reduction scenarios, any decrease in transport demand would save costs even beyond the proportional saving. And third, refits and hybrid solutions have not been considered to a great extent in the model functionality and could further decrease costs and ease the shift to different fuels.
+Compared to other sectors like electricity and heat, these mitigation costs per /ton CO$_2$e seem high, one has to consider several points. First, this is the upper bound of cost: Technologies considered are all applicable today, developments in other sectors applying similar fuel switch options could further increase costs, additional alternatives could evolve. Second, as shown in the demand reduction scenarios, any decrease in transport demand would save costs even beyond the proportional saving. This is due to not only fuel savings (proportional) but, also due avoided investments in new ships (disproportionate). And third, refits and hybrid solutions have not been considered to a great extent in the model functionality and could further decrease costs and ease the shift to different fuels.
 
 % Costs - what does that mean for the cargo cost
 
@@ -379,8 +392,10 @@ Thus, costs could get lower for the transition, but the question is also whether
 The necessary transition will not happen under current market conditions. Regulation is required urgently to bring shipping on the pathway to carbon neutrality in 2050, in line with the Paris Agreement. A carbon budget for shipping worldwide, broken down to countries is a viable option to consider. Additionally research money for alternative fuels and technologies, as well as solving crucial questions on security, infrastructure and methane leakage issues are important contributions to implement the transition to climate neutral shipping in 2050. 
 
 % might be missing: strengths ad weaknesses of te model.
+% Could also be added in the discussion: Important to model this in connection to the whole energy system, has effects!!
 
 \section{Conclusion}
+\label{sec:Conclusion}
 % 250 words
 % only draft until now!
 The achievement of CO$_2$-neutrality in the shipping sector is of great importance for reaching the targets of the Paris Agreement. Although this goal is underrepresented in the current discussion, this study shows, that it is possible for the Danish part of international shipping to become CO$_2$-neutral until 2050 with existing technologies. Regarding fuels, hydrogen, methanol and ammonia are from a socio-economic cost perspective the most compatible. Due to high uncertainties regarding future cost developments and safety requirements (esp. ammonia), there is no clear winner. Regarding technologies, fuel cells are chosen for these fuel options, the decisive parameter being the higher fuel efficiency. Although LNG is the fuel option most prominently discussed as an alternative today, it would only have a short window of opportunity, mainly because of leakage problems of methane causing high greenhouse gas emissions as well as high fuel and technology costs. If this gaseous fuel is based on renewable sources, the so-called LBG can only play a role if methane leakage can be drastically reduced until 2050. The option of cargo-ships driven by a mixture of wind and electricity stored in batteries could not adequately be represented in the model setting. The evaluation of their role would need a further refinement of the calculations.
@@ -389,6 +404,6 @@ The presented modelling approach indicates that either strong regulative carbon 
 
 \section*{References}
 
-\bibliography{mybibfile}
+\bibliography{references}
 
 \end{document}
