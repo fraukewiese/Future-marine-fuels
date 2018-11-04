@@ -39,6 +39,7 @@
 \usepackage{cleveref}
 \usepackage{eurosym}
 \usepackage{gensymb}
+\usepackage{booktabs}
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %% Elsevier bibliography styles
@@ -114,7 +115,7 @@ Maritime transport\sep Marine fuels\sep Energy modelling\sep Emission reduction\
 The ambition to reach climate pathways with limited overshoot of 1.5~\degree C requires global net zero CO$_2$ emissions by 2050 \cite{IPCC2018}. This implies a massive reduction of fossil fuels in the energy system. Several studies based on energy system models have shown possible pathways to net zero emissions for the electricity supply from country to continents and the whole world (TODO:references) and also for the heat sector. Although transport is more challenging (TODO:cite), in recent years an increasing amount of studies also includes pathways for this sector to net zero emissions in 2050 (TODO:cite). Though, the majority of scenarios leaves out a significant part of the transport emissions, namely international shipping (TODO:CITE?). Due to its international nature, appropriate governance is challenging \cite{GRITSENKO2017}. So far, countries leave out international shipping in their energy and climate plans, leaving the responsibility to the International Maritime Organisation (IMO). While -- to some extent -- progress has been made regarding sulphur emission reduction, their goal of at least 50\% reduction until 2050 of worldwide shipping \cite{IMO2018} is neither ambitious enough to reach the goals of the Paris Agreement, nor underpinned with measures and possible pathway descriptions \cite{Wan2018}.
 
 % Concentration on sulphur etc. does not lead further, just concentrating on LNG is too shortsighted
-While liquefied Natural Gas (LNG) has mainly been in the focus as an alternative marine fuel \cite{IMO2016a,DNVGL2015} due to its advantage regarding sulphur, NO$_x$ and particle emissions, its possibility to also reduce climate impact of shipping has increasingly be questioned \cite{Brynolf2014b}. This is on the one hand due to its limited CO$_2$ emission benefit compared to oil \cite{DNVGL2014}. On the other hand, the implications for greenhouse gases depend on how the natural gas is extracted, processed, distributed, and used \cite{THOMSON2015}. According to IEA \cite{IEA2017}, average global gas methane leakage rate is almost 2~\% for natural gas. Looking at a global warming potential over a 20-year time frame, a leakage rate of 3-4~\% would already use up the climate benefit of natural gas compared to coal, over a 100-year time frame 6-7~\%. \citep{Hagos2018} states that a 1~\% methane slip from a dedicated LNG passenger vessel results, on average, in 8.5~\% increase in net GHG emissions. According to measurements and calculations based on \cite{Corbett2015,Stenersen2017}, methane slip of dual-fuel engines amounted to roughly 4~\% and of dedicated gas engines to 2.3~\% in 2016. Although LNG-specialised engines with high pressure direct injection could could lower leakage rates even further, ship owners today prefer dual-fuel engines as they judge flexibility and the resale value of the ship more important than efficiency gains because climate impact is not reflected in any economic value for shipping. 
+While liquefied Natural Gas (LNG) has mainly been in the focus as an alternative marine fuel \cite{IMO2016a,DNVGL2015} due to its advantage regarding sulphur, NO$_x$ and particle emissions, its possibility to also reduce climate impact of shipping has increasingly be questioned \cite{BRYNOLF2014b}. This is on the one hand due to its limited CO$_2$ emission benefit compared to oil \cite{DNVGL2014}. On the other hand, the implications for greenhouse gases depend on how the natural gas is extracted, processed, distributed, and used \cite{THOMSON2015}. According to IEA \cite{IEA2017}, average global gas methane leakage rate is almost 2~\% for natural gas. Looking at a global warming potential over a 20-year time frame, a leakage rate of 3-4~\% would already use up the climate benefit of natural gas compared to coal, over a 100-year time frame 6-7~\%. \citep{Hagos2018} states that a 1~\% methane slip from a dedicated LNG passenger vessel results, on average, in 8.5~\% increase in net GHG emissions. According to measurements and calculations based on \cite{Corbett2015,Stenersen2017}, methane slip of dual-fuel engines amounted to roughly 4~\% and of dedicated gas engines to 2.3~\% in 2016. Although LNG-specialised engines with high pressure direct injection could could lower leakage rates even further, ship owners today prefer dual-fuel engines as they judge flexibility and the resale value of the ship more important than efficiency gains because climate impact is not reflected in any economic value for shipping. 
 In summary, the climate impact of both, LNG and methanol produced from natural gas is on the same order of magnitude as with use of heavy fuel oil \cite{BRYNOLF2014,DNVGL2018}. 
 Independent of the role of LNG, one can generally conclude, that the current concentration on reduction of sulphur, NO$_x$ and particle emissions in shipping is too short-sighted \cite{Gilbert2014}, since climate emissions from shipping are the bigger challenge \cite{FRIDELL2019}. More radical changes avoiding infrastructure lock-ins and exploring co-benefits of sulphur and carbon reduction are advisable.
 
@@ -156,6 +157,7 @@ In \autoref{sec:Methods}, we describe the mathematical formulation (\autoref{sub
 \label{sec:Methods}
 % 1500-1750
 
+\subsection{Model Scope}
 \begin{figure}[htb]
     \centering
     \includegraphics[width=\textwidth]{figures/model_boundary_paper.pdf}
@@ -163,13 +165,13 @@ In \autoref{sec:Methods}, we describe the mathematical formulation (\autoref{sub
     \label{fig:model_boundary}
 \end{figure}
 
+\subsection{Model Structure}
 \begin{figure}[htb]
     \centering
     \includegraphics[width=\textwidth]{figures/model_boxflow_paper.pdf}
     \caption{Model boxflow: The core model consists of the components inside the green box.}
     \label{fig:model_boxflow}
 \end{figure}
-
 
 \subsection{Mathematical Formulation}
 \label{subsec:Mat}
@@ -297,7 +299,61 @@ Tier: Sets the fuel amount to zero for ships not in compliance with the NOx regu
 \label{subsec:Dat}
 \subsubsection{Fuel data}
 
+\begin{table}[htb]
+    \centering
+    \begin{tabular}{lrrrrrrr}
+        \toprule
+        Fuel type & cf & ci & ec(w2t) & em(w2t) & sulphur content & li & References \\
+        & $\left[\frac{EUR_{2016}}{GJ_{fuel}}\right]$ & $\left[\frac{EUR_{2016}}{GJ_{fuel}}\right]$ & $\left[\frac{g_{co2}}{MJ_{fuel}}\right]$ & $\left[\frac{g_{ch4}}{MJ_{fuel}}\right]$ & $\left[\%_{mass}\right]$ & $\left[a\right]$ & \\
+        \midrule
+        HFO   & \multicolumn{2}{c}{6.547} & 8.148      & 0.090            & 2.9525   & 40   & \cite{BIX2018,Gilbert2018,Bengtsson2012,BRYNOLF2014}    \\
+        MDO   & \multicolumn{2}{c}{12.775} & 7.728     & 0.090            & 0.7500   & 40   & \cite{BIX2018,Gilbert2018,Bengtsson2012,Andersson2015}    \\
+        BDO   & \multicolumn{2}{c}{24.240} & 0         & 0.030            & 0.1498   & 40   & \cite{SSI2018,Bengtsson2012}    \\
+        LNG   & 4.888    & 0.139    & 6.600            & 0.033            & 0.0500   & 36   & \cite{EnerginNet2018,Gilbert2018,BRYNOLF2014,Andersson2015}    \\
+        LBG   & 27.847   & 1.599    & 0                & 0.130            & 0.0750   & 25   & \cite{Brynolf2018,Bengtsson2012}    \\
+        H2    & 20.885   & 1.199    & 0                & 0                & 0.       & 25   & \cite{Brynolf2018}    \\
+        CH3OH & 29.240   & 1.679    & 0                & 0.042            & 0.0912   & 25   & \cite{Brynolf2018,BRYNOLF2014}    \\
+        NH3   & 26.803   & 1.802    & 0                & 0                & 0        & 20   & \cite{Morgan2017}    \\
+        ELEC  & 13.889   & 2.929    & 0                & 0                & 0        & 20   & \cite{Vree2008}    \\
+        \bottomrule
+    \end{tabular}
+    \caption[Fuel type data]{Fuel type data for each specific parameter.}
+    \label{tab:fuel_data}
+\end{table}
+
 \subsubsection{Ship data}
+
+\begin{table}[htbp]
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{llrrrrrrrrrrr}
+        \toprule
+                       Ship-type & Range & ls & fa$_{2016}$ & ts & cs & ec(t2p) & em(t2p) & Refit & Refit opt. & Tier & Scrubber & References \\
+                       &       & $\left[a\right]$ & $\left[PJ_{fuel}\right]$ & $\left[\frac{Ttkm}{GJ_{fuel}}\right]$ & $\left[\frac{EUR_{2016}}{GJ_{fuel}}\right]$ & $\left[\frac{g_{CO2}}{MJ_{fuel}}\right]$ & $\left[\frac{g_{CH4}}{MJ_{fuel}}\right]$ & & & & & \\
+        \midrule
+        IC HFO (old)   & long  & 11     & 9.93   & 9.69        & 8.72     & 76.06            & 0.00045          & yes   & IC HFO (refit) & 0           & no       \\
+        IC MDO (old)   & long  & 11     & 5.99   & 9.40        & 8.45     & 74.36            & 0.00045          & yes   & IC BDO (refit) & 0           & yes      \\
+        IC HFO         & long  & 25     & 0      & 9.40        & 8.45     & 75.90            & 0.00045          & no    &                & 3           & yes      \\
+        IC MDO         & long  & 25     & 0      & 9.40        & 8.45     & 74.32            & 0.00045          & no    &                & 3           & yes      \\
+        IC HFO (refit) & long  & 11     & 0      & 9.40        & 0.02     & 75.90            & 0.00045          & no    &                & 3           & yes      \\
+        IC BDO (refit) & long  & 11     & 0      & 9.40        & 0        & 0                & 0.00045          & no    &                & 3           & yes      \\
+        IC BDO         & long  & 25     & 0      & 9.40        & 8.45     & 0                & 0.00045          & no    &                & 3           & yes      \\
+        IC LNG         & long  & 25     & 0      & 10.13       & 96.98    & 54.36            & 0.71000          & no    &                & 3           & no       \\
+        IC LBG         & long  & 25     & 0      & 10.13       & 96.98    & 0                & 0.79000          & no    &                & 3           & no       \\
+        IC H2          & long  & 25     & 0      & 10.13       & 109.29   & 0                & 0                & no    &                & 3           & no       \\
+        IC CH3OH       & long  & 25     & 0      & 10.13       & 109.29   & 0                & 0.79000          & no    &                & 3           & no       \\
+        IC NH3         & long  & 25     & 0      & 10.13       & 109.29   & 0                & 0                & no    &                & 3           & no       \\
+        FC LNG         & long  & 25     & 0      & 22.47       & 134.80   & 54.36            & 0.22763          & no    &                & 3           & no       \\
+        FC LBG         & long  & 25     & 0      & 22.47       & 134.80   & 0                & 0.22763          & no    &                & 3           & no       \\
+        FC H2          & long  & 25     & 0      & 22.47       & 134.80   & 0                & 0                & no    &                & 3           & no       \\
+        FC CH3OH       & long  & 25     & 0      & 22.47       & 134.80   & 0                & 0.22763          & no    &                & 3           & no       \\
+        FC NH3         & long  & 25     & 0      & 22.47       & 134.80   & 0                & 0                & no    &                & 3           & no       \\
+        EM ELEC        & short & 30     & 0      & 11.86       & 1,047.05 & 0                & 0                & no    &                & 3           & no       \\
+        WIND ELEC      & long  & 30     & 0      & 35.58       & 2,094.11 & 0                & 0                & no    &                & 3           & no \\  
+    \bottomrule
+    \end{tabular}}
+    \caption[Ship type data]{Ship type data for each specific parameter.}
+    \label{tab:ship-type_data}
+\end{table}
 
 \subsubsection{Emission budget}
 
