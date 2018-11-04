@@ -14,6 +14,7 @@
 \newglossary{s}{ses}{seo}{Sets}
 \newglossary{p}{pas}{pao}{Parameters}
 \newglossary{a}{aas}{aao}{Abbreviations}
+\newglossary{b}{bas}{bao}{Abbreviations}
 \makeglossaries
 
 \input{glossaries.tex}
@@ -158,6 +159,7 @@ In \autoref{sec:Methods}, we describe the mathematical formulation (\autoref{sub
 % 1500-1750
 
 \subsection{Model Scope}
+The model consists of different scopes and dimensions which mutually influence their own degrees of freedom. The temporal scope of the model ranges from the initial year 2016 until 2050 with an annual resolution. As the focus lies on major long-term investment decisions, a higher resolution is unlikely to provide better understanding of the sectors basic behaviours. In the spatial dimension all annually aggregated shipping routes to and from Danish ports are considered. In order to allocate the responsibility for the negative external effects that, as for now, inevitably accompany the international maritime trade in a fair manner to both trading entities countries, cross-border connections account only with have of their total estimated sailing distances. \cref{fig:model_boundary} illustrates this approach. A further dimension taken into account is the system's economy in terms of expenditures into infrastructure and fuels. As the model identifies a certain stock of technologies that will be depreciated over their lifetimes and is in need of new technologies to comply with emission constraints, it has to make investment decisions. Fixed investments are either for the fuel infrastructure or in ships. Variable investments are for the different annual fuel amounts to supply the vessel fleet. The technical dimension is set by the considered ships types. They are distinguished by their power systems as a combination of main engine and fuel type. All other ship specific design characteristics like hull-shapes or operational patterns (e.g. sailing speeds) are neglected. The complete set of ships available to the model can be found in \cref{tab:ship_data}. The emission dimension is composed of global and regional legislation on the one and GHG effective emissions on the other hand. SOx and NOx emissions are legally restricted by the Marpol Annex VI regulations 13 and 14 on global and regional scale \cite{IMO2008a,IMO2008b}. As for GHG emissions, CO2 and CH4 are regarded and subject to different limitations, depending on the scenario. In general, emissions are restricted by an overall CO2 equivalent budget and emission target in 2050. Their sizes are derived from the IPCC's RCP2.6 pathway aiming at a maximum surface temperature increase of 1.5 degrees Celsius compared to the pre-industrial level \cite[p.~27]{IPCC2013}.
 \begin{figure}[htb]
     \centering
     \includegraphics[width=\textwidth]{figures/model_boundary_paper.pdf}
@@ -166,6 +168,7 @@ In \autoref{sec:Methods}, we describe the mathematical formulation (\autoref{sub
 \end{figure}
 
 \subsection{Model Structure}
+Technically, the model consists of two different components. First there are the model instances, second there is the processes of changing these instances. In the present case instances are spread sheets with numerical and literal data. Processes in turn are the formal operational instructions translated into a software language, here Python is used. The two components alternate throughout the model flow like a cascade. In the model box-flow in \cref{fig:model_boxflow} white boxes represent data instances, whereas the blue arrows represent processes. An entire model run for a selected scenario starts by loading the technology data, combining them with the scenario specifications and creating the model input files. In the course of generating the model, these input files are translated into parameters and sets. The solver then calculates the model variables based on their degrees of freedom, which are determined by the the input data and the sense of the model objective. The results are stored again as data instances in the output directory. Finally, to allow for interpretations of the results, the post-processing provides edited graphical and tabular data.
 \begin{figure}[htb]
     \centering
     \includegraphics[width=\textwidth]{figures/model_boxflow_paper.pdf}
@@ -180,7 +183,7 @@ The future marine fuels problem is formulated mathematically as a linear and div
 The nomenclature used in the constraints in the following sections is given in the nomenclature list.
 \glsdisablehyper
 \glsaddall
-\begin{table*}[htb] 
+\begin{table*}[thb] 
 \renewcommand\tablename{Nomenclature list}
 \begin{mdframed}
 \footnotesize{
@@ -297,10 +300,26 @@ Tier: Sets the fuel amount to zero for ships not in compliance with the NOx regu
 
 \subsection{Data}
 \label{subsec:Dat}
-\subsubsection{Fuel data}
+The nomenclature used in the tables in the following sections is given in the nomenclature list.
+\glsdisablehyper
+\glsaddall
+\begin{table*}[htb] 
+\renewcommand\tablename{Nomenclature list}
+\begin{mdframed}
+\footnotesize{
+\begin{multicols}{2}
+\printglossary[style=tree,type=b]
+\end{multicols}
+}
+\end{mdframed}
+\caption{}
+\end{table*}
 
+\subsubsection{Fuel data}
+The set of fuel parameters ranges from fuel and infrastructure costs, over well-to-tank CO2e emission operation factors and sulphur content to the fuel infrastructure's technical lifetime. Regarding fuel costs, it is assumed that the bunker index prices of the currently available fuels (HFO, MDO, BDO) comprise all upstream cost components from well-to-tank. Thus, the fixed costs of the supply chain are already incorporated (e.g. sufficient fuel supply infrastructure). In contrast to new fuel technologies, their costs are divided into fixed and variable shares. If upgrading facilities are required, they are assumed to be placed directly at the port. In that way, no additional fuel transport infrastructure needs to be build. Further, upon consultation with the Danish transmission grid operator EnergiNet, the gas transmission grid is capable to meet any conceivable additional fuel transport demand.
 \begin{table}[htb]
     \centering
+    \resizebox{\textwidth}{!}{
     \begin{tabular}{lrrrrrrr}
         \toprule
         Fuel type & cf & ci & ec(w2t) & em(w2t) & sulphur content & li & References \\
@@ -316,54 +335,118 @@ Tier: Sets the fuel amount to zero for ships not in compliance with the NOx regu
         NH3   & 26.803   & 1.802    & 0                & 0                & 0        & 20   & \cite{Morgan2017}    \\
         ELEC  & 13.889   & 2.929    & 0                & 0                & 0        & 20   & \cite{Vree2008}    \\
         \bottomrule
-    \end{tabular}
+    \end{tabular}}
     \caption[Fuel type data]{Fuel type data for each specific parameter.}
     \label{tab:fuel_data}
 \end{table}
 
 \subsubsection{Ship data}
-
-\begin{table}[htbp]
-    \resizebox{\textwidth}{!}{%
+Compared to the fuel's category set, the ship's set is more divers. This is because of technical information needed to distinguish the different ship types and applying relevant regulative and technical constraints. However, just like the fuels, it consists of fuel specific parameters. They range from transport supply, over investment costs to the tank-to-propeller CO2e emission operation factors. Furthermore the initial fuel amount per ship of \cref{tab:fuel_consumption} is provided. The transport demand in the first year is equal to the sum-product of fuel amount and transport supply. Future fuel amounts are calculated by the model.
+\par
+Technical categories complement the ones related to the fuel. First, there is the range (discussed in \cref{sec:distances}), which is unlimited for all but full electric ships (see \cref{fig:distances_short_long}). It is followed by the ship's technical lifetime. For old ships, the average remaining lifetime is 11 years. If the same technical lifetime as for new ships would apply, the average age of the current fleet is 14 years. This is the sum of the average age in 2016 of the three main Danish cargo ship types bulker, containers and tankers listed in \cite[Tab.~2.2, p.~27]{UNCTAD2017} and combined with their market shares shown in \cref{fig:cargo_type}. 
+Information, whether a refit is possible and towards which technology, Tier level and scrubber status complete the set.
+\par
+Refits are build upon existing ships, which is why the corresponding ship costs are very low. Ships with internal combustion engines that run on HFO can be refitted with scrubber. When operating with a scrubber SOx emissions are reduced. However, the downside is a loss in transport supply capability, since the scrubber impairs the ship's energy efficiency. Refit of old ship with an internal combustion engine that use MDO towards the use of BDO is simply a fuel switch and has no associated major investment costs. Note, that the refit measures have no effect on the ships lifetime. The model simply transfers the residual lifetime of the old ship to the one refitted. Consequently, the lifetime provided for refit ships in \cref{tab:ship_data} is the maximum value.
+\par
+Based on the NOx regulations in \cref{tab:eca_regs}, Tier levels are decisive for ship operations in the NECAs. All new-build ships have the Tier 3 rating as they are being constructed later than 2016. In contrary, old ships have no or a Tier rating of 1, as the average construction year was in 2002. Here, no rating is selected. Hence, old ships will either be scrapped after 2021 or need a refit to gain a higher rating.
+\begin{table}[htb]
+    \centering
+    \resizebox{\textwidth}{!}{
     \begin{tabular}{llrrrrrrrrrrr}
         \toprule
                        Ship-type & Range & ls & fa$_{2016}$ & ts & cs & ec(t2p) & em(t2p) & Refit & Refit opt. & Tier & Scrubber & References \\
                        &       & $\left[a\right]$ & $\left[PJ_{fuel}\right]$ & $\left[\frac{Ttkm}{GJ_{fuel}}\right]$ & $\left[\frac{EUR_{2016}}{GJ_{fuel}}\right]$ & $\left[\frac{g_{CO2}}{MJ_{fuel}}\right]$ & $\left[\frac{g_{CH4}}{MJ_{fuel}}\right]$ & & & & & \\
         \midrule
-        IC HFO (old)   & long  & 11     & 9.93   & 9.69        & 8.72     & 76.06            & 0.00045          & yes   & IC HFO (refit) & 0           & no       \\
-        IC MDO (old)   & long  & 11     & 5.99   & 9.40        & 8.45     & 74.36            & 0.00045          & yes   & IC BDO (refit) & 0           & yes      \\
-        IC HFO         & long  & 25     & 0      & 9.40        & 8.45     & 75.90            & 0.00045          & no    &                & 3           & yes      \\
-        IC MDO         & long  & 25     & 0      & 9.40        & 8.45     & 74.32            & 0.00045          & no    &                & 3           & yes      \\
-        IC HFO (refit) & long  & 11     & 0      & 9.40        & 0.02     & 75.90            & 0.00045          & no    &                & 3           & yes      \\
-        IC BDO (refit) & long  & 11     & 0      & 9.40        & 0        & 0                & 0.00045          & no    &                & 3           & yes      \\
-        IC BDO         & long  & 25     & 0      & 9.40        & 8.45     & 0                & 0.00045          & no    &                & 3           & yes      \\
-        IC LNG         & long  & 25     & 0      & 10.13       & 96.98    & 54.36            & 0.71000          & no    &                & 3           & no       \\
-        IC LBG         & long  & 25     & 0      & 10.13       & 96.98    & 0                & 0.79000          & no    &                & 3           & no       \\
-        IC H2          & long  & 25     & 0      & 10.13       & 109.29   & 0                & 0                & no    &                & 3           & no       \\
-        IC CH3OH       & long  & 25     & 0      & 10.13       & 109.29   & 0                & 0.79000          & no    &                & 3           & no       \\
-        IC NH3         & long  & 25     & 0      & 10.13       & 109.29   & 0                & 0                & no    &                & 3           & no       \\
-        FC LNG         & long  & 25     & 0      & 22.47       & 134.80   & 54.36            & 0.22763          & no    &                & 3           & no       \\
-        FC LBG         & long  & 25     & 0      & 22.47       & 134.80   & 0                & 0.22763          & no    &                & 3           & no       \\
-        FC H2          & long  & 25     & 0      & 22.47       & 134.80   & 0                & 0                & no    &                & 3           & no       \\
-        FC CH3OH       & long  & 25     & 0      & 22.47       & 134.80   & 0                & 0.22763          & no    &                & 3           & no       \\
-        FC NH3         & long  & 25     & 0      & 22.47       & 134.80   & 0                & 0                & no    &                & 3           & no       \\
-        EM ELEC        & short & 30     & 0      & 11.86       & 1,047.05 & 0                & 0                & no    &                & 3           & no       \\
-        WIND ELEC      & long  & 30     & 0      & 35.58       & 2,094.11 & 0                & 0                & no    &                & 3           & no \\  
+        IC HFO (old)   & long  & 11     & 9.93   & 9.69        & 8.72     & 76.06            & 0.00045          & yes   & IC HFO (refit) & 0           & no     & \cite{UNCTAD2017,Eurostat2018,Wisdom2017,Kristensen2012,Rex2017} \\
+        IC MDO (old)   & long  & 11     & 5.99   & 9.40        & 8.45     & 74.36            & 0.00045          & yes   & IC BDO (refit) & 0           & yes    & \cite{UNCTAD2017,Eurostat2018,Wisdom2017,Kristensen2012,Rex2017} \\
+        IC HFO         & long  & 25     & 0      & 9.40        & 8.45     & 75.90            & 0.00045          & no    &                & 3           & yes    & \cite{UNCTAD2017,Kristensen2012,Rex2017} \\
+        IC MDO         & long  & 25     & 0      & 9.40        & 8.45     & 74.32            & 0.00045          & no    &                & 3           & yes    & \cite{UNCTAD2017,Kristensen2012,Rex2017} \\
+        IC HFO (refit) & long  & 11     & 0      & 9.40        & 0.02     & 75.90            & 0.00045          & no    &                & 3           & yes    & \cite{UNCTAD2017,McGill2013} \\
+        IC BDO (refit) & long  & 11     & 0      & 9.40        & 0        & 0                & 0.00045          & no    &                & 3           & yes    & \cite{UNCTAD2017,Wisdom2017} \\
+        IC BDO         & long  & 25     & 0      & 9.40        & 8.45     & 0                & 0.00045          & no    &                & 3           & yes    & \cite{UNCTAD2017,Bengtsson2012} \\
+        IC LNG         & long  & 25     & 0      & 10.13       & 96.98    & 54.36            & 0.71000          & no    &                & 3           & no     & \cite{UNCTAD2017,Kristensen2012,Rex2017} \\
+        IC LBG         & long  & 25     & 0      & 10.13       & 96.98    & 0                & 0.79000          & no    &                & 3           & no     & \cite{UNCTAD2017,Bengtsson2012} \\
+        IC H2          & long  & 25     & 0      & 10.13       & 109.29   & 0                & 0                & no    &                & 3           & no     & \cite{UNCTAD2017,ElGohary2013} \\
+        IC CH3OH       & long  & 25     & 0      & 10.13       & 109.29   & 0                & 0.79000          & no    &                & 3           & no     & \cite{UNCTAD2017,Andersson2015,BRYNOLF2014} \\
+        IC NH3         & long  & 25     & 0      & 10.13       & 109.29   & 0                & 0                & no    &                & 3           & no     & \cite{UNCTAD2017} \\
+        FC LNG         & long  & 25     & 0      & 22.47       & 134.80   & 54.36            & 0.22763          & no    &                & 3           & no     & \cite{UNCTAD2017,VanBiert2016} \\
+        FC LBG         & long  & 25     & 0      & 22.47       & 134.80   & 0                & 0.22763          & no    &                & 3           & no     & \cite{UNCTAD2017,VanBiert2016} \\
+        FC H2          & long  & 25     & 0      & 22.47       & 134.80   & 0                & 0                & no    &                & 3           & no     & \cite{UNCTAD2017,USDE2015} \\
+        FC CH3OH       & long  & 25     & 0      & 22.47       & 134.80   & 0                & 0.22763          & no    &                & 3           & no     & \cite{UNCTAD2017,VanBiert2016} \\
+        FC NH3         & long  & 25     & 0      & 22.47       & 134.80   & 0                & 0                & no    &                & 3           & no     & \cite{UNCTAD2017} \\
+        EM ELEC        & short & 30     & 0      & 11.86       & 1,047.05 & 0                & 0                & no    &                & 3           & no     & \cite{DNVGL2015} \\
+        WIND ELEC      & long  & 30     & 0      & 35.58       & 2,094.11 & 0                & 0                & no    &                & 3           & no     &  \\  
     \bottomrule
     \end{tabular}}
     \caption[Ship type data]{Ship type data for each specific parameter.}
-    \label{tab:ship-type_data}
+    \label{tab:ship_data}
 \end{table}
 
 \subsubsection{Emission budget}
+- 1.2 Mt CO2e in 2016 is derived from the fuel specific emission operation factors, multiplied by total fuel consumed in that year.
+The CO2e emission budget sets a limit to the total allowed GHG emissions to air over full temporal scope. For Denmark it is derived from the global emission budget estimate by the IPCC \cite[Tab.~SPM.3, RCP2.6]{Stocker2013} and its corresponding global maritime transport share, provided by the ICCT \cite{Olmer2017}. The lower limit of 510 Gt of the RCP2.6 pathway is selected. Comparison of recent global maritime CO2e emissions from the 3rd IMO GHG Study with the Danish ones is displayed in \cref{tab:co2_emissions_2016}. Its relative share to the ICCT's global budget leads to the Danish CO2e budget. With this budget the current emission level could be held constant for another 15 years and is more ambitious than just a linear decrease of emissions from 2016 to 2050 as illustrated in \cref{fig:em_budget}. Comparing maritime emissions from 2012 and 2016 can be considered a conservative estimation, as the global maritime trade volume has increased over this time gap \cite[Tab.~1.3,~p.~5]{UNCTAD2017}. Thus, the Danish budget would be lower by the same proportion.
+\begin{table}[htb]
+    \centering
+    \begin{tabular}{llrr}
+        \toprule
+         & Unit & CO2e emissions & References \\
+         \midrule
+         Global budget & $\left[Gt\right]$ & 510 & \cite{IPCC2013} \\
+         Global maritime budget share & $\left[\%\right]$ & 3 & \cite{Olmer2017} \\
+         Global maritime budget & $\left[GT\right]$ & 15.3 &\\[1.5ex]
+         Global maritime emissions in 2012 & $\left[Mt\right]$ & 961 & \cite{Smith2014} \\
+         Danish maritime emissions in 2016 & $\left[Mt\right]$ & 1.2 & \cite{Kristensen2012,Eurostat2018,Wisdom2017} \\
+         Danish maritime emission share & $\left[\%\right]$ & 0.125 &\\[1.5ex]
+         Danish budget & $\left[Mt\right]$ & \textbf{19.12} & \\
+         \bottomrule
+    \end{tabular}
+    \caption[Danish CO2e emission budget]{Derivation of CO2e emission budget from global to Danish level.}
+    \label{tab:dk_em_budget}
+\end{table}
 
 \subsection{Scenarios}
 \label{subsec:Sce}
 - Scenario description, general approach.
+
 \subsubsection{Scenario characteristics and data}
-- Describing the manipulation of reference data
+- Describing the manipulation of reference data\\
+The scenario data set consists of fuel rates, ship rates and regulative limits. Assuming that model parameters are not necessarily constant over all model time steps some parameters are made subject to variation. The variations are given as the total percentage change between 2016 and 2050. This difference is translated into a fixed annual changing rate. Therefore, the change is not linear but exponential. In the pre-processing, time variable data frames are created for each affected parameter. The reference scenario provides the baseline rates and limits. When a different scenario is calculated, the final value in 2050 of a selected parameter can be alternated by any percentage. Though, the minimum threshold is -100 \%, that would correspond to a reduction towards zero costs or no limitations. Where appropriate, changing rates are clustered, due to market coupling effects. E.g. in the reference scenario the fuel costs of all electro-fuels change with the same rate.
+\\
+- Fuel and infrastructure costs: -20 \% based on \cite[fig.~6,~p.~13]{Brynolf2018}\\
+- Fuel costs: 110 \% based on \cite[fig.~13,~p.~3]{JAE-KNY/MDA2017}\\
+- Ship costs: -40 to -75 \% based on \cite{Rex2017}\\
+- Transport supply: +15 \% \cite[tab.~51,~p.~282]{Smith2014}\\
+- Carbon emission operation factors CO2 and CH4: -10 \% \cite[tab.~51,~p.~282]{Smith2014}\\
+
+
 \subsubsection{Scenario overview}
-- Give a scenario overview: table with name description, manipultated parameters...
+- Give a scenario overview: table with name description, manipulated parameters...
+\begin{table}[thb]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{lll}
+        \toprule
+        Scenario & Description & Modified Parameters \\
+        \midrule
+        REF     & Reference scenario, based on literature & - \\
+        REF(mp) & Reference scenario  + methane leakage phaseout & em \\
+        BAU     & Business as usual, frozen policy & eb, et \\
+        IMO     & International Maritime Organization & eb, et\\
+        TDV     & Transport demand variation & tdtotal \\
+        BATW    & Cost variation of battery and wind & cf, ci, cs \\
+        BDO     & Cost variation of bio-diesel oil & cf \\
+        CH3OH   & Cost variation of methanol & cf, ci, cs\\
+        H2      & Cost variation of hydrogen & cf, ci, cs \\
+        LBG     & Cost variation of liquefied bio-methane & cf, ci, cs \\
+        LBG(mp) & Cost variation of liquefied bio-methane + methane leakage phaseout & cf, ci, cs, em \\
+        LNG     & Cost variation of natural gas & cf, ci, cs \\
+        LNG(mp) & Cost variation of natural gas + methane leakage phaseout & cf, ci, cs, em \\
+        NH3     & Cost variation of ammonia & cf, ci, cs \\
+        \bottomrule
+    \end{tabular}}
+    \caption[Scenario overview]{Scenario overview with description and modified parameters.}
+    \label{tab:scn_overview}
+\end{table}
 
 \section{Results and Discussion}
 \label{sec:Results}
