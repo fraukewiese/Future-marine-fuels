@@ -14,7 +14,6 @@
 \newglossary{s}{ses}{seo}{Sets}
 \newglossary{p}{pas}{pao}{Parameters}
 \newglossary{a}{aas}{aao}{Abbreviations}
-\newglossary{b}{bas}{bao}{Abbreviations}
 \makeglossaries
 
 \input{glossaries.tex}
@@ -41,6 +40,7 @@
 \usepackage{eurosym}
 \usepackage{gensymb}
 \usepackage{booktabs}
+\usepackage{caption}
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %% Elsevier bibliography styles
@@ -159,7 +159,8 @@ In \autoref{sec:Methods}, we describe the mathematical formulation (\autoref{sub
 % 1500-1750
 
 \subsection{Model Scope}
-The model consists of different scopes and dimensions which mutually influence their own degrees of freedom. The temporal scope of the model ranges from the initial year 2016 until 2050 with an annual resolution. As the focus lies on major long-term investment decisions, a higher resolution is unlikely to provide better understanding of the sectors basic behaviours. In the spatial dimension all annually aggregated shipping routes to and from Danish ports are considered. In order to allocate the responsibility for the negative external effects that, as for now, inevitably accompany the international maritime trade in a fair manner to both trading entities countries, cross-border connections account only with have of their total estimated sailing distances. \cref{fig:model_boundary} illustrates this approach. A further dimension taken into account is the system's economy in terms of expenditures into infrastructure and fuels. As the model identifies a certain stock of technologies that will be depreciated over their lifetimes and is in need of new technologies to comply with emission constraints, it has to make investment decisions. Fixed investments are either for the fuel infrastructure or in ships. Variable investments are for the different annual fuel amounts to supply the vessel fleet. The technical dimension is set by the considered ships types. They are distinguished by their power systems as a combination of main engine and fuel type. All other ship specific design characteristics like hull-shapes or operational patterns (e.g. sailing speeds) are neglected. The complete set of ships available to the model can be found in \cref{tab:ship_data}. The emission dimension is composed of global and regional legislation on the one and GHG effective emissions on the other hand. SOx and NOx emissions are legally restricted by the Marpol Annex VI regulations 13 and 14 on global and regional scale \cite{IMO2008a,IMO2008b}. As for GHG emissions, CO2 and CH4 are regarded and subject to different limitations, depending on the scenario. In general, emissions are restricted by an overall CO2 equivalent budget and emission target in 2050. Their sizes are derived from the IPCC's RCP2.6 pathway aiming at a maximum surface temperature increase of 1.5 degrees Celsius compared to the pre-industrial level \cite[p.~27]{IPCC2013}.
+The model consists of different scopes and dimensions which mutually influence their degrees of freedom. The temporal scope of the model ranges from the initial year 2016 to 2050 with annual resolution. In the spatial dimension annually aggregated sailing routes to and from Danish ports are considered. In order to allocate the responsibility for negative external effects that, as for now, inevitably accompany the international maritime shipping in a fair manner to both trading entities countries, cross-border connections account with have of their total estimated distances (see \cref{fig:model_boundary}). A further dimension taken into account is the system's economy in terms of expenditures into infrastructure, ships and fuels. The model identifies identifies depreciated system components and undertakes investment decisions accordingly. Fixed investments are either for the fuel infrastructure or new ships, while the annual fuel amounts to supply the full fleet are considered variable. The technical dimension is set by the considered ship types, which are solely distinguished by their power systems as a combination of main engine and fuel type. All other ship specific design characteristics like hull-shapes or operational patterns (e.g. sailing speeds) are neglected. The complete set of ships available to the model can be found in \cref{tab:ship_data}. The emission dimension is composed of global and regional legislation on the one and GHG effective emissions on the other hand. SOx and NOx emissions are legally restricted by the Marpol Annex VI regulations 13 and 14 on global and regional scale \cite{IMO2008a,IMO2008b}. As for GHG emissions, CO2 and CH4 are regarded and subject to different limitations, depending on the scenario. In general, CO2e emissions are constraint by an overall budget and 2050 target that are derived from the IPCC's RCP2.6 pathway aiming at a maximum surface temperature increase of 1.5 degrees Celsius compared to pre-industrial levels \cite[p.~27]{IPCC2013}.
+
 \begin{figure}[htb]
     \centering
     \includegraphics[width=\textwidth]{figures/model_boundary_paper.pdf}
@@ -168,8 +169,9 @@ The model consists of different scopes and dimensions which mutually influence t
 \end{figure}
 
 \subsection{Model Structure}
-Technically, the model consists of two different components. First there are the model instances, second there is the processes of changing these instances. In the present case instances are spread sheets with numerical and literal data. Processes in turn are the formal operational instructions translated into a software language, here Python is used. The two components alternate throughout the model flow like a cascade. In the model box-flow in \cref{fig:model_boxflow} white boxes represent data instances, whereas the blue arrows represent processes. An entire model run for a selected scenario starts by loading the technology data, combining them with the scenario specifications and creating the model input files. In the course of generating the model, these input files are translated into parameters and sets. The solver then calculates the model variables based on their degrees of freedom, which are determined by the the input data and the sense of the model objective. The results are stored again as data instances in the output directory. Finally, to allow for interpretations of the results, the post-processing provides edited graphical and tabular data.
-\begin{figure}[htb]
+Technically, the model consists of two different components. Firstly, instances, secondly processes to manipulate instances. In the present case instances hold numerical and literal data in table format. Processes in turn are the formal operational instructions translated into a software language, here Python is used. The two components alternate throughout the model flow like a cascade. In the model box-flow in \cref{fig:model_boxflow} white boxes represent data instances, whereas the blue arrows represent processes. An entire model run for a selected scenario starts by loading the technology data, incorporating scenario specifications and creating the model input files. In the course of generating the model, these input files are translated into parameters and sets. The solver then calculates the model variables based on their degrees of freedom, which are determined by the the input data and the sense of the model objective. The results are stored again as data instances in the output directory. To allow for interpretations of the results, the post-processing provides edited graphical and tabular data.
+
+\begin{figure}[tbh]
     \centering
     \includegraphics[width=\textwidth]{figures/model_boxflow_paper.pdf}
     \caption{Model boxflow: The core model consists of the components inside the green box.}
@@ -178,9 +180,7 @@ Technically, the model consists of two different components. First there are the
 
 \subsection{Mathematical Formulation}
 \label{subsec:Mat}
-The future marine fuels problem is formulated mathematically as a linear and divisible model with the following equations. It is a stock model, initialised with data for the first time step that allows for investments in new technologies in the further course. The investment options are on the one hand forced and on the other limited by the model constraints. They are in general used to give credit to regularities and behaviour patterns that shape the system under investigation. Since the objective's sense is the minimisation of the overall system's costs \cref{eq:objective}, investments are interpreted as adverse but inevitable actions to cope with the constraint's demands, such as: Lowering CO$_2$e emissions to air, (over-)supplying the transport demand in each time-step or scrapping ships, when their lifetime is expired. The domains of all model variables are within non-negative real numbers, including zero $\left(R_{0}^{+}\right)$.
-
-The nomenclature used in the constraints in the following sections is given in the nomenclature list.
+The problem is formulated in a linear, divisible manner, aiming to minimise the objective function. It is a stock model, initialised with data for the first time step and allows for investments in new technologies in the further course. Investment decisions are on the one hand forced and on the other limited by the model constraints that in general reflect legal frameworks and behaviour patterns of the investigated system. Since the objective's sense is the minimisation of the overall total system's costs \cref{eq:objective}, investments are interpreted as adverse, yet inevitable actions to cope with the constraint's demands, such as: Lowering CO$_2$e emissions to air, (over-)supplying the transport demand in each time step or scrapping ships. All model variable's domains are within non-negative real numbers, including zero $\left(R_{0}^{+}\right)$. The nomenclature used in the equations and table headers in the following sections is given in the nomenclature list.
 \glsdisablehyper
 \glsaddall
 \begin{table*}[thb] 
@@ -203,7 +203,7 @@ The nomenclature used in the constraints in the following sections is given in t
 \end{table*}
 
 \subsubsection{Objective function}
-\noindent The model's objective is the minimisation of the total system costs. It comprises the sum of all accumulated annual costs for fuel, infrastructure and ships. Asset costs account only with the annual added amounts and are multiplied with their respective lifetimes, since they are given to the model as annuities.
+The model's objective is the minimisation of the total system costs over all time steps and ship types. It comprises accumulated annual costs for fuel, infrastructure and ships. Fixed cost components account only with the annual added amounts and are multiplied with their respective lifetimes, since they are given to the model as annuities. The stock of fixed assets present in 2016 ($fainit_{t,s}$ in $T_0$) is not cost-effective and therefore subtracted from $CI$ and $CS$.
 \begin{subequations}
     \begin{align}
         min. &\sum_{\forall t \in T}\sum_{\forall s \in S}\left( CF_{t, s} + CI_{t, s} + CS_{t, s} \right)\label{eq:objective}\\
@@ -217,9 +217,8 @@ The nomenclature used in the constraints in the following sections is given in t
 \end{subequations}
 
 \subsubsection{Fuel constraints}
-\noindent The following fuel constraints refer to the amounts of fuel per ship type in each time step. Investments in infrastructure, new-build and refit ships consider exclusively the sum of the added capacities per ship or infrastructure over the respective lifetime. Ships and infrastructure are separated, due to different costs and lifetimes, even if they belong to the same technology.
-\\
-Infrastructure Capacity: Sum of all added infrastructure capacity within the respective proceeded technical lifetime.
+The following fuel constraints refer to the amounts of fuel per ship type in each time step. Investments in infrastructure, new-build and refitted ships consider exclusively the sum of the additional capacities per ship or infrastructure over the respective lifetime. Ships and infrastructure are separated, due to different costs and lifetimes, even if they belong to the same technology.\\\par\noindent
+\textit{Infrastructure capacity: }Sum of all added infrastructure capacity within the respective proceeded technical lifetime.
 \begin{subequations}
     \begin{align}
         faicap_{t,s} &\leq \sum_{\textbf{x}}^{t-1} \left( faiup_{x,s} \right), \forall t \in T_{>0}, \forall s \in S\label{eq:faicap}\\
@@ -227,13 +226,12 @@ Infrastructure Capacity: Sum of all added infrastructure capacity within the res
         x &= T_0, \forall t \leq \left(li_{s} + T_0 - 1\right)\\
         x &= t - li_{s} + 1, \forall t > \left(li_{s} + T_0 - 1\right)
     \end{align}
-\end{subequations}
-\par\noindent
-Additional Infrastructure: Annual additional infrastructure capacity needed to supply the corresponding ship-types.
+\end{subequations}\\
+\textit{Additional infrastructure: }Annual additional infrastructure capacity needed to (over-)supply the fleet.
 \begin{equation}
     faiup_{t,s} \geq fa_{t,s} - faicap_{t,s}, \forall t \in T_{>0}, \forall s \in S\label{eq:faiup}
-\end{equation}
-Ship Capacity: Sum of all added ships within the respective proceeded technical lifetime.
+\end{equation}\\
+\textit{Ship capacity: }Sum of all added ships within the respective proceeded technical lifetime.
 \begin{subequations}
     \begin{align}
         fascap_{t,s} &\leq \sum_{\textbf{x}}^{t-1} \left(fasup_{x,s} \right), \forall t \in T_{>0}, \forall s \in S\label{eq:fascap}\\
@@ -241,39 +239,42 @@ Ship Capacity: Sum of all added ships within the respective proceeded technical 
         x &= T_0, \forall t \leq \left(ls_{s} + T_0 - 1\right)\\
         x &= t - ls_{s} + 1, \forall t > \left(ls_{s} + T_0 - 1\right)
     \end{align}
-\end{subequations}
-Added Ships: Annual additional ship capacity needed to satisfy the transport demand.
+\end{subequations}\\
+\textit{Added ships: }Annual additional ship capacity needed to (over-)supply the transport demand.
 \begin{equation}
     fasup_{t,s} \geq fa_{t,s} - fascap_{t,s}, \forall t \in T_{>0}, \forall s \in S\label{eq:fasup}
-\end{equation}
-Refit: Defines in each time-step the fuel amount available for refit by old ships.
+\end{equation}\\
+\textit{Ship refit: }Defines for each time step the maximum fuel amount available for the refit of old ships.
 \begin{subequations}\label{eq:refitships}
     \begin{align}
     fa_{t,s} + fa_{t,r} - fa_{T_0, s} &\leq 0, \forall t \in T_{<\left(T_0+ls_{s}\right)}, \forall s, r \in RO\\
     fa_{t,s} + fa_{t,r} & = 0, \forall t \in T_{\geq\left(T_0+ls_{s}\right)}, \forall s, r \in RO
     \end{align}
-\end{subequations}
-Bio-fuel: Limits the bio-fuel availability in each time step.
+\end{subequations}\\
+\textit{Bio-fuel availability: }Defines for each time step the maximum bio-fuel availability.
 \begin{equation}
     \sum_{\forall s \in SB} \left(fa_{t,s} \right) - ba_{t} \leq 0, \forall t \in T\label{eq:biofuel}
 \end{equation}
 
 \subsubsection{Demand constraints}
-\noindent Transport Demand: The transport supply of all ships must either be greater or equal to the transport demand in each time-step.
+The following demand constraints refer to the amounts of fuel per transport demand type. These types are either defined by the sailing distance (short or long) and location (ECAs or not).\\\par\noindent
+\textit{Total transport demand: }The sum of all annual transport supply per ships must be greater or equal to the total transport demand in each time step.
 \begin{equation}
     tdtotal_t \leq \sum_{\forall s \in S} \left( fa_{t,s} \cdot ts_{t,s}\right), \forall t \in T \label{eq:td_total}
 \end{equation}
-Short Transport Demand: The amount of fuel available for short range ships is limited by the transport demand of that range.
+\textit{Short transport demand: }The amount of fuel available for short range shipping is limited by the transport demand of that range.
 \begin{equation}
     tdshort_t \geq \sum_{\forall s \in SR} \left( fa_{t,s} \cdot ts_{t,s}\right), \forall t \in T \label{eq:td_short}
 \end{equation}
-Non-SECAs Transport Demand: The amount of fuel available for the ships that are not in compliance with the sulphur regulations, which is limited by the transport demand outside of the SECAs.
+\textit{Non-SECAs transport demand: }Defines the maximum amount of fuel available for shipping not in compliance with sulphur regulations, which comprises all transport demand outside of the SECAs.
 \begin{equation}
     tdnoneca_t \geq \sum_{\forall s \in SNE} \left( fa_{t,s} \cdot ts_{t,s}\right), \forall t \in T \label{eq:td_noneca}
 \end{equation}
 
 \subsubsection{Emission constraints}
-\noindent Emission Budget: The CO$_2$e emission budget must be greater or equal to the total systems up- and downstream emissions.
+The set of emission constraints imposes limitations to the extend of which certain fuel types are being deployed by the model, based on the CO2e budget and target as well as the legal restrictions defined by the IMO.
+\\\par\noindent
+\textit{Emission budget: }The emission budget must be greater or equal to the total systems well-to-propeller CO2e emissions.
 \begin{subequations}
     \begin{align}
     eb &\geq \sum_{\forall t \in T}\sum_{\forall s \in S}\left(EC_{t,s} + EM_{t,s} \right) \label{eq:co2ebudget}\\
@@ -281,42 +282,27 @@ Non-SECAs Transport Demand: The amount of fuel available for the ships that are 
     EC_{t,s} &= fa_{t,s} \cdot ec_{t,s}, \forall t \in T, \forall s \in S\\
     EM_{t,s} &= fa_{t,s} \cdot em_{t,s}, \forall t \in T, \forall s \in S
     \end{align}
-\end{subequations}
-\par\noindent
-Emission Target: Limits the CO$_2$e emissions from the selected year (2050) on-wards.
+\end{subequations}\\
+\textit{Emission target: }Limits the CO2e emissions from the selected year (2050) on-wards.
 \begin{equation}
     \frac{\sum_{\forall s \in S} \left(EC_{T_0,s}+EM_{T_0,s}\right)}{\sum_{\forall s \in S} \left(EC_{t,s}+EM_{t,s}\right)} \cdot et \geq 1, \forall t \in T_{\geq \left(etyr-T_0\right)}
-\end{equation}
-\par\noindent
-Global SOx Limit: From the year 2020 onwards the fuel amount of those ship types is set to zero, whose sulphur content exceeds the global sulphur limit and have no scrubber installed.
+\end{equation}\\
+\textit{Global SOx regulations: }From the year 2020 on-wards the fuel amount of those ship types is set to zero, whose sulphur content exceeds the global sulphur limit and have no scrubber installed.
 \begin{equation}
     fa_{t,s} = 0, \forall t \in T_{\geq slnonecayr-T_0}, \forall s \in SNG \label{eq:sox_global}
-\end{equation}
-\par\noindent
-Tier: Sets the fuel amount to zero for ships not in compliance with the NOx regulations inside the EU-NECAs from 2021 onward.
+\end{equation}\\
+\textit{NECAs regulations: }Sets the fuel amount to zero for ships not in compliance with the NOx regulations inside the EU-NECAs from 2021 on-ward.
 \begin{equation}
    fa_{t,s} = 0, \forall t \in T_{\geq tlecayr-T_0},\forall s \in NT \label{eq:tier}
 \end{equation}
 
+
 \subsection{Data}
 \label{subsec:Dat}
-The nomenclature used in the tables in the following sections is given in the nomenclature list.
-\glsdisablehyper
-\glsaddall
-\begin{table*}[htb] 
-\renewcommand\tablename{Nomenclature list}
-\begin{mdframed}
-\footnotesize{
-\begin{multicols}{2}
-\printglossary[style=tree,type=b]
-\end{multicols}
-}
-\end{mdframed}
-\caption{}
-\end{table*}
+The fuel and ship data tables contain both, information about the status-quo of the Danish maritime industry and future investment options for alternative means of shipping. For fuel data the unique identifier is the fuel type, for ship data it is ship type. Ship types can use the same fuel type, but then use a different engine type (IC, FC, EM).
 
 \subsubsection{Fuel data}
-The set of fuel parameters ranges from fuel and infrastructure costs, over well-to-tank CO2e emission operation factors and sulphur content to the fuel infrastructure's technical lifetime. Regarding fuel costs, it is assumed that the bunker index prices of the currently available fuels (HFO, MDO, BDO) comprise all upstream cost components from well-to-tank. Thus, the fixed costs of the supply chain are already incorporated (e.g. sufficient fuel supply infrastructure). In contrast to new fuel technologies, their costs are divided into fixed and variable shares. If upgrading facilities are required, they are assumed to be placed directly at the port. In that way, no additional fuel transport infrastructure needs to be build. Further, upon consultation with the Danish transmission grid operator EnergiNet, the gas transmission grid is capable to meet any conceivable additional fuel transport demand.
+The set of fuel technology parameters ranges from fuel and infrastructure costs, over well-to-tank CO2e emission operation factors and sulphur contents to the fuel infrastructure's technical lifetimes (\cref{tab:fuel_data}). Regarding fuel costs, it is assumed that the bunker index prices of the currently available fuels (HFO, MDO, BDO) comprise all upstream cost components from well-to-tank. Thus, the fixed costs of the supply chain are incorporated (e.g. sufficient supply infrastructure). In contrast, new fuel technology costs are divided into fixed and variable components, since sufficient supply infrastructure has not been installed. When upgrading facilities are required, they are assumed to be placed directly at the port, so that additional fuel transport infrastructure is eluded. Further, upon consultation with Danish transmission grid operator EnergiNet, the gas transmission grid is assumed to cope with any conceivable additional demand for natural or upgraded bio-gas transport.
 \begin{table}[htb]
     \centering
     \resizebox{\textwidth}{!}{
@@ -330,25 +316,21 @@ The set of fuel parameters ranges from fuel and infrastructure costs, over well-
         BDO   & \multicolumn{2}{c}{24.240} & 0         & 0.030            & 0.1498   & 40   & \cite{SSI2018,Bengtsson2012}    \\
         LNG   & 4.888    & 0.139    & 6.600            & 0.033            & 0.0500   & 36   & \cite{EnerginNet2018,Gilbert2018,BRYNOLF2014,Andersson2015}    \\
         LBG   & 27.847   & 1.599    & 0                & 0.130            & 0.0750   & 25   & \cite{Brynolf2018,Bengtsson2012}    \\
-        H2    & 20.885   & 1.199    & 0                & 0                & 0.       & 25   & \cite{Brynolf2018}    \\
+        H2    & 20.885   & 1.199    & 0                & 0                & 0        & 25   & \cite{Brynolf2018}    \\
         CH3OH & 29.240   & 1.679    & 0                & 0.042            & 0.0912   & 25   & \cite{Brynolf2018,BRYNOLF2014}    \\
         NH3   & 26.803   & 1.802    & 0                & 0                & 0        & 20   & \cite{Morgan2017}    \\
         ELEC  & 13.889   & 2.929    & 0                & 0                & 0        & 20   & \cite{Vree2008}    \\
         \bottomrule
     \end{tabular}}
-    \caption[Fuel type data]{Fuel type data for each specific parameter.}
+    \caption[Fuel type data]{Fuel type data for each parameter.}
     \label{tab:fuel_data}
 \end{table}
 
 \subsubsection{Ship data}
-Compared to the fuel's category set, the ship's set is more divers. This is because of technical information needed to distinguish the different ship types and applying relevant regulative and technical constraints. However, just like the fuels, it consists of fuel specific parameters. They range from transport supply, over investment costs to the tank-to-propeller CO2e emission operation factors. Furthermore the initial fuel amount per ship of \cref{tab:fuel_consumption} is provided. The transport demand in the first year is equal to the sum-product of fuel amount and transport supply. Future fuel amounts are calculated by the model.
-\par
-Technical categories complement the ones related to the fuel. First, there is the range (discussed in \cref{sec:distances}), which is unlimited for all but full electric ships (see \cref{fig:distances_short_long}). It is followed by the ship's technical lifetime. For old ships, the average remaining lifetime is 11 years. If the same technical lifetime as for new ships would apply, the average age of the current fleet is 14 years. This is the sum of the average age in 2016 of the three main Danish cargo ship types bulker, containers and tankers listed in \cite[Tab.~2.2, p.~27]{UNCTAD2017} and combined with their market shares shown in \cref{fig:cargo_type}. 
-Information, whether a refit is possible and towards which technology, Tier level and scrubber status complete the set.
-\par
-Refits are build upon existing ships, which is why the corresponding ship costs are very low. Ships with internal combustion engines that run on HFO can be refitted with scrubber. When operating with a scrubber SOx emissions are reduced. However, the downside is a loss in transport supply capability, since the scrubber impairs the ship's energy efficiency. Refit of old ship with an internal combustion engine that use MDO towards the use of BDO is simply a fuel switch and has no associated major investment costs. Note, that the refit measures have no effect on the ships lifetime. The model simply transfers the residual lifetime of the old ship to the one refitted. Consequently, the lifetime provided for refit ships in \cref{tab:ship_data} is the maximum value.
-\par
-Based on the NOx regulations in \cref{tab:eca_regs}, Tier levels are decisive for ship operations in the NECAs. All new-build ships have the Tier 3 rating as they are being constructed later than 2016. In contrary, old ships have no or a Tier rating of 1, as the average construction year was in 2002. Here, no rating is selected. Hence, old ships will either be scrapped after 2021 or need a refit to gain a higher rating.
+Compared to the fuel's category set, the ship's set is more divers. This is because of technical information needed to distinguish the different ship types and applying relevant regulative and technical constraints. The fuel specific parameters range from transport supply, over investment costs to the tank-to-propeller CO2e emission operation factors. Further, initial fuel amounts per ship type are provided (see \cref{tab:ship_data}). Transport demand in the first year is equal to the sum-product of fuel amount and ship specific transport supply, whilst future fuel amounts are calculated by the model. Technical categories complement the parameter set. Firstly, the sailing range classification, which is unlimited for all but full electric ships. It is followed by the ship's technical lifetime. For old ships, the average remaining lifetime is 11 years. as the average age of the current fleet is 14 years, when considering the three main Danish cargo ship types bulker, containers and tankers listed in \cite[Tab.~2.2, p.~27]{UNCTAD2017} and combined with their market shares based on own assumptions with regard to cargo types. Information about refit possibility, Tier rating and scrubber installation complete the set.
+
+
+Refits are build upon existing ships. Ship with internal combustion engines that run on HFO can be refitted with scrubber. When operating with a scrubber SOx emissions are reduced. However, the downside is a loss in transport supply capability, since the scrubber impairs the ship's energy efficiency. Refitting old ships with an internal combustion engine towards the use of BDO has no associated major investment costs. Note, that the refit measures have no effect on the ships lifetime. The model simply transfers the residual lifetime of the old ship to the one refitted. Consequently, the technical lifetime provided for refitted ships in \cref{tab:ship_data} is just the maximum value. Based on the IMO's NOx regulations, Tier levels are decisive for ship operations in the NECAs. All new-build ships have the Tier 3 rating as they are being constructed later than 2016. In contrary, old ships have no or a Tier rating of 1, as the average construction year was in 2002. Here, no rating is selected. Hence, old ships will either be scrapped after 2021 or need a refit to gain a higher rating.
 \begin{table}[htb]
     \centering
     \resizebox{\textwidth}{!}{
@@ -383,8 +365,9 @@ Based on the NOx regulations in \cref{tab:eca_regs}, Tier levels are decisive fo
 \end{table}
 
 \subsubsection{Emission budget}
-- 1.2 Mt CO2e in 2016 is derived from the fuel specific emission operation factors, multiplied by total fuel consumed in that year.
-The CO2e emission budget sets a limit to the total allowed GHG emissions to air over full temporal scope. For Denmark it is derived from the global emission budget estimate by the IPCC \cite[Tab.~SPM.3, RCP2.6]{Stocker2013} and its corresponding global maritime transport share, provided by the ICCT \cite{Olmer2017}. The lower limit of 510 Gt of the RCP2.6 pathway is selected. Comparison of recent global maritime CO2e emissions from the 3rd IMO GHG Study with the Danish ones is displayed in \cref{tab:co2_emissions_2016}. Its relative share to the ICCT's global budget leads to the Danish CO2e budget. With this budget the current emission level could be held constant for another 15 years and is more ambitious than just a linear decrease of emissions from 2016 to 2050 as illustrated in \cref{fig:em_budget}. Comparing maritime emissions from 2012 and 2016 can be considered a conservative estimation, as the global maritime trade volume has increased over this time gap \cite[Tab.~1.3,~p.~5]{UNCTAD2017}. Thus, the Danish budget would be lower by the same proportion.
+The CO2e emission budget sets a limit to the total allowed GHG emissions to air over the full temporal model scope. The Danish budget is derived from a global emission budget estimate by the IPCC \cite[Tab.~SPM.3, RCP2.6]{IPCC2013} and the global maritime budget share, provided by the ICCT \cite{Olmer2017}.
+
+Comparison of global maritime CO2e emissions in 2012 with the Danish emissions in 2016 and its application to the global maritime budget leads to the Danish GHG budget. The absolute level of Danish cargo shipping emissions of 1.2 Mt CO2e in 2016 is derived from the fuel specific emission operation factors, multiplied by total fuel consumed in that year. Comparing maritime emissions from 2012 and 2016 can be considered a conservative estimation, as global maritime trade volume has increased over this period \cite[Tab.~1.3,~p.~5]{UNCTAD2017}. Thus, the Danish budget would be lower by the same proportion. Keeping this emission level constant would deplete the budgets within the next 15 years and is more ambitious than just a linear decrease of emissions from 2016 to 2050.
 \begin{table}[htb]
     \centering
     \begin{tabular}{llrr}
@@ -406,10 +389,11 @@ The CO2e emission budget sets a limit to the total allowed GHG emissions to air 
 
 \subsection{Scenarios}
 \label{subsec:Sce}
+In general, all scenarios are a manitpulation of the reference scenario, where one or more parameters are changed in a ceteris paribus manner.
+
 - Scenario description, general approach.
 
-\subsubsection{Scenario characteristics and data}
-- Describing the manipulation of reference data\\
+Scenario characteristics and data: Describing the manipulation of reference data\\
 The scenario data set consists of fuel rates, ship rates and regulative limits. Assuming that model parameters are not necessarily constant over all model time steps some parameters are made subject to variation. The variations are given as the total percentage change between 2016 and 2050. This difference is translated into a fixed annual changing rate. Therefore, the change is not linear but exponential. In the pre-processing, time variable data frames are created for each affected parameter. The reference scenario provides the baseline rates and limits. When a different scenario is calculated, the final value in 2050 of a selected parameter can be alternated by any percentage. Though, the minimum threshold is -100 \%, that would correspond to a reduction towards zero costs or no limitations. Where appropriate, changing rates are clustered, due to market coupling effects. E.g. in the reference scenario the fuel costs of all electro-fuels change with the same rate.
 \\
 - Fuel and infrastructure costs: -20 \% based on \cite[fig.~6,~p.~13]{Brynolf2018}\\
@@ -419,8 +403,7 @@ The scenario data set consists of fuel rates, ship rates and regulative limits. 
 - Carbon emission operation factors CO2 and CH4: -10 \% \cite[tab.~51,~p.~282]{Smith2014}\\
 
 
-\subsubsection{Scenario overview}
-- Give a scenario overview: table with name description, manipulated parameters...
+Scenario overview: Give a scenario overview: table with name description, manipulated parameters...
 \begin{table}[thb]
     \centering
     \resizebox{\textwidth}{!}{%
@@ -430,7 +413,7 @@ The scenario data set consists of fuel rates, ship rates and regulative limits. 
         \midrule
         REF     & Reference scenario, based on literature & - \\
         REF(mp) & Reference scenario  + methane leakage phaseout & em \\
-        BAU     & Business as usual, frozen policy & eb, et \\
+        BAU     & Business as usual & eb, et \\
         IMO     & International Maritime Organization & eb, et\\
         TDV     & Transport demand variation & tdtotal \\
         BATW    & Cost variation of battery and wind & cf, ci, cs \\
@@ -456,7 +439,7 @@ The scenario data set consists of fuel rates, ship rates and regulative limits. 
 
 \autoref{fig:BAU} displays the fuel consumption and cumulative CO$_2$-equivalent emissions in the business as usual scenario (BAU). Although SOx- and NOx-restriction area applied, no major change in fuel usage can be detected. If no carbon budget is applied, scrubbers instead of fuel switch are the most cost-efficient solution. Applying the IMO goal to halve climate emissions of shipping in 2050 of the IMO does not lead to significant changes except a minor switch to biodiesel instead of heavy fuel oil (see \autoref{fig:IMO}). In comparison, the climate emission budget restriction in the reference scenario  results in a significant fuel switch: Mainly hydrogen in fuel cells and biodiesel with scrubber in internal combustion engines are chosen (see \autoref{fig:REF}). The comparison shows, that without any kind of climate emission restriction, the emissions are twice as high and the IMO plans do not have a significant impact. 
 
-\begin{figure}[htb]
+\begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/BAU_fuels_emissions.pdf}
     \caption{Fuel consumption (y-axis left) and cumulative emissions (y-axis right) in the Business-as-usual scenario without carbon budget}
@@ -464,7 +447,7 @@ The scenario data set consists of fuel rates, ship rates and regulative limits. 
     % TODO: Figure einfügen und am besten auf einer zweiten y-Achse die kumulativen Emissionen reinbringen. Die fuels vll. einfach in % angeben, falls das mit den 16PJ nicht mehr herauszubekommen ist.
 \end{figure}
 
-\begin{figure}[htb]
+\begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/IMO_fuels_emissions.pdf}
     \caption{Fuel consumption (y-axis left) and cumulative emissions (y-axis right) in the IMO scenario, applying the climate emission target of the International Maritime Organsiation for 2050}
@@ -472,7 +455,7 @@ The scenario data set consists of fuel rates, ship rates and regulative limits. 
     % TODO: Figure einfügen und am besten auf einer zweiten y-Achse die kumulativen Emissionen reinbringen. Die fuels vll. einfach in % angeben, falls das mit den 16PJ nicht mehr herauszubekommen ist.
 \end{figure}
 
-\begin{figure}[htb]
+\begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/RS_fuels_emissions.pdf}
     \caption{Fuel consumption (y-axis left) and cumulative emissions (y-axis right) in the Reference scenario with a limited carbon budget}
@@ -483,7 +466,7 @@ The scenario data set consists of fuel rates, ship rates and regulative limits. 
 % REF compared to REF methane leakage?
 The comparison between the REF scenario with a methane leakage phase out scenario (see \autoref{fig:RS_MP} illustrates the impact, methane emissions have on the possible application of LNG and LBG in a climate emission reduction regime.
 
-\begin{figure}[htb]
+\begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/RS_MP_fuels_emissions.pdf}
     \caption{Fuel consumption (y-axis left) and cumulative emissions (y-axis right) assuming methane leakage phase-out}
@@ -504,9 +487,9 @@ For LBG, the development of the methane leakage problem is of outstanding import
 % BATW has to be decreased significantly, but the conditions applied were rather unfavorable for BATW.
 Sailing cargo ships, driven by a combination of wind and electricity from batteries seem to only be cost efficient in case of very strong drops in costs. However, the influence factors have more dimensions than just the pure battery and ship costs. In this model, it is assumed that one third of the propulsion is done by electricity. For long distance cargo, that mainly has to use the engine for manoeuvring into and out of the harbour, the wind share and potentially additional solar input can be significantly increased and thus the required battery and electricity costs reduced.
 
-\begin{figure}[htb]
+\begin{figure}[t]
     \centering
-    \includegraphics[width=\textwidth]{figures/costVariation.pdf}
+    \includegraphics[width=.75\textwidth]{figures/costVariation.pdf}
     \caption{Total fuel shares from 2016-2050 (y-axis) in relation to different cost range changes (x-axis) compared to the reference case}
     \label{fig:costVariation}
     % TODO: Figure einfügen mit ausfuehrlicheren Fuel Namen
@@ -515,21 +498,37 @@ Sailing cargo ships, driven by a combination of wind and electricity from batter
 % Compare all scenarios: Fuel composition total and 2050
 For comparison, the total fuel use of all scenarios for 2016-2050 is displayed in \autoref{fig:AllFuelTotal} and the fuel composition in the target year 2050 in \autoref{fig:AllFuel2050}. A general efficiency increase can be seen for all carbon budget scenarios. Due to higher operational tank-to-propeller efficiency and thus a higher Tkm/GJfuel - rate, less fuel is applied in the carbon budget scenarios. Except the transport demand scenario all supply the same transport demand.
 
-\begin{figure}[htb]
+\noindent
+\begin{minipage}[t]{0.49\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{figures/AllFuelTotal.pdf}
-    \caption{Total fuel use from 2016-2050 for all scenarios}
+    \captionsetup{justification=centering}
+    \captionof{figure}{Total fuel use from 2016-2050}
+    \includegraphics[width=.95\textwidth]{figures/AllFuelTotal.pdf}
     \label{fig:AllFuelTotal}
-    % TODO: Figure einfügen mit ausfuehrlicheren Fuel Namen
-\end{figure}
-
-\begin{figure}[htb]
+\end{minipage}
+\begin{minipage}[t]{0.49\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{figures/AllFuel2050.pdf}
-    \caption{Fuel composition in 2050 for all scenarios}
+    \captionsetup{justification=centering}
+    \captionof{figure}{Fuel composition in 2050}
+    \includegraphics[width=.95\textwidth]{figures/AllFuel2050.pdf}
     \label{fig:AllFuel2050}
-    % TODO: Figure einfügen (die hab ich bisher noch nicht gesehen, hoffe die ist nicht kompliziert zu machen?) EVENTUELL BEIDE GRAFIKEN NEBENEINANDER UND DAMIT IN EINE PACKEN
-\end{figure}
+\end{minipage}\\[0.75cm]
+
+% \begin{figure}[htb]
+%     \centering
+%     \includegraphics[width=.75\textwidth]{figures/AllFuelTotal.pdf}
+%     \caption{Total fuel use from 2016-2050 for all scenarios}
+%     \label{fig:AllFuelTotal}
+%     % TODO: Figure einfügen mit ausfuehrlicheren Fuel Namen
+% \end{figure}
+
+% \begin{figure}[htb]
+%     \centering
+%     \includegraphics[width=.75\textwidth]{figures/AllFuel2050.pdf}
+%     \caption{Fuel composition in 2050 for all scenarios}
+%     \label{fig:AllFuel2050}
+%     % TODO: Figure einfügen (die hab ich bisher noch nicht gesehen, hoffe die ist nicht kompliziert zu machen?) EVENTUELL BEIDE GRAFIKEN NEBENEINANDER UND DAMIT IN EINE PACKEN
+% \end{figure}
 
 % Compare all scenarios: Costs - not sure if there should be a figure - maybe rather include the full table of results
 
