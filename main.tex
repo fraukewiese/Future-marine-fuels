@@ -387,23 +387,42 @@ Comparison of global maritime CO2e emissions in 2012 with the Danish emissions i
     \label{tab:dk_em_budget}
 \end{table}
 
+
 \subsection{Scenarios}
 \label{subsec:Sce}
-In general, all scenarios are a manitpulation of the reference scenario, where one or more parameters are changed in a ceteris paribus manner.
-
-- Scenario description, general approach.
-
-Scenario characteristics and data: Describing the manipulation of reference data\\
-The scenario data set consists of fuel rates, ship rates and regulative limits. Assuming that model parameters are not necessarily constant over all model time steps some parameters are made subject to variation. The variations are given as the total percentage change between 2016 and 2050. This difference is translated into a fixed annual changing rate. Therefore, the change is not linear but exponential. In the pre-processing, time variable data frames are created for each affected parameter. The reference scenario provides the baseline rates and limits. When a different scenario is calculated, the final value in 2050 of a selected parameter can be alternated by any percentage. Though, the minimum threshold is -100 \%, that would correspond to a reduction towards zero costs or no limitations. Where appropriate, changing rates are clustered, due to market coupling effects. E.g. in the reference scenario the fuel costs of all electro-fuels change with the same rate.
-\\
-- Fuel and infrastructure costs: -20 \% based on \cite[fig.~6,~p.~13]{Brynolf2018}\\
-- Fuel costs: 110 \% based on \cite[fig.~13,~p.~3]{JAE-KNY/MDA2017}\\
-- Ship costs: -40 to -75 \% based on \cite{Rex2017}\\
-- Transport supply: +15 \% \cite[tab.~51,~p.~282]{Smith2014}\\
-- Carbon emission operation factors CO2 and CH4: -10 \% \cite[tab.~51,~p.~282]{Smith2014}\\
 
 
-Scenario overview: Give a scenario overview: table with name description, manipulated parameters...
+\subsubsection{Scenario data}
+The scenario data set consists of fuel rates, ship rates and regulative limits. Assuming that model parameters are not necessarily constant over all time steps some parameters are subject to variation. The variations are given as the total percentage change between 2016 and 2050. This difference is translated into a constant annual changing rate. Therefore, the change is not linear but exponential. With this, time dependent parameters are created. The reference scenario provides the baseline rates and limits. When a different scenario is calculated, the final value in 2050 of a selected parameter can be alternated by any percentage. Though, the minimum threshold is -100 \%, that would correspond to a reduction towards zero costs or no limitations.
+
+\begin{table}[htb]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{lrcr}
+        \toprule
+        Modified Parameters & Change to 2050 & Affected Technologies & References \\
+        \midrule
+        ic  & -20   & LNG,LBG,H2,CH3OH,NH3,ELEC         & \cite[fig.~6,~p.~13]{Brynolf2018}     \\
+        cf  & 110   & HFO,MDO,BDO,LNG                   & \cite[fig.~13,~p.~3]{JAE-KNY/MDA2017} \\
+            & -20   & LBG,H2,CH3OH,NH3,ELEC             & \cite[fig.~6,~p.~13]{Brynolf2018}     \\
+        cs  & -40   & IC: LNG,LBG,H2,CH3OH,NH3          & \cite{Rex2017}                        \\
+            & -50   & FC: LNG,LBG,H2,CH3OH,NH3          & \cite{Rex2017}                        \\
+            & -75   & EM,WIND: ELEC                     & \cite{Rex2017}                        \\
+        ts  & +15   & All except old ships              & \cite[tab.~51,~p.~282]{Smith2014}     \\
+        ec  & -10   & IC: HFO,MDO,LNG; FC: LNG          & \cite[tab.~51,~p.~282]{Smith2014}     \\
+        em  & -10   & IC: HFO,MDO,BDO,LNG; FC: LNG,LBG  & \cite[tab.~51,~p.~282]{Smith2014}     \\
+        \bottomrule
+    \end{tabular}}
+    \caption{Scenario changing rates for fuel and ship specific parameters.}
+    \label{tab:ref_rates}
+\end{table}
+
+- ba: 0 to 40 \% from 2016 to 2050 \cite{DEA2016}\\
+- td 0 \% based on \cite[p.~18]{ITF2018}; \cite[p.~19]{Rex2017}
+
+\subsubsection{Scenario overview}
+In general, all scenarios are a manipulation of the reference scenario, where one or a cluster of parameters are changed in a ceteris paribus manner.
+Where appropriate, changing rates are clustered, due to market coupling effects. E.g. in the reference scenario the fuel costs of all electro-fuels change with the same rate. \cref{tab:scn_overview} gives a scenario overview with abbreviation description and manipulated parameters per scenario.
 \begin{table}[thb]
     \centering
     \resizebox{\textwidth}{!}{%
