@@ -138,7 +138,7 @@ Additionally to studies taking the meta-perspective, there is ongoing research a
 Looking at the regulative side, \cite{SHI2016} suggests a scheme of market-based measures that can be adopted by means of an international convention under the auspices of the IMO and the UNFCCC. This could be a global emission trading scheme including shipping and aviation \cite{Dessens2014}, while \cite{GRITSENKO2017} suggests polycentric governance \cite{},
 
 % Why it is so bad that shipping is underrepresented in the current discussion
-Although at least in the scientific discussion, the technical, economical and regulative options for shipping to take its share in the climate responsibility has risen, it is still under-represented in current discussions and studies assessing energy transformation, regarding its importance and urgency. Its importance is due to (1) the general efficiency of shipping compared to other means of transport (TODO:citeAndNumber), (2) large share in worldwide transported goods (TODO:number and cite) and (3) wide range of transport demand predictions. According to the upper bound of predictions future cargo transport demand would increase by (TODO:citeAndNumber), which would heavily increase emissions as well. However, other predictions even assume a decrease in transport demand due to less fossil fuel transported, as well as increased circular economy and effects from 3D-printing (TODO:cite).
+Although at least in the scientific discussion, the technical, economical and regulative options for shipping to take its share in the climate responsibility has risen, it is still under-represented in current discussions and studies assessing energy transformation, regarding its importance and urgency. Its importance is due to (1) the general efficiency of shipping compared to other means of transport (TODO:citeAndNumber), (2) large share in worldwide transported goods (TODO:number and cite) and (3) wide range of transport demand predictions. According to the upper bound of predictions future cargo transport demand would increase by (TODO:citeAndNumber), which would heavily increase emissions as well. However, other predictions even assume a decrease in transport demand due to less fossil fuel transported, as well as increased circular economy and effects from 3D-printing (\cite[p.~18]{ITF2018}).
 
 The urgency is due to (1) very long investment cycles of ships. This leads to the situation that decisions about the fuels to reach net zero emissions in 2050 are just around the corner. (2) Infrastructure requirements being essential and (3) the increasing interdependence between fuels applied in shipping and our land-based energy systems (electricity, heat, fuels for transport). Developments in shipping fuels will affect decisions on energy infrastructure on land and vice versa. Examples are refineries providing fuels for shipping but also land-based heavy transport, producing excess heat during the fuel production. Thus, options have to be intensively looked at and also optimised in combination with the rest of the energy system. 
 % Maybe add example biomass scarcity - where to use the scarce biomass best?
@@ -158,7 +158,10 @@ In \autoref{sec:Methods}, we describe the mathematical formulation (\autoref{sub
 \label{sec:Methods}
 % 1500-1750
 
+This section includes in order of appearance information about model scope (\cref{subsec:Scope}) and structure (\cref{subsec:Structure}), the mathematical formulation (\cref{subsec:Mat}), data used (\cref{subsec:Dat}) and scenarios conducted (\cref{subsec:Sce}).
+
 \subsection{Model Scope}
+\label{subsec:Scope}
 The model consists of different scopes and dimensions which mutually influence their degrees of freedom. The temporal scope of the model ranges from the initial year 2016 to 2050 with annual resolution. In the spatial dimension annually aggregated sailing routes to and from Danish ports are considered. In order to allocate the responsibility for negative external effects that, as for now, inevitably accompany the international maritime shipping in a fair manner to both trading entities countries, cross-border connections account with have of their total estimated distances (see \cref{fig:model_boundary}). A further dimension taken into account is the system's economy in terms of expenditures into infrastructure, ships and fuels. The model identifies identifies depreciated system components and undertakes investment decisions accordingly. Fixed investments are either for the fuel infrastructure or new ships, while the annual fuel amounts to supply the full fleet are considered variable. The technical dimension is set by the considered ship types, which are solely distinguished by their power systems as a combination of main engine and fuel type. All other ship specific design characteristics like hull-shapes or operational patterns (e.g. sailing speeds) are neglected. The complete set of ships available to the model can be found in \cref{tab:ship_data}. The emission dimension is composed of global and regional legislation on the one and GHG effective emissions on the other hand. SOx and NOx emissions are legally restricted by the Marpol Annex VI regulations 13 and 14 on global and regional scale \cite{IMO2008a,IMO2008b}. As for GHG emissions, CO2 and CH4 are regarded and subject to different limitations, depending on the scenario. In general, CO2e emissions are constraint by an overall budget and 2050 target that are derived from the IPCC's RCP2.6 pathway aiming at a maximum surface temperature increase of 1.5 degrees Celsius compared to pre-industrial levels \cite[p.~27]{IPCC2013}.
 
 \begin{figure}[htb]
@@ -169,6 +172,7 @@ The model consists of different scopes and dimensions which mutually influence t
 \end{figure}
 
 \subsection{Model Structure}
+\label{subsec:Structure}
 Technically, the model consists of two different components. Firstly, instances, secondly processes to manipulate instances. In the present case instances hold numerical and literal data in table format. Processes in turn are the formal operational instructions translated into a software language, here Python is used. The two components alternate throughout the model flow like a cascade. In the model box-flow in \cref{fig:model_boxflow} white boxes represent data instances, whereas the blue arrows represent processes. An entire model run for a selected scenario starts by loading the technology data, incorporating scenario specifications and creating the model input files. In the course of generating the model, these input files are translated into parameters and sets. The solver then calculates the model variables based on their degrees of freedom, which are determined by the the input data and the sense of the model objective. The results are stored again as data instances in the output directory. To allow for interpretations of the results, the post-processing provides edited graphical and tabular data.
 
 \begin{figure}[tbh]
@@ -183,8 +187,8 @@ Technically, the model consists of two different components. Firstly, instances,
 The problem is formulated in a linear, divisible manner, aiming to minimise the objective function. It is a stock model, initialised with data for the first time step and allows for investments in new technologies in the further course. Investment decisions are on the one hand forced and on the other limited by the model constraints that in general reflect legal frameworks and behaviour patterns of the investigated system. Since the objective's sense is the minimisation of the overall total system's costs \cref{eq:objective}, investments are interpreted as adverse, yet inevitable actions to cope with the constraint's demands, such as: Lowering CO$_2$e emissions to air, (over-)supplying the transport demand in each time step or scrapping ships. All model variable's domains are within non-negative real numbers, including zero $\left(R_{0}^{+}\right)$. The nomenclature used in the equations and table headers in the following sections is given in the nomenclature list.
 \glsdisablehyper
 \glsaddall
-\begin{table*}[thb] 
-\renewcommand\tablename{Nomenclature list}
+\begin{table*}[thb]
+%\renewcommand\tablename{Nomenclature list}
 \begin{mdframed}
 \footnotesize{
 %\begin{mdframed}[style=mdfexample1]
@@ -198,8 +202,8 @@ The problem is formulated in a linear, divisible manner, aiming to minimise the 
 \printglossary[style=tree,type=p]
 \end{multicols}
 }
-\end{mdframed}
-\caption{}
+\end{mdframed}\label{box:nomenclature}
+\caption*{Nomenclature list.}
 \end{table*}
 
 \subsubsection{Objective function}
@@ -322,7 +326,7 @@ The set of fuel technology parameters ranges from fuel and infrastructure costs,
         ELEC  & 13.889   & 2.929    & 0                & 0                & 0        & 20   & \cite{Vree2008}    \\
         \bottomrule
     \end{tabular}}
-    \caption[Fuel type data]{Fuel type data for each parameter.}
+    \caption[Fuel type data]{Fuel type data for each parameter (for abbreviations see the nomenclature list in \cref{box:nomenclature}).}
     \label{tab:fuel_data}
 \end{table}
 
@@ -360,7 +364,7 @@ Refits are build upon existing ships. Ship with internal combustion engines that
         WIND ELEC      & long  & 30     & 0      & 35.58       & 2,094.11 & 0                & 0                & no    &                & 3           & no     &  \\  
     \bottomrule
     \end{tabular}}
-    \caption[Ship type data]{Ship type data for each specific parameter.}
+    \caption[Ship type data]{Ship type data for each specific parameter (for abbreviations see the nomenclature list in \cref{box:nomenclature}).}
     \label{tab:ship_data}
 \end{table}
 
@@ -374,9 +378,9 @@ Comparison of global maritime CO2e emissions in 2012 with the Danish emissions i
         \toprule
          & Unit & CO2e emissions & References \\
          \midrule
-         Global budget & $\left[Gt\right]$ & 510 & \cite{IPCC2013} \\
+         Global budget & $\left[Mt\right]$ & 510000 & \cite{IPCC2013} \\
          Global maritime budget share & $\left[\%\right]$ & 3 & \cite{Olmer2017} \\
-         Global maritime budget & $\left[GT\right]$ & 15.3 &\\[1.5ex]
+         Global maritime budget & $\left[MT\right]$ & 15300 &\\[1.5ex]
          Global maritime emissions in 2012 & $\left[Mt\right]$ & 961 & \cite{Smith2014} \\
          Danish maritime emissions in 2016 & $\left[Mt\right]$ & 1.2 & \cite{Kristensen2012,Eurostat2018,Wisdom2017} \\
          Danish maritime emission share & $\left[\%\right]$ & 0.125 &\\[1.5ex]
@@ -390,17 +394,20 @@ Comparison of global maritime CO2e emissions in 2012 with the Danish emissions i
 
 \subsection{Scenarios}
 \label{subsec:Sce}
-
+In general, all scenarios are manipulations of the reference scenario's input parameters, where one or a cluster of parameters are changed in a ceteris paribus manner and by the same percentage. If appropriate, changing rates are clustered, due to market coupling effects, I.e. in the reference scenario the fuel costs of all electro-fuels are changed.
 
 \subsubsection{Scenario data}
-The scenario data set consists of fuel rates, ship rates and regulative limits. Assuming that model parameters are not necessarily constant over all time steps some parameters are subject to variation. The variations are given as the total percentage change between 2016 and 2050. This difference is translated into a constant annual changing rate. Therefore, the change is not linear but exponential. With this, time dependent parameters are created. The reference scenario provides the baseline rates and limits. When a different scenario is calculated, the final value in 2050 of a selected parameter can be alternated by any percentage. Though, the minimum threshold is -100 \%, that would correspond to a reduction towards zero costs or no limitations.
+The scenario data set consists of fuel and ship technology parameters and regulative limits. Assuming that model parameters are not necessarily constant over all time steps some parameters are subject to variation. The variations are given as the total percentage change between 2016 and 2050 (see \cref{tab:ref_rates}). This difference is translated into a constant annual changing rate. Therefore, the change is not linear but exponential. With this, time dependent parameters are created. Besides bio-fuel availability increases from 0 \% market share in 2016 to 40 \% in 2050, both compared to the total fuel consumption in 2016 (\cite{DEA2016}). The transport demand however stays constant based on \cite[p.~18]{ITF2018} and \cite[p.~19]{Rex2017}.
+\par
+The reference scenario provides the baseline rates and limits. When a different scenario is calculated, the final value in 2050 of a selected parameter can be alternated by any percentage. Though, the minimum threshold is -100 \%, that would correspond to a reduction towards zero costs or no limitations.
 
 \begin{table}[htb]
     \centering
     \resizebox{\textwidth}{!}{%
     \begin{tabular}{lrcr}
         \toprule
-        Modified Parameters & Change to 2050 & Affected Technologies & References \\
+        Modified & Percentage change & Affected Technologies & References \\
+        parameters & from 2016 to 2050 & & \\
         \midrule
         ic  & -20   & LNG,LBG,H2,CH3OH,NH3,ELEC         & \cite[fig.~6,~p.~13]{Brynolf2018}     \\
         cf  & 110   & HFO,MDO,BDO,LNG                   & \cite[fig.~13,~p.~3]{JAE-KNY/MDA2017} \\
@@ -413,22 +420,20 @@ The scenario data set consists of fuel rates, ship rates and regulative limits. 
         em  & -10   & IC: HFO,MDO,BDO,LNG; FC: LNG,LBG  & \cite[tab.~51,~p.~282]{Smith2014}     \\
         \bottomrule
     \end{tabular}}
-    \caption{Scenario changing rates for fuel and ship specific parameters.}
+    \caption{Change of fuel and ship specific parameters from 2016 to 2050 in the Reference scenario (for abbreviations see the nomenclature list in \cref{box:nomenclature}).}
     \label{tab:ref_rates}
 \end{table}
 
-- ba: 0 to 40 \% from 2016 to 2050 \cite{DEA2016}\\
-- td 0 \% based on \cite[p.~18]{ITF2018}; \cite[p.~19]{Rex2017}
-
 \subsubsection{Scenario overview}
-In general, all scenarios are a manipulation of the reference scenario, where one or a cluster of parameters are changed in a ceteris paribus manner.
-Where appropriate, changing rates are clustered, due to market coupling effects. E.g. in the reference scenario the fuel costs of all electro-fuels change with the same rate. \cref{tab:scn_overview} gives a scenario overview with abbreviation description and manipulated parameters per scenario.
+\cref{tab:scn_overview} gives a scenario overview with abbreviation description and manipulated parameters per scenario. In total 15 scenarios where conducted. The extent to which the respective scenario parameters are modified is stated alongside the results in \cref{sec:Results}.
+
 \begin{table}[thb]
     \centering
     \resizebox{\textwidth}{!}{%
     \begin{tabular}{lll}
         \toprule
-        Scenario & Description & Modified Parameters \\
+        Scenario & Description & Modified \\
+        & & parameters \\
         \midrule
         REF     & Reference scenario, based on literature & - \\
         REF(mp) & Reference scenario  + methane leakage phaseout & em \\
@@ -456,14 +461,13 @@ Where appropriate, changing rates are clustered, due to market coupling effects.
 
 % BAU compared to IMO, compared to REF
 
-\autoref{fig:BAU} displays the fuel consumption and cumulative CO$_2$-equivalent emissions in the business as usual scenario (BAU). Although SOx- and NOx-restriction area applied, no major change in fuel usage can be detected. If no carbon budget is applied, scrubbers instead of fuel switch are the most cost-efficient solution. Applying the IMO goal to halve climate emissions of shipping in 2050 of the IMO does not lead to significant changes except a minor switch to biodiesel instead of heavy fuel oil (see \autoref{fig:IMO}). In comparison, the climate emission budget restriction in the reference scenario  results in a significant fuel switch: Mainly hydrogen in fuel cells and biodiesel with scrubber in internal combustion engines are chosen (see \autoref{fig:REF}). The comparison shows, that without any kind of climate emission restriction, the emissions are twice as high and the IMO plans do not have a significant impact. 
+\autoref{fig:BAU} displays the fuel consumption and cumulative CO$_2$-equivalent emissions in the business as usual scenario (BAU) when no GHG regime is in place. Although SOx- and NOx-restriction area applied, no major change in fuel usage can be detected. If no carbon budget is applied, scrubbers instead of fuel switch are the most cost-efficient solution. Applying the IMO goal to halve climate emissions of shipping in 2050 of the IMO does not lead to significant changes except a minor switch to biodiesel instead of heavy fuel oil (see \autoref{fig:IMO}). In comparison, the climate emission budget restriction in the reference scenario  results in a significant fuel switch: Mainly hydrogen in fuel cells and biodiesel with scrubber in internal combustion engines are chosen (see \autoref{fig:REF}). The comparison shows, that without any kind of climate emission restriction, the total cumulative emissions are twice as high and the IMO plans do not have a significant impact. 
 
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/BAU_fuels_emissions.pdf}
     \caption{Fuel consumption (y-axis left) and cumulative emissions (y-axis right) in the Business-as-usual scenario without carbon budget}
-    \label{fig:BAU}
-    % TODO: Figure einfügen und am besten auf einer zweiten y-Achse die kumulativen Emissionen reinbringen. Die fuels vll. einfach in % angeben, falls das mit den 16PJ nicht mehr herauszubekommen ist.
+    \label{fig:BAU}.
 \end{figure}
 
 \begin{figure}
@@ -471,7 +475,6 @@ Where appropriate, changing rates are clustered, due to market coupling effects.
     \includegraphics[width=\textwidth]{figures/IMO_fuels_emissions.pdf}
     \caption{Fuel consumption (y-axis left) and cumulative emissions (y-axis right) in the IMO scenario, applying the climate emission target of the International Maritime Organsiation for 2050}
     \label{fig:IMO}
-    % TODO: Figure einfügen und am besten auf einer zweiten y-Achse die kumulativen Emissionen reinbringen. Die fuels vll. einfach in % angeben, falls das mit den 16PJ nicht mehr herauszubekommen ist.
 \end{figure}
 
 \begin{figure}
@@ -479,7 +482,6 @@ Where appropriate, changing rates are clustered, due to market coupling effects.
     \includegraphics[width=\textwidth]{figures/RS_fuels_emissions.pdf}
     \caption{Fuel consumption (y-axis left) and cumulative emissions (y-axis right) in the Reference scenario with a limited carbon budget}
     \label{fig:REF}
-    % TODO: Figure einfügen und am besten auf einer zweiten y-Achse die kumulativen Emissionen reinbringen. Die fuels vll. einfach in % angeben, falls das mit den 16PJ nicht mehr herauszubekommen ist.
 \end{figure}
 
 % REF compared to REF methane leakage?
@@ -490,7 +492,6 @@ The comparison between the REF scenario with a methane leakage phase out scenari
     \includegraphics[width=\textwidth]{figures/RS_MP_fuels_emissions.pdf}
     \caption{Fuel consumption (y-axis left) and cumulative emissions (y-axis right) assuming methane leakage phase-out}
     \label{fig:RS_MP}
-    % TODO: Figure einfügen und am besten auf einer zweiten y-Achse die kumulativen Emissionen reinbringen. Die fuels vll. einfach in % angeben, falls das mit den 16PJ nicht mehr herauszubekommen ist.
 \end{figure}
 
 % Demand variation - Cheapest?, Cost reduction bigger than transport reduction
@@ -511,7 +512,6 @@ Sailing cargo ships, driven by a combination of wind and electricity from batter
     \includegraphics[width=.75\textwidth]{figures/costVariation.pdf}
     \caption{Total fuel shares from 2016-2050 (y-axis) in relation to different cost range changes (x-axis) compared to the reference case}
     \label{fig:costVariation}
-    % TODO: Figure einfügen mit ausfuehrlicheren Fuel Namen
 \end{figure}
 
 % Compare all scenarios: Fuel composition total and 2050
@@ -533,21 +533,6 @@ For comparison, the total fuel use of all scenarios for 2016-2050 is displayed i
     \label{fig:AllFuel2050}
 \end{minipage}\\[0.75cm]
 
-% \begin{figure}[htb]
-%     \centering
-%     \includegraphics[width=.75\textwidth]{figures/AllFuelTotal.pdf}
-%     \caption{Total fuel use from 2016-2050 for all scenarios}
-%     \label{fig:AllFuelTotal}
-%     % TODO: Figure einfügen mit ausfuehrlicheren Fuel Namen
-% \end{figure}
-
-% \begin{figure}[htb]
-%     \centering
-%     \includegraphics[width=.75\textwidth]{figures/AllFuel2050.pdf}
-%     \caption{Fuel composition in 2050 for all scenarios}
-%     \label{fig:AllFuel2050}
-%     % TODO: Figure einfügen (die hab ich bisher noch nicht gesehen, hoffe die ist nicht kompliziert zu machen?) EVENTUELL BEIDE GRAFIKEN NEBENEINANDER UND DAMIT IN EINE PACKEN
-% \end{figure}
 
 % Compare all scenarios: Costs - not sure if there should be a figure - maybe rather include the full table of results
 
@@ -559,12 +544,21 @@ Derived from the cost differences for fuel, ship and infrastructure, a carbon pr
 The model code and most of the data references and pre-processing can also be applied for other countries, especially Europe. However, since shipping has a global perspective, the case study for Denmark already gives a good indication of the fuel shares chosen for a cost-optimal path to carbon neutrality in 2050 for the worldwide shipping. Conditions for shipping are similar, the basic parameters, technology, fuel and infrastructure costs are considered as world prices rather than reflecting local particularities. This is also reflected and validated by the similar CO$_2$e-cost range compared to other, worldwide studies. 
 
 % Why the mentioned costs are rather the upper end
-Compared to other sectors like electricity and heat, these mitigation costs per /ton CO$_2$e seem high, one has to consider several points. First, this is the upper bound of cost: Technologies considered are all applicable today, developments in other sectors applying similar fuel switch options could further increase costs, additional alternatives could evolve. Second, as shown in the demand reduction scenarios, any decrease in transport demand would save costs even beyond the proportional saving. This is due to not only fuel savings (proportional) but, also due avoided investments in new ships (disproportionate). And third, refits and hybrid solutions have not been considered to a great extent in the model functionality and could further decrease costs and ease the shift to different fuels.
+Compared to other sectors like electricity and heat, these mitigation costs per ton CO$_2$e seem high, one has to consider several points. First, this is the upper bound of cost: Technologies considered are all applicable today, developments in other sectors applying similar fuel switch options could further increase costs, additional alternatives could evolve. Second, as shown in the demand reduction scenarios, any decrease in transport demand would save costs even beyond the proportional saving. This is due to not only fuel savings (proportional) but, also due to avoided investments in new ships (disproportionate). And third, refits and hybrid solutions have not been considered to a great extent in the model functionality and could further decrease costs and ease the shift to different fuels.
+
 
 % Costs - what does that mean for the cargo cost
+Transport costs in the BAU scenario amount to roughly 3 EUR2016 per ton. For climate compatible pathways they are likely to more than double with around 6 to 7 EUR2016 per ton. Compared to \cite[p.~50]{UNCTAD2015} reporting average transport costs of around 5 EURO per ton with greater level of detail, results seem to be in an acceptable range. \cite[p.~55]{UNCTAD2015} states transport costs in developed countries are equal to 7 \% of the cargo's import value. For Denmark it would increase to approximately 13 \% for any renewable pathway.
+this would increase the specific shipping costs per ton by roughly 5 to 7 EUR2016 that corresponds to 6 \% of current average freight values
+
+Calculation:
+\begin{equation}
+    ?\% = \frac{6\frac{EUR}{t}}{\frac{3\frac{EUR}{t}}{7\%} - 3\frac{EUR}{t} + 6\frac{EUR}{t}} - 7\%
+\end{equation}
+
 
 % Co-benefits.
-Thus, costs could get lower for the transition, but the question is also whether to talk about mitigation costs. Co-benefits like reduced air pollution have not been quantified on a monetary basis in the model and were this not part of the optimisation. However, these could have essential health benefits, maybe even reaching mitigation gains instead of mitigation costs.
+Thus, costs could get lower for the transition, but the question is also whether to talk about mitigation costs. Co-benefits like reduced air pollution have not been quantified on a monetary basis in the model and were thus not part of the optimisation. However, these could have essential health benefits, maybe even reaching mitigation gains instead of mitigation costs.
 
 % Regulation / Recommendations
 The necessary transition will not happen under current market conditions. Regulation is required urgently to bring shipping on the pathway to carbon neutrality in 2050, in line with the Paris Agreement. A carbon budget for shipping worldwide, broken down to countries is a viable option to consider. Additionally research money for alternative fuels and technologies, as well as solving crucial questions on security, infrastructure and methane leakage issues are important contributions to implement the transition to climate neutral shipping in 2050. 
