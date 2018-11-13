@@ -42,6 +42,7 @@
 \usepackage{booktabs}
 \usepackage{caption}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%
 %% Elsevier bibliography styles
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -71,7 +72,7 @@
 %\usepackage{numcompress}\bibliographystyle{model6-num-names}
 
 %% `Elsevier LaTeX' style
-\bibliographystyle{elsarticle-num}
+\bibliographystyle{elsarticle-num-names}
 %%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
@@ -91,9 +92,22 @@
 \author[label1]{Frauke Wiese}
 \ead{frwi@dtu.dk}
 
+\author[label1]{Marie Muenster}
+\ead{maem@dtu.dk}
+
 \begin{abstract}
-This template helps you to create a properly formatted \LaTeX\ manuscript.
-\\
+% A concise and factual abstract is required. The abstract should state briefly the purpose of the research, the principal results and major conclusions. An abstract is often presented separately from the article, so it must be able to stand alone. For this reason, References should be avoided, but if essential, then cite the author(s) and year(s). Also, non-standard or uncommon abbreviations should be avoided, but if essential they must be defined at their first mention in the abstract itself.
+
+% purpose of the research
+The purpose of this research is the development of sustainable energy pathways for the Danish maritime cargo sector, which contribute to green house gas emission reductions by a fair share and finally become CO$_2$e-neutral in 2050. The achievement of carbon-neutrality in the shipping sector is of great importance for reaching the targets of the Paris Agreement.
+% principal results
+The modelling results indicate that either strong regulative carbon budgets or a carbon price of 350--450 \euro(2016)/t~CO$_2$e would be necessary to induce the urgent transition. This would double today's average cargo transport costs. However, the average import values would only increase by 6 to 8 \%.
+Regarding fuel technologies, hydrogen, methanol and ammonia are from a socio-economic cost perspective most compatible. Though, due to high cost uncertainties there is no clear winner.
+% major conclusions
+Liquefied natural gas as an alternative intermediate solution would only have a short window of opportunity, mainly because of leakage problems of methane causing high greenhouse gas emissions as well as high fuel and technology costs. If this gaseous fuel is based on renewable sources, the so-called LBG can only play a role with drastically reduced methane leakage.
+
+\vspace{2ex}
+
 This research did not receive any specific grant from funding agencies in the public, commercial, or
 not-for-profit sectors.
 \end{abstract}
@@ -113,32 +127,32 @@ Maritime transport\sep Marine fuels\sep Energy modelling\sep Emission reduction\
 % The journal covers research in mechanical engineering and thermal sciences, with a strong focus on energy analysis, energy modelling and prediction, integrated energy systems, energy planning and energy management.
 
 % What is required from the climate side and what does the IMO suggest so far
-The ambition to reach climate pathways with limited overshoot of 1.5~\degree C requires global net zero CO$_2$ emissions by 2050 \cite{IPCC2018}. This implies a massive reduction of fossil fuels in the energy system. Several studies based on energy system models have shown possible pathways to net zero emissions for the electricity supply from country to continents and the whole world (\cite{Climact2018} TODO:references) and also for the heat sector. Although transport is more challenging (\cite{Salvucci2018,Schafer2012} TODO:cite), in recent years an increasing amount of studies also includes pathways for this sector to net zero emissions in 2050 (TODO:cite). Though, the majority of scenarios leaves out a significant part of the transport emissions, namely international shipping (\cite{TATTINI2018} TODO:CITE?). Due to its international nature, appropriate governance is challenging \cite{GRITSENKO2017}. So far, countries leave out international shipping in their energy and climate plans, leaving the responsibility to the International Maritime Organisation (IMO). While -- to some extent -- progress has been made regarding sulphur emission reduction, their goal of at least 50\% reduction until 2050 of worldwide shipping \cite{IMO2018} is neither ambitious enough to reach the goals of the Paris Agreement, nor underpinned with measures and possible pathway descriptions \cite{Wan2018}.
+The ambition to reach climate pathways with limited overshoot of 1.5~\degree C requires global net zero CO$_2$ emissions by 2050 \cite{IPCC2018}. This implies a massive reduction of fossil fuels in the energy system. Several studies based on energy system models have shown possible pathways to net zero emissions for the electricity supply from country to continents and the whole world \cite{Climact2018} (TODO:references) and also for the heat sector. Although transport is more challenging \cite{Salvucci2018,Schafer2012} (TODO:cite), in recent years an increasing amount of studies also includes pathways for this sector to net zero emissions in 2050 (TODO:cite). Though, the majority of scenarios leaves out a significant part of the transport emissions, namely international shipping \cite{TATTINI2018} (TODO:CITE?). Due to its international nature, appropriate governance is challenging \cite{GRITSENKO2017}. So far, countries leave out international shipping in their energy and climate plans, leaving the responsibility to the International Maritime Organisation (IMO). While -- to some extent -- progress has been made regarding sulphur emission reduction, their goal of at least 50\% reduction until 2050 of worldwide shipping \cite{IMO2018} is neither ambitious enough to reach the goals of the Paris Agreement, nor underpinned with measures and possible pathway descriptions \cite{Wan2018}.
 
 % Concentration on sulphur etc. does not lead further, just concentrating on LNG is too shortsighted
-While liquefied Natural Gas (LNG) has mainly been in the focus as an alternative marine fuel \cite{IMO2016a,DNVGL2015} due to its advantage regarding sulphur, NO$_x$ and particle emissions, its possibility to also reduce climate impact of shipping has increasingly been questioned \cite{BRYNOLF2014b}. This is on the one hand due to its limited CO$_2$ emission benefit compared to oil \cite{DNVGL2014}. On the other hand, the implications for greenhouse gases depend on how the natural gas is extracted, processed, distributed, and used \cite{THOMSON2015}. According to IEA \cite{IEA2017}, average global gas methane leakage rate is almost 2~\% for natural gas. Looking at a global warming potential over a 20-year time frame, a leakage rate of 3-4~\% would already use up the climate benefit of natural gas compared to coal, over a 100-year time frame 6-7~\%. \citep{Hagos2018} states that a 1~\% methane slip from a dedicated LNG passenger vessel results, on average, in 8.5~\% increase in net GHG emissions. According to measurements and calculations based on \cite{Corbett2015,Stenersen2017}, methane slip of dual-fuel engines amounted to roughly 4~\% and of dedicated gas engines to 2.3~\% in 2016. Although LNG-specialised engines with high pressure direct injection could lower leakage rates even further, ship owners today prefer dual-fuel engines as they judge flexibility and the resale value of the ship more important than efficiency gains because climate impact is not reflected in any economic value for shipping. 
+While liquefied Natural Gas (LNG) has mainly been in the focus as an alternative marine fuel \cite{IMO2016a,DNVGL2015} due to its advantage regarding SO$_X$, NO$_X$ and particle emissions, its possibility to also reduce climate impact of shipping has increasingly been questioned \cite{BRYNOLF2014b}. This is on the one hand due to its limited CO$_2$ emission benefit compared to oil \cite{DNVGL2014}. On the other hand, the implications for greenhouse gases depend on how the natural gas is extracted, processed, distributed, and used \cite{THOMSON2015}. According to IEA \cite{IEA2017}, average global gas methane leakage rate is almost 2~\% for natural gas. Looking at a global warming potential over a 20-year time frame, a leakage rate of 3-4~\% would already use up the climate benefit of natural gas compared to coal, over a 100-year time frame 6-7~\%. \citet{HAGOS2018} state that a 1~\% methane slip from a dedicated LNG passenger vessel results, on average, in 8.5~\% increase in net GHG emissions. According to measurements and calculations based on \cite{Corbett2015,Stenersen2017}, methane slip of dual-fuel engines amounted to roughly 4~\% and of dedicated gas engines to 2.3~\% in 2016. Although LNG-specialised engines with high pressure direct injection could lower leakage rates even further, ship owners today prefer dual-fuel engines as they judge flexibility and the resale value of the ship more important than efficiency gains because climate impact is not reflected in any economic value for shipping. 
 In summary, the climate impact of both, LNG and methanol produced from natural gas is on the same order of magnitude as with use of heavy fuel oil \cite{BRYNOLF2014,DNVGL2018}. 
-Independent of the role of LNG, one can generally conclude, that the current concentration on reduction of sulphur, NO$_x$ and particle emissions in shipping is too short-sighted \cite{Gilbert2014}, since climate emissions from shipping are the bigger challenge \cite{FRIDELL2019}. More radical changes avoiding infrastructure lock-ins and exploring co-benefits of sulphur and carbon reduction are advisable.
+Independent of the role of LNG, one can generally conclude, that the current concentration on reduction of SO$_X$, NO$_X$ and particle emissions in shipping is too short-sighted \cite{Gilbert2014}, since climate emissions from shipping are the bigger challenge \cite{FRIDELL2019}. More radical changes avoiding infrastructure lock-ins and exploring co-benefits of sulphur and carbon reduction are advisable.
 
 % So, what else than LNG could one do? - Some studies with different fuels in the focus
 In line with that, the discussion about climate and other emission compatible future marine fuels has gained momentum in recent years. Indirect electrification via hydrogen or other synthetic fuels could be a promising option \cite{HORVATH2018} if relying on decarbonised inputs as well as bio-derived fuels under circumstances related to its scarcity \cite{Gilbert2014}. Also wind-energy in form of soft-sails, fixed-sails, Flettner Rotors or kite sails are options being tested \cite{IRENA2015}.
 % Specifically on hydrogen \cite{Raucci2017}. And methanol \cite{IMO2016b} with one big ferry already driving on it.
 
 % and studies with other measures to reduce emissions
-Another important aspect of reducing emissions additionally to fuel switch is energy efficiency measures, which are not completely exploited yet \cite{JAFARZADEH2014,CHI2018} and could be further improved applying e.g. waste heat recovery to a greater extent \cite{Baldi2015}. Furthermore, operational measures like slow steaming \cite{ARMSTRONG2013}, hull design and larger vessels \cite{LINDSTAD2015} can provide significant contributions to lowering emissions in shipping. However, as \cite{Olmer2017} show, shipping will need to move beyond energy efficiency interventions alone to achieve absolute emission reductions.
+Another important aspect of reducing emissions additionally to fuel switch is energy efficiency measures, which are not completely exploited yet \cite{JAFARZADEH2014,CHI2018} and could be further improved applying e.g. waste heat recovery to a greater extent \cite{Baldi2015}. Furthermore, operational measures like slow steaming \cite{ARMSTRONG2013}, hull design and larger vessels \cite{LINDSTAD2015} can provide significant contributions to lowering emissions in shipping. However, as \citet{Olmer2017} show, shipping will need to move beyond energy efficiency interventions alone to achieve absolute emission reductions.
 
 % But operational measures are not enough, we need a mixture.
-Calculating different pathways until 2050, \cite{LloydsRegister2016} come to the conclusion, that different options are possible, mostly depending on the availability of biomass, the development of transport demand and technology learning, but independent of the pathway, all require a substitute for fossil fuel since operational measures are not sufficient. A meta-study looking at measures and fuels of various studies \cite{Bouman2017}, comes to the conclusion, that a 75\% emission reduction is possible until 2050, but only with a combination of various measures. Looking at possible reduction targets, \cite{Smith2016} describe the pathway to zero emissions in 2035 in their most ambitious scenario. An initiative from the shipping industry itself is striving for zero emission vessels \cite{SSI2018}, also worked on by Lloyd Register \cite{LloydsRegister2017}. 
+Calculating different pathways until 2050, \cite{LloydsRegister2016} come to the conclusion, that different options are possible, mostly depending on the availability of biomass, the development of transport demand and technology learning, but independent of the pathway, all require a substitute for fossil fuel since operational measures are not sufficient. A meta-study looking at measures and fuels of various studies \cite{Bouman2017}, comes to the conclusion, that a 75\% emission reduction is possible until 2050, but only with a combination of various measures. Looking at possible reduction targets, \cite{Smith2016} describe the pathway to zero emissions in 2035 in their most ambitious scenario. An initiative from the shipping industry itself is striving for zero emission vessels \cite{SSI2018}, also worked on by \citet{LloydsRegister2017}. 
 
 % some studies rather for specific technologies, or on local level
 Additionally to studies taking the general and national perspective, there is ongoing research about specific applications, like e.g. batteries in offshore support vessels \cite{Lindstad2017}, specific fuel options, like e.g. slow steaming and wind propulsion \cite{MANDER2017} or specific areas like emission reduction in port \cite{WINNES2015}.
 % maybe add or for e.g. electric ferries in Denmark (TODO:cite)
 
 % Regulation
-Looking at the regulative side, \cite{SHI2016} suggests a scheme of market-based measures that can be adopted by means of an international convention under the auspices of the IMO and the UNFCCC. This could be a global emission trading scheme including shipping and aviation \cite{Dessens2014}, while \cite{GRITSENKO2017} suggests polycentric governance.
+Looking at the regulative side, \citet{SHI2016} suggests a scheme of market-based measures that can be adopted by means of an international convention under the auspices of the IMO and the UNFCCC. This could be a global emission trading scheme including shipping and aviation \cite{Dessens2014}, while \citet{GRITSENKO2017} suggests polycentric governance.
 
 % Why it is so bad that shipping is underrepresented in the current discussion
-Although -- at least in the scientific discussion -- the technical, economical and regulative options for shipping to take its share in the climate responsibility has risen, it is still under-represented in current discussions and studies assessing energy transformation, regarding its importance and urgency. Its importance is due to (1) the general efficiency of shipping compared to other means of transport (TODO:citeAndNumber), (2) large share in worldwide transported goods (TODO:number and cite) and (3) wide range of transport demand predictions. According to the upper bound of predictions future cargo transport demand would increase by (TODO:citeAndNumber), which would heavily increase emissions as well. However, other predictions actually assume a decrease in transport demand due to less fossil fuel transported, as well as increased circular economy and effects from 3D-printing (\cite[p.~18]{ITF2018}).
+Although -- at least in the scientific discussion -- the technical, economical and regulative options for shipping to take its share in the climate responsibility has risen, it is still under-represented in current discussions and studies assessing energy transformation, regarding its importance and urgency. Its importance is due to (1) the general efficiency of shipping compared to other means of transport (TODO:citeAndNumber), (2) large share in worldwide transported goods (TODO:number and cite) and (3) wide range of transport demand predictions. According to the upper bound of predictions future cargo transport demand would increase by (TODO:citeAndNumber), which would heavily increase emissions as well. However, other predictions actually assume a decrease in transport demand due to less fossil fuel transported, as well as increased circular economy and effects from 3D-printing \cite[p.~18]{ITF2018}.
 
 The urgency is due to (1) very long investment cycles of ships. This leads to the situation that decisions about the fuels to reach net zero emissions in 2050 are just around the corner. (2) Infrastructure requirements being essential and requiring long planning horizons and (3) the increasing interdependence between fuels applied in shipping and our land-based energy systems (electricity, heat, fuels for transport). Developments in shipping fuels will affect decisions on energy infrastructure on land and vice versa. Examples are future refineries providing fuels for shipping and land-based heavy transport, producing excess heat during the fuel production. Thus, options have to be intensively looked at and also optimised in combination with the rest of the energy system. 
 % Maybe add example biomass scarcity - where to use the scarce biomass best?
@@ -147,7 +161,7 @@ The urgency is due to (1) very long investment cycles of ships. This leads to th
 % closing gap between international and local studies
 This paper contributes to fill the gap between studies on inland shipping with a high level of detail but limited scope and international shipping in low resolution regarding technology and fuels. Our modelling approach takes emissions from international shipping into account but can be applied for single or several countries. It could thus be integrated in national energy and climate modelling scopes. Although we exemplary model Danish shipping, the methodology could be applied to other countries as well.
 % taking the different costs and emissions into account
-Unlike most other studies, data and model not only include costs for fuels and technologies but also infrastructure costs. Emission-wise, the whole picture is covered by taking well-to-propeller climate emissions including methane leakage into account while complying with current and future sulphur and NO$_x$ emission restrictions.
+Unlike most other studies, data and model not only include costs for fuels and technologies but also infrastructure costs. Emission-wise, the whole picture is covered by taking well-to-propeller climate emissions including methane leakage into account while complying with current and future SO$_X$ and NO$_X$ emission restrictions.
 % Several scenarios and threshold analysis regarding technology, fuel and infrastructure costs
 In this holistic approach, today's and possible future fuels and technologies are evaluated by an optimisation model, minimising total system costs while reaching net zero emissions in 2050. Due to high uncertainty regarding cost development, we perform a threshold analysis providing an overview of fuels-technology combinations likely to play a role in the future.
 
@@ -157,14 +171,14 @@ In \autoref{sec:Methods}, we describe the model scope (\cref{subsec:Scope}) and 
 \section{Materials and Methods}
 \label{sec:Methods}
 % 1500-1750
+All tables and figures in this section are based on the master's thesis by \citet{Thesis2018}.
 
 \subsection{Model Scope}
 \label{subsec:Scope}
 The framework developed for this study minimises total system costs in compliance with constraints like emission restrictions. It can be applied to illustrate potential pathways of maritime transport in annual resolution. Costs include fuel, ship and infrastructure costs and are seen from a socio-economic perspective. Since it is combined with a stock model of existing ships and infrastructure, components at the end of their lifetime are replaced by new endogenous model investments. So far, the model framework distinguishes ship-technology combinations by their main engine and fuel type and operational patterns like speed or ship design like hull-shapes are not considered.
-Regarding emissions, SO$_x$, NO$_x$, CO$_2$ and CH$_4$ limitations can be set.
+Regarding emissions, SO$_X$, NO$_X$, CO$_2$ and CH$_4$ limitations can be set.
 
-In our model application, the temporal scope chosen is until 2050 since this is the target year for reaching net zero emissions. Danish national and international cargo is included. \cref{fig:model_boundary} illustrates our approach for distributing international shipping to countries. The route and thus fuel usage and associated emissions of each trip from or to a Danish port is assigned to Danish shipping. Regarding SOx and NOx emissions, regional and global legal restrictions defined in Marpol Annex VI regulations 13 and 14 \cite{IMO2008a,IMO2008b} are applied. GHG emissions are summarised as CO$_2$e, including CO$_2$ and CH$_4$. Inline with \cite{IPCC2007}, the radiative forcing over a 100-year time horizon for CH$_4$ compared to CO$_2$ is 21 times higher. The overall budget is derived from the IPCC's RCP2.6 scenario \cite[p.~27]{IPCC2013}, which is further explained in \cref{subsec:em_budget}.
-\cref{tab:ship_data} illustrates the combination of technologies and fuels that are available in our model application striving for carbon neutral Danish shipping in 2050.
+In our model application, the temporal scope chosen is until 2050 since this is the target year for reaching net zero emissions. Danish national and international cargo is included. \cref{fig:model_boundary} illustrates our approach for distributing international shipping to countries. The route and thus fuel usage and associated emissions of each trip from or to a Danish port is assigned to Danish shipping. Regarding SO$_X$ and NO$_X$ emissions, regional and global legal restrictions defined in Marpol Annex VI regulations 13 and 14 \cite{IMO2008a,IMO2008b} are applied. GHG emissions are summarised as CO$_2$e, including CO$_2$ and CH$_4$. Inline with teh \citet{IPCC2007}, the radiative forcing over a 100-year time horizon for CH$_4$ compared to CO$_2$ is 21 times higher. The overall budget is derived from the IPCC's RCP2.6 scenario \cite[p.~27]{IPCC2013}, which is further explained in \cref{subsec:em_budget}. \cref{tab:ship_data} illustrates the combination of technologies and fuels that are available in our model application striving for carbon neutral Danish shipping in 2050.
 
 
 \begin{figure}[htb]
@@ -176,7 +190,7 @@ In our model application, the temporal scope chosen is until 2050 since this is 
 
 \subsection{Model Structure}
 \label{subsec:Structure}
-While the core components of the model are the equations describing the objective function of the optimisation as well as constraints, pre-processing of the input and post-processing of the output data constitute an important part of the modelling framework. \cref{fig:model_boxflow} illustrates the model flow with white boxes representing data instances, blue arrows processes. These scripts are written in Python with the pre-processing applying the data package \textit{panda}, the optimisation utilising the optimisation package \textit{pyomo} and the output processing additionally to pandas \textit{mathplotlib} for illustrating the results in plots. All scripts, raw and processed data including documentation are available on github \cite{BenBrahim2018} under the GNU general public license version 3.
+While the core components of the model are the equations describing the objective function of the optimisation as well as constraints, pre-processing of the input and post-processing of the output data constitute an important part of the modelling framework. \cref{fig:model_boxflow} illustrates the model flow with white boxes representing data instances, blue arrows processes. These scripts are written in Python with the pre-processing applying the data package \textit{panda}, the optimisation utilising the optimisation package \textit{pyomo} and the output processing additionally to pandas \textit{mathplotlib} for illustrating the results in plots. All scripts, raw and processed data including documentation are available on github \cite{GitHub2018}, where further development of the model takes place. To allow for reproducibilty of the presented results, \cite{BenBrahim2018} points to the version of data and code deployed for this research. Both are published under the GNU general public license version 3.
 
 \begin{figure}[tbh]
     \centering
@@ -187,7 +201,7 @@ While the core components of the model are the equations describing the objectiv
 
 \subsection{Mathematical Formulation}
 \label{subsec:Mat}
-The problem is formulated in a linear, divisible manner, aiming to minimise the objective function. It is a stock model, initialised with data for the first time step and allows for investments in new technologies in the further course. Investment decisions are on the one hand forced and on the other limited by the model constraints that in general reflect legal frameworks and behaviour patterns of the investigated system. Since the objective's sense is the minimisation of the overall total system's costs \cref{eq:objective}, investments are interpreted as adverse, yet inevitable actions to cope with the constraint's demands, such as: Lowering CO$_2$e emissions to air, (over-)supplying the transport demand in each time step or scrapping ships. All model variables domains are within non-negative real numbers, including zero $\left(R_{0}^{+}\right)$. The nomenclature used in the equations and table headers in the following sections is given in the nomenclature list.
+The problem is formulated in a linear, divisible manner, aiming to minimise the objective function. Model variables in first time step 2016 are initialised with data compiled for the current Danish shipping fleet. Later, constraints trigger the necessary investment decisions for new technologies and scrap existing ships not in compliance with legal obligations or emission targets. Since the objective's sense is the minimisation of the overall total system's costs \cref{eq:objective}, investments are interpreted as adverse, yet inevitable actions to cope with the constraint's demands, such as: Lowering CO$_2$e emissions to air, (over-)supplying the transport demand in each time step or scrapping ships. All model variables domains are within non-negative real numbers, including zero $\left(R_{0}^{+}\right)$. The nomenclature used in the equations and table headers in the following sections is given in the nomenclature list.
 \glsdisablehyper
 \glsaddall
 \begin{table*}[thb]
@@ -209,8 +223,8 @@ The problem is formulated in a linear, divisible manner, aiming to minimise the 
 \caption*{Nomenclature list.}
 \end{table*}
 
-\subsubsection{Objective function}
-The model's objective is the minimisation of the total system costs over all time steps and ship types. It comprises accumulated annual costs for fuel, infrastructure and ships. Fixed cost components account only with the annual added amounts and are multiplied with their respective lifetimes, since they are given to the model as annuities. The stock of fixed assets present in 2016 ($fainit_{t,s}$ in $T_0$) is not cost-effective and therefore subtracted from $CI$ and $CS$.
+\subsubsection{Model objective}
+The objective equation aims at minimising the systems total expenditures over all time steps and ship types. It comprises the sum of each years costs for fuel consumption, additional infrastructure as well as ship capacity. Costs for fixed assets -- fuel infrastructure and ships -- are given as annuities and account only with the annual added capacities. Besides, their existing amount in 2016 ($fainit_{t,s}$ in $T_0$) is not cost-effective and therefore subtracted from $CI$ and $CS$.
 \begin{subequations}
     \begin{align}
         min. &\sum_{\forall t \in T}\sum_{\forall s \in S}\left( CF_{t, s} + CI_{t, s} + CS_{t, s} \right)\label{eq:objective}\\
@@ -223,9 +237,9 @@ The model's objective is the minimisation of the total system costs over all tim
     \end{align}
 \end{subequations}
 
-\subsubsection{Fuel constraints}
-The following fuel constraints refer to the amounts of fuel per ship type in each time step. Investments in infrastructure, new-build and refitted ships consider exclusively the sum of the additional capacities per ship or infrastructure over the respective lifetime. Ships and infrastructure are separated, due to different costs and lifetimes, even if they belong to the same technology.\\\par\noindent
-\textit{Infrastructure capacity: }Sum of all added infrastructure capacity within the respective proceeded technical lifetime.
+\subsubsection{Constraints on fuel utilisation}
+Fuel constraints may apply for a selection of ship types and years in the model. With regard to infrastructure and ships, only the incremental capacity is cost effective while taking into account expiry dates of existing capacities. The expiry dates relate to the technical lifetimes, which differ among ships and infrastructure, also when of same type.\\\par\noindent
+\textit{Infrastructure capacity: }Defined as the sum of all additional fuel infrastructure build during the elapsed technical lifetime.
 \begin{subequations}
     \begin{align}
         faicap_{t,s} &\leq \sum_{\textbf{x}}^{t-1} \left( faiup_{x,s} \right), \forall t \in T_{>0}, \forall s \in S\label{eq:faicap}\\
@@ -234,11 +248,11 @@ The following fuel constraints refer to the amounts of fuel per ship type in eac
         x &= t - li_{s} + 1, \forall t > \left(li_{s} + T_0 - 1\right)
     \end{align}
 \end{subequations}\\
-\textit{Additional infrastructure: }Annual additional infrastructure capacity needed to (over-)supply the fleet.
+\textit{Additional infrastructure: }Additional fuel infrastructure in order to supply the fleet.
 \begin{equation}
     faiup_{t,s} \geq fa_{t,s} - faicap_{t,s}, \forall t \in T_{>0}, \forall s \in S\label{eq:faiup}
 \end{equation}\\
-\textit{Ship capacity: }Sum of all added ships within the respective proceeded technical lifetime.
+\textit{Ship capacity: }Defined as the sum of all additional shipping capacity build during the elapsed technical lifetime.
 \begin{subequations}
     \begin{align}
         fascap_{t,s} &\leq \sum_{\textbf{x}}^{t-1} \left(fasup_{x,s} \right), \forall t \in T_{>0}, \forall s \in S\label{eq:fascap}\\
@@ -247,41 +261,41 @@ The following fuel constraints refer to the amounts of fuel per ship type in eac
         x &= t - ls_{s} + 1, \forall t > \left(ls_{s} + T_0 - 1\right)
     \end{align}
 \end{subequations}\\
-\textit{Added ships: }Annual additional ship capacity needed to (over-)supply the transport demand.
+\textit{Additional ships: }Additional ships in order to supply the cargo transport required.
 \begin{equation}
     fasup_{t,s} \geq fa_{t,s} - fascap_{t,s}, \forall t \in T_{>0}, \forall s \in S\label{eq:fasup}
 \end{equation}\\
-\textit{Ship refit: }Defines for each time step the maximum fuel amount available for the refit of old ships.
+\textit{Refit capacity: }Defines for each year the old ship's capacity possible to refit.
 \begin{subequations}\label{eq:refitships}
     \begin{align}
     fa_{t,s} + fa_{t,r} - fa_{T_0, s} &\leq 0, \forall t \in T_{<\left(T_0+ls_{s}\right)}, \forall s, r \in RO\\
     fa_{t,s} + fa_{t,r} & = 0, \forall t \in T_{\geq\left(T_0+ls_{s}\right)}, \forall s, r \in RO
     \end{align}
 \end{subequations}\\
-\textit{Bio-fuel availability: }Defines for each time step the maximum bio-fuel availability.
+\textit{Bio-fuel capacity: }Defines for each year the upper limit of bio-fuel available.
 \begin{equation}
     \sum_{\forall s \in SB} \left(fa_{t,s} \right) - ba_{t} \leq 0, \forall t \in T\label{eq:biofuel}
 \end{equation}
 
-\subsubsection{Demand constraints}
-The following demand constraints refer to the amounts of fuel per transport demand type. These types are either defined by the sailing distance (short or long) and location (ECAs or not).\\\par\noindent
-\textit{Total transport demand: }The sum of all annual transport supply per ships must be greater or equal to the total transport demand in each time step.
+\subsubsection{Constraints on transport demand}
+Transport demand constraints may apply for a selection of ship types and years in the model, depending on the range category -- either short or long -- and the emission regulations -- in- or outside ECAs.\\\par\noindent
+\textit{Total transport demand: }Defines for each year that the transport supply per ships must be greater or equal to the total transport demand.
 \begin{equation}
     tdtotal_t \leq \sum_{\forall s \in S} \left( fa_{t,s} \cdot ts_{t,s}\right), \forall t \in T \label{eq:td_total}
 \end{equation}
-\textit{Short transport demand: }The amount of fuel available for short range shipping is limited by the transport demand of that range.
+\textit{Short transport demand: }Defines for each year the maximum transport supply of all ships categorised as short range.
 \begin{equation}
     tdshort_t \geq \sum_{\forall s \in SR} \left( fa_{t,s} \cdot ts_{t,s}\right), \forall t \in T \label{eq:td_short}
 \end{equation}
-\textit{Non-SECAs transport demand: }Defines the maximum amount of fuel available for shipping not in compliance with sulphur regulations, which comprises all transport demand outside of the SECAs.
+\textit{Non-SECAs transport demand: }Defines for each year the maximum transport supply of all ships only allowed for operation outside of the ECAs.
 \begin{equation}
     tdnoneca_t \geq \sum_{\forall s \in SNE} \left( fa_{t,s} \cdot ts_{t,s}\right), \forall t \in T \label{eq:td_noneca}
 \end{equation}
 
-\subsubsection{Emission constraints}
-The set of emission constraints imposes limitations to the extend of which certain fuel types are being deployed by the model, based on the CO2e budget and target as well as the legal restrictions defined by the IMO.
+\subsubsection{Constraints on emissions}
+Emission constraints may apply for a selection of ship types and years in the model. The constraint set imposes limitations to the extend of which certain fuel types are being deployed by the model, based on the CO2e budget and target as well as the legal restrictions defined by the IMO.
 \\\par\noindent
-\textit{Emission budget: }The emission budget must be greater or equal to the total systems well-to-propeller CO2e emissions.
+\textit{Emission budget: }Defines the amount of accumulated GHG emissions that cannot be exceeded by all ships.
 \begin{subequations}
     \begin{align}
     eb &\geq \sum_{\forall t \in T}\sum_{\forall s \in S}\left(EC_{t,s} + EM_{t,s} \right) \label{eq:co2ebudget}\\
@@ -290,15 +304,15 @@ The set of emission constraints imposes limitations to the extend of which certa
     EM_{t,s} &= fa_{t,s} \cdot em_{t,s}, \forall t \in T, \forall s \in S
     \end{align}
 \end{subequations}\\
-\textit{Emission target: }Limits the CO2e emissions from the selected year (2050) on-wards.
+\textit{Emission target: }Defines the amount of GHG emissions as of the target year that cannot be exceeded by all ships.
 \begin{equation}
     \frac{\sum_{\forall s \in S} \left(EC_{T_0,s}+EM_{T_0,s}\right)}{\sum_{\forall s \in S} \left(EC_{t,s}+EM_{t,s}\right)} \cdot et \geq 1, \forall t \in T_{\geq \left(etyr-T_0\right)}
 \end{equation}\\
-\textit{Global SOx regulations: }From the year 2020 on-wards the fuel amount of those ship types is set to zero, whose sulphur content exceeds the global sulphur limit and have no scrubber installed.
+\textit{Global SO$_X$ regulations: }Defines the set of ships as of 2020 prohibited to operate globally with respect to global SO$_X$ regulations.
 \begin{equation}
     fa_{t,s} = 0, \forall t \in T_{\geq slnonecayr-T_0}, \forall s \in SNG \label{eq:sox_global}
 \end{equation}\\
-\textit{NECAs regulations: }Sets the fuel amount to zero for ships not in compliance with the NOx regulations inside the EU-NECAs from 2021 on-ward.
+\textit{NO$_X$ regulations: }Defines the set of ships as of 2021 prohibited to operate within NECAs.
 \begin{equation}
    fa_{t,s} = 0, \forall t \in T_{\geq tlecayr-T_0},\forall s \in NT \label{eq:tier}
 \end{equation}
@@ -309,7 +323,7 @@ The set of emission constraints imposes limitations to the extend of which certa
 The fuel and ship data tables contain both, information about the status-quo of the Danish maritime industry and future investment options for alternative means of shipping. For fuel data, the unique identifier is the fuel type, for ship data it is ship type. Ship types can use the same fuel type but different engine types (IC, FC, EM).
 
 \subsubsection{Fuel data}
-The fuel parameters (\cref{tab:fuel_data}) include CO$_2$ and CH$_4$ emission factors (well-to-tank), sulphur content as well as cost parameters. The latter include fuel as well as infrastructure costs and its respective lifetime. For the fuels currently applied on a large scale (HFO, MDO, BDO), the bunker index prices are taken. It is assumed that these include all cost components from well to tank including fixed costs for a sufficient supply infrastructure. Thus, for these, infrastructure and fuel costs are not further specified. In contrast, new fuel technology costs are divided into fixed and variable components, since sufficient supply infrastructure has not been installed. When upgrading facilities are required, they are assumed to be placed directly at the port, so that additional fuel transport infrastructure is eluded. Further, upon consultation with Danish transmission grid operator EnergiNet, the gas transmission grid is assumed to cope with any conceivable additional demand for natural or upgraded bio-gas transport.
+The fuel parameters (\cref{tab:fuel_data}) include CO$_2$ and CH$_4$ emission factors (well-to-tank), sulphur content as well as cost parameters. The latter include fuel as well as infrastructure costs and its respective lifetime. For the fuels currently applied on a large scale (HFO, MDO, BDO), the bunker index prices are taken. It is assumed that these include all cost components from well to tank including fixed costs for a sufficient supply infrastructure. Thus, for these, infrastructure and fuel costs are not further specified. In contrast, new fuel technology costs are divided into fixed and variable components, since sufficient supply infrastructure has not been installed. For the necessary cases, fuel upgrading is assumed to be done at berth to elude additional grid investments. as the gas grid could handle any conceivable amount of natural or upgraded bio-gas transport.
 \begin{table}[htb]
     \centering
     \resizebox{\textwidth}{!}{
@@ -338,7 +352,7 @@ Ship-type input parameter (see \cref{tab:ship_data}) include emission factors, c
 
 The emission factors for CO$_2$ and CH$_4$ only include the tank-to-propeller emissions, since the upstream emissions are already covered by the fuel data. Regarding sulphur and NO$_x$ compliance, Tier rating defines if a ship complies with IMO NO$_x$ regulations and can thus be driven in a NECA. Old ships in the model do not have sufficient TIER rating and thus either have to be scrapped or refitted when the regulation entries into force in 2021. New built ships are generally assumed to have a TIER 3 rating. Scrubber installations are defined for each ship type.
 
-The average remaining lifetime for existing ships is 11 years since the average age of the current fleet is 14 years, when considering the three main Danish cargo ship types bulk, container and tanker listed in \cite[Tab.~2.2, p.~27]{UNCTAD2017}. Refitting an old ship to comply with new regulation can possibly be an option to reduce costs. A typical refit currently ongoing to comply with sulphur regulations is the installation of a scrubber for ships with internal combustion engines running on HFO. It has to be mentioned that this results in a reduction of specific transport per fuel due to efficiency losses caused by the scrubber. Ships with internal combustion engine using HFO can also be refitted for the use of BDO, which is relatively straightforward and thus does not imply much costs. These kind of refits do not extent the lifetime of the ship or technology, but just provide different functionality.
+The average remaining lifetime for existing ships is 11 years since the average age of the current fleet is 14 years, when considering bulk, container and tanker ship types that dominate the Danish cargo fleet \cite[Tab.~2.2, p.~27]{UNCTAD2017}. Refitting an old ship to comply with new regulation can possibly be an option to reduce costs. A typical refit currently ongoing to comply with sulphur regulations is the installation of a scrubber for ships with internal combustion engines running on HFO. It has to be mentioned that this results in a reduction of specific transport per fuel due to efficiency losses caused by the scrubber. Ships with internal combustion engine using HFO can also be refitted for the use of BDO, which is relatively straightforward and thus does not imply much costs. These kind of refits do not extent the lifetime of the ship or technology, but just provide different functionality.
 
 Regarding the range options, only full electric ships are restricted to radius of 500 nautical miles (926 km), all other have an unlimited range.
 
@@ -379,7 +393,7 @@ Regarding the range options, only full electric ships are restricted to radius o
 \label{subsec:em_budget}
 The remaining emission budget of CO$_2$e for the temporal scope of the model is a decisive constraint in the calculation. Since there are no agreed or standardised ways of attributing GHG emissions from international shipping to countries, we devised a method that distributes global shipping emissions to countries while keeping as a sum the global carbon budget. We apply a global emission budget estimate by the IPCC \cite[Tab.~SPM.3, RCP2.6]{IPCC2013}. The budget share assigned to shipping is derived from ICCT \cite{Olmer2017}.
 
-Comparison of global maritime CO$_2$e emissions in 2012 with the Danish emissions in 2016 and its application to the global maritime budget leads to the Danish GHG budget. The absolute level of Danish cargo shipping emissions of 1.2 Mt CO2e in 2016 is derived from the fuel specific emission operation factors, multiplied by total fuel consumed in that year. Comparing maritime emissions from 2012 and 2016 can be considered a conservative estimation, as global maritime trade volume has increased over this period \cite[Tab.~1.3,~p.~5]{UNCTAD2017}. Thus, the Danish budget would be lower by the same proportion. Keeping this emission level constant would deplete the budgets within the next 15 years and is more ambitious than just a linear decrease of emissions from 2016 to 2050.
+Comparison of global maritime CO$_2$e emissions in 2012 with the Danish emissions in 2016 and its application to the global maritime budget leads to the Danish GHG budget. The absolute level of Danish cargo shipping emissions of 1.2 Mt CO2e in 2016 is derived from the fuel specific emission operation factors, multiplied by total fuel consumed in that year. The relation of global maritime emissions in 2012 with the Danish in 2016 leads to rather over-estimated Danish budget since the global transport demand was increasing in that period \cite[Tab.~1.3,~p.~5]{UNCTAD2017}. Keeping the resulting emission level constant would deplete the budgets within the next 15 years and allows for less GHG emissions compared to a linear decrease from today until 2050.
 \begin{table}[htb]
     \centering
     \begin{tabular}{llrr}
@@ -395,14 +409,14 @@ Comparison of global maritime CO$_2$e emissions in 2012 with the Danish emission
          Danish budget & $\left[Mt\right]$ & \textbf{19.12} & \\
          \bottomrule
     \end{tabular}
-    \caption[Danish CO2e emission budget]{Derivation of CO2e emission budget from global to Danish level.}
+    \caption{Derivation of CO$_2$e emission budget from global to Danish level.}
     \label{tab:dk_em_budget}
 \end{table}
 
 
 \subsection{Scenarios}
 \label{subsec:Sce}
-In general, all scenarios are manipulations of the reference scenario's input parameters, where one or a cluster of parameters are changed in a ceteris paribus manner and by the same percentage. If appropriate, changing rates are clustered, due to market coupling effects, I.e. in the reference scenario the fuel costs of all electro-fuels are changed.
+In general, all scenarios are manipulations of the reference scenario's input parameters, where one or a cluster of parameters are changed in a ceteris paribus manner and by the same percentage. If appropriate, changing rates are clustered, due to market coupling effects, I.e. electro-fuels, as they all depend primary on electricity.
 
 \subsubsection{Scenario data}
 The development of cost and other parameters is decisive for the model results. To make the assumptions behind that transparent, the variations are expressed as percentage change rates from 2016 to 2050 (\cref{tab:ref_rates}). Derived from that number, annual changing rates are applied, thus, the respective parameter change over the whole time span of the model is exponential, not linear.
@@ -471,7 +485,7 @@ Other decisive parameters are bio-fuel availability and transport demand. Bio-fu
 
 % BAU compared to IMO, compared to REF
 
-\autoref{fig:BAU} displays the fuel consumption and cumulative CO$_2$-equivalent emissions in the business as usual scenario (BAU) when no GHG regime is in place. Although SOx- and NOx-restriction area applied, no major change in fuel usage can be detected. If no carbon budget is applied, scrubbers instead of fuel switch are the most cost-efficient solution. Applying the IMO goal to halve climate emissions of shipping in 2050 of the IMO does not lead to significant changes except a minor switch to biodiesel instead of heavy fuel oil (see \autoref{fig:IMO}). In comparison, the climate emission budget restriction in the reference scenario  results in a significant fuel switch: Mainly hydrogen in fuel cells and biodiesel with scrubber in internal combustion engines are chosen (see \autoref{fig:REF}). The comparison shows, that without any kind of climate emission restriction, the total cumulative emissions are twice as high and the IMO plans do not have a significant impact. 
+\autoref{fig:BAU} displays the fuel consumption and cumulative CO$_2$-equivalent emissions in the business as usual scenario (BAU) when no GHG regime is in place. Although SO$_X$- and NO$_X$-restriction area applied, no major change in fuel usage can be detected. If no carbon budget is applied, scrubbers instead of fuel switch are the most cost-efficient solution. Applying the IMO goal to halve climate emissions of shipping in 2050 of the IMO does not lead to significant changes except a minor switch to biodiesel instead of heavy fuel oil (see \autoref{fig:IMO}). In comparison, the climate emission budget restriction in the reference scenario  results in a significant fuel switch: Mainly hydrogen in fuel cells and biodiesel with scrubber in internal combustion engines are chosen (see \autoref{fig:REF}). The comparison shows, that without any kind of climate emission restriction, the total cumulative emissions are twice as high and the IMO plans do not have a significant impact. 
 
 \begin{figure}
     \centering
@@ -558,7 +572,7 @@ Compared to other sectors like electricity and heat, these mitigation costs per 
 
 
 % Costs - what does that mean for the cargo cost
-Transport costs in the BAU scenario amount to roughly 3 EUR2016 per ton cargo. For climate compatible pathways they are likely to more than double. With \cite[p.~50]{UNCTAD2015} reporting average transport costs of around 5 EUR per ton and providing a greater level of detail, results seem to be in an acceptable range. Further, \cite[p.~55]{UNCTAD2015} states that transport costs in developed countries are equal to 7 \% of the cargo's import value. Under the assumption of an equal share in BAU, cargo import values for the climate compatible pathways would increase by 6 to 8 \%.
+Transport costs in the BAU scenario amount to roughly 3 EUR2016 per ton cargo. For climate compatible pathways they are likely to more than double. With \cite[p.~50]{UNCTAD2015} reporting average transport costs of around 5 EUR per ton and including more detail, our results seem to be in an acceptably precise. Further, \cite[p.~55]{UNCTAD2015} states that transport costs in developed countries are equal to 7 \% of the cargo's import value. Under the assumption of an equal share in BAU, cargo import values for the climate compatible pathways would increase by 6 to 8 \%.
 
 % Calculation:
 % \begin{equation}
@@ -581,7 +595,7 @@ The necessary transition will not happen under current market conditions. Regula
 % only draft until now!
 The achievement of CO$_2$-neutrality in the shipping sector is of great importance for reaching the targets of the Paris Agreement. Although this goal is underrepresented in the current discussion, this study shows, that it is possible for the Danish part of international shipping to become CO$_2$-neutral until 2050 with existing technologies. Regarding fuels, hydrogen, methanol and ammonia are from a socio-economic cost perspective the most compatible. Due to high uncertainties regarding future cost developments and safety requirements (esp. ammonia), there is no clear winner. Regarding technologies, fuel cells are chosen for these fuel options, the decisive parameter being the higher fuel efficiency. Although LNG is the fuel option most prominently discussed as an alternative today, it would only have a short window of opportunity, mainly because of leakage problems of methane causing high greenhouse gas emissions as well as high fuel and technology costs. If this gaseous fuel is based on renewable sources, the so-called LBG can only play a role if methane leakage can be drastically reduced until 2050. The option of cargo-ships driven by a mixture of wind and electricity stored in batteries could not adequately be represented in the model setting. The evaluation of their role would need a further refinement of the calculations.
 %Although additional conditions for the future application of fuel for shipping like safety issues or infrastructure decisions are not reflected in the model, ...
-The presented modelling approach indicates that either strong regulative carbon budgets or a carbon price of 350--450 \euro/t~CO$_2$e would be required to induce the necessary changes for a carbon neutral Danish shipping in 2050. This would double today's average cargo transport costs. However, due to the low share of transport cost on the value of transported goods, the average transported good would only increase by 6\% on average. This can be considered as the upper limit, since new fuel possibilities not reflected in this study might evolve.
+The presented modelling approach indicates that either strong regulative carbon budgets or a carbon price of 350--450 \euro/t~CO$_2$e would be required to induce the necessary changes for a carbon neutral Danish shipping in 2050. This would double today's average cargo transport costs. However, due to the low share of transport cost on the value of transported goods, the average transported good would only increase by 6 to 8 \%. This can be considered as the upper limit, since new fuel possibilities not reflected in this study might evolve.
 
 \section*{References}
 
