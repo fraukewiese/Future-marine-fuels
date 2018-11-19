@@ -79,7 +79,8 @@
 
 \begin{frontmatter}
 
-\title{Future Marine Fuels - A Danish Case Study on Climate Compatible Energy Pathways}
+\title{Pathways to Climate Neutral Shipping - A Danish Case Study}
+
 %\tnotetext[mytitlenote]{Fully documented templates are available in the elsarticle package on %\href{http://www.ctan.org/tex-archive/macros/latex/contrib/elsarticle}{CTAN}.}
 
 %% Group authors per affiliation:
@@ -110,7 +111,7 @@ Liquefied natural gas as an alternative intermediate solution would only have a 
 \begin{keyword}
 % \texttt{elsarticle.cls}\sep \LaTeX\sep Elsevier \sep template
 % \MSC[2010] 00-01\sep  99-00
-Maritime transport\sep Marine fuels\sep Energy modelling\sep Emission reduction\sep Danish case-study 
+Maritime transport\sep Marine fuels\sep Energy modelling\sep Emission reduction\sep International cargo 
 \end{keyword}
 
 \end{frontmatter}
@@ -154,7 +155,7 @@ The urgency is due to mainly three reasons: (1) very long investment cycles of s
 
 % Which gap does this paper close?
 % closing gap between international and local studies
-This paper contributes to fill the research gap between studies on inland shipping with a high level of detail but limited scope and international shipping in low resolution regarding technology and fuels. Our modelling approach takes emissions from international shipping into account but can still be applied to single or several countries. It could thus be integrated in national energy and climate modelling scopes. Although we exemplary model Danish shipping, the methodology could be applied to other countries as well.
+This paper contributes to fill the research gap between studies on inland shipping with a high level of detail but limited scope on the one side and international shipping in low resolution regarding technology and fuels on the other side. Our modelling approach takes emissions from international shipping into account but can still be applied to single or several countries. It could thus be integrated in national energy and climate modelling scopes. Although we exemplary model Danish shipping, the methodology could be applied to other countries as well.
 % taking the different costs and emissions into account
 Unlike most other studies, data and model not only include costs for fuels and technologies but also infrastructure costs. Emission-wise, the whole picture is covered by taking well-to-propeller climate emissions including methane leakage into account while complying with current and future SO$_X$ and NO$_X$ emission restrictions.
 % Several scenarios and threshold analysis regarding technology, fuel and infrastructure costs
@@ -183,7 +184,7 @@ In our model application, the temporal scope chosen is until 2050 since this is 
 
 \subsection{Model Structure}
 \label{subsec:Structure}
-While the core components of the model are the equations describing the objective function and constraints of the optimisation, pre-processing of the input and post-processing of the output data also constitute an important part of the modelling framework. \autoref{fig:model_boxflow} illustrates the model flow with white boxes representing data instances and blue arrows processes. These scripts are written in Python with the pre-processing applying the data package \textit{panda}, the optimisation utilising the optimisation package \textit{pyomo} and the output processing additionally to pandas \textit{mathplotlib} for illustrating the results in plots. All scripts, raw and processed data including documentation are available on github \cite{GitHub2018}, where further development of the model takes place. To allow for barrier-free reproducibilty of the presented results, (1) the entire deployed software is open-sources and (2) \cite{BenBrahim2018} points to the version of data and code deployed for this research. Both are published under the GNU general public license version 3.
+While the core components of the model are the equations describing the objective function and constraints of the optimisation, pre-processing of the input and post-processing of the output data also constitute an important part of the modelling framework. \autoref{fig:model_boxflow} illustrates the model flow with white boxes representing data instances and blue arrows processes. These scripts are written in Python with the pre-processing applying the data package \textit{panda}, the optimisation utilising the optimisation package \textit{pyomo} and the output processing additionally to pandas \textit{mathplotlib} for illustrating the results in plots. All scripts, raw and processed data including documentation are available on github \cite{GitHub2018}, where further development of the model takes place. To allow for barrier-free reproducibilty of the presented results, (1) the entire deployed software is open-source and (2) \cite{BenBrahim2018} points to the version of data and code deployed for this research. Both are published under the GNU general public license version 3.
 
 \begin{figure}[tbh]
     \centering
@@ -194,7 +195,7 @@ While the core components of the model are the equations describing the objectiv
 
 \subsection{Mathematical Formulation}
 \label{subsec:Mat}
-The problem is formulated in a linear, divisible manner, aiming to minimise the objective function. Model variables in the first time step are initialised with data compiled for the current shipping fleet. For the following time steps, different constraints trigger the necessary investment decisions for new technologies and lead to decommissioning of existing ships that are not in compliance with legal obligations or emission targets. Since the objective is to minimise total system costs  (see \cref{eq:objective}), investments are interpreted as conflicting, yet inevitable actions to cope with the constraints, such as lowering emissions to air (\cref{subsubsec:emconstraints}) and supplying the transport demand in each time step (\cref{subsubsec:tdemand}). All model variable domains are within non-negative real numbers, including zero $\left(R_{0}^{+}\right)$. The nomenclature of sets, variables and parameters used in the equations and can be found in the nomenclature list \cref{box:nomenclature}.
+The problem is formulated in a linear, non-integer manner, aiming to minimise the objective function. Model variables in the first time step are initialised with data compiled for the current shipping fleet. For the following time steps, different constraints trigger the necessary investment decisions for new technologies and lead to decommissioning of existing ships that are not in compliance with legal obligations or emission targets. Since the objective is to minimise total system costs  (see \cref{eq:objective}), investments are interpreted as conflicting, yet inevitable actions to cope with the constraints, such as lowering emissions to air (\cref{subsubsec:emconstraints}) and supplying the transport demand in each time step (\cref{subsubsec:tdemand}). All model variable domains are within non-negative real numbers, including zero $\left(R_{0}^{+}\right)$. The nomenclature of sets, variables and parameters used in the equations and can be found in the nomenclature list \cref{box:nomenclature}.
 \glsdisablehyper
 \glsaddall
 \begin{table*}[thb]
@@ -217,7 +218,7 @@ The problem is formulated in a linear, divisible manner, aiming to minimise the 
 \end{table*}
 
 \subsubsection{Model objective}
-The objective equation minimises total system expenditures over all time steps and ship types (aggregated by main engine and fuel). It comprises the sum of  costs for fuel consumption, additional infrastructure as well as ship capacity for all years (35 time steps). Costs for fixed assets -- fuel infrastructure (CI) and ships (CS) -- are given as annuities and account only with the annual added capacities. The value of the existing amount in the start year ($fainit_{t,s}$ in $T_0$) is not included in $CI$ and $CS$.
+The objective equation minimises total system expenditures over all time steps and ship types (aggregated by main engine and fuel). It comprises the sum of  costs for fuel consumption, additional infrastructure as well as ship capacity for all years (35 time steps in the described application). Costs for fixed assets -- fuel infrastructure (CI) and ships (CS) -- are given as annuities and account only with the annual added capacities. The value of the existing amount in the start year ($fainit_{t,s}$ in $T_0$) is not included in $CI$ and $CS$.
 \begin{subequations}
     \begin{align}
         min. &\sum_{\forall t \in T}\sum_{\forall s \in S}\left( CF_{t, s} + CI_{t, s} + CS_{t, s} \right)\label{eq:objective}\\
@@ -338,7 +339,7 @@ The fuel parameters (\autoref{tab:fuel_data}) include CO$_2$ and CH$_4$ emission
         ELEC  & 13.889   & 2.929    & -         & 0             & 0                & 0        & 20   & \cite{Vree2008}    \\
         \bottomrule
     \end{tabular}}
-    \caption[Fuel type data]{Fuel type data for each parameter (for abbreviations see the nomenclature list in \cref{box:nomenclature}). Further explanation and references of data can be found in \cite{BenBrahim2018}.}
+    \caption[Fuel type data]{Fuel type data for each parameter (for abbreviations see the nomenclature list in \cref{box:nomenclature}). Further explanation of data can be found in \cite{BenBrahim2018}.}
     \label{tab:fuel_data}
 \end{table}
 
@@ -349,7 +350,7 @@ The emission factors for CO$_2$ and CH$_4$ only include the tank-to-propeller em
 
 The average remaining lifetime for existing ships is 11 years since the average age of the current fleet is 14 years, when considering bulk, container and tanker ship types which dominate the Danish cargo fleet \cite[Tab.~2.2, p.~27]{UNCTAD2017}. Retrofitting an old ship to comply with new regulation can possibly be an option to reduce costs. A typical refit currently ongoing to comply with sulphur regulations is the installation of a scrubber for ships with internal combustion engines running on HFO. It has to be mentioned that this results in a reduction of specific transport per fuel due to efficiency losses caused by the scrubber. Ships with internal combustion engine using HFO can also be refitted for the use of BDO, which is relatively straightforward and thus does not imply much costs. These kind of refits do not extend the lifetime of the ship or technology, but just provide different functionality.
 
-Regarding the range options, only full electric ships are restricted to radius of 500 nautical miles (926 km), all other have an unlimited range.
+Regarding the range options, only full electric ships are restricted to radius of 500 nautical miles, equivalent to 926 km (derived from \cite{}), all other have an unlimited range.
 
 \begin{table}[htb]
     \centering
@@ -411,10 +412,10 @@ The comparison of global maritime CO$_2$e emissions in 2012 with the Danish emis
 
 \subsection{Scenarios}
 \label{subsec:Sce}
-In general, all scenarios except the business as usual (BAU) and IMO-scenario are modifications of the reference scenario's time variable input parameters. The reference scenario and its modifications all comply with the carbon budget restriction. In the variations, one or a cluster of parameters are changed in a ceteris paribus manner and by the same percentage. If appropriate, changing rates are clustered, due to market coupling effects. For example, electro-fuel cost parameter are all changed in the same way in the respective variation scenarios, as they all depend primary on electricity. Additionally, the transport demand variation (TDV) scenario illustrated the possible effects of a decreasing transport demand by 30\% until 2050 -- else it is kept constant.
+In general, all scenarios except the business as usual (BAU) and IMO-scenario are modifications of the reference scenario's time variable input parameters. The reference scenario and its modifications all comply with the carbon budget restriction. In the variations, one or a cluster of parameters are changed in a ceteris paribus manner and by the same percentage. If appropriate, changing rates are clustered, due to market coupling effects. For example, electro-fuel cost parameter are all changed in the same way in the respective variation scenarios, as they all depend primary on electricity. Additionally, the transport demand variation (TDV) scenario illustrates the possible effects of a decreasing transport demand by 30\% until 2050 -- else it is kept constant.
 
 \subsubsection{Scenario data}
-The development of cost and other parameters is decisive for the model results. To make the assumptions behind that transparent, the variations are expressed as percentage change rates from 2016 to 2050 (\cref{tab:ref_rates}). Derived from that number, equal annual changing rates are applied, thus, the respective parameter change over the whole time span of the model is exponential, not linear.
+The development of cost and other parameters is decisive for the model results. To make the assumptions behind that transparent, the variations are expressed as percentage change rates from 2016 to 2050 (\cref{tab:ref_rates}). Derived from that number, equal annual changing rates are applied.
 
 \cref{tab:ref_rates} shows the parameter changes and thus future development of the reference scenario.
 
@@ -431,9 +432,9 @@ Other decisive parameters are bio-fuel availability and transport demand. Bio-fu
         ic  & -20   & LNG,LBG,H2,CH3OH,NH3,ELEC         & \cite[fig.~6,~p.~13]{Brynolf2018}     \\
         cf  & 110   & HFO,MDO,BDO,LNG                   & \cite[fig.~13,~p.~3]{JAE-KNY/MDA2017} \\
             & -20   & LBG,H2,CH3OH,NH3,ELEC             & \cite[fig.~6,~p.~13]{Brynolf2018}     \\
-        cs  & -40   & IC: LNG,LBG,H2,CH3OH,NH3          & \cite{Rex2017}                        \\
-            & -50   & FC: LNG,LBG,H2,CH3OH,NH3          & \cite{Rex2017}                        \\
-            & -75   & EM,WIND: ELEC                     & \cite{Rex2017}                        \\
+        cs  & -40   & Internal combustion: LNG,LBG,H2,CH3OH,NH3          & \cite{Rex2017}                        \\
+            & -50   & Fuel cell: LNG,LBG,H2,CH3OH,NH3          & \cite{Rex2017}                        \\
+            & -75   & Eletric motor, WIND: ELEC                     & \cite{Rex2017}                        \\
         ts  & +15   & All except old ships              & \cite[tab.~51,~p.~282]{Smith2014}     \\
         ec  & -10   & IC: HFO,MDO,LNG; FC: LNG          & \cite[tab.~51,~p.~282]{Smith2014}     \\
         em  & -10   & IC: HFO,MDO,BDO,LNG; FC: LNG,LBG  & \cite[tab.~51,~p.~282]{Smith2014}     \\
@@ -556,14 +557,14 @@ For comparison, the total fuel use of all scenarios for 2016-2050 is displayed i
 % Compare all scenarios: Costs - not sure if there should be a figure - maybe rather include the full table of results
 
 % Costs - resulting EURO/CO$_2$e
-Derived from the cost differences for fuel, ship and infrastructure, a carbon price in the range of 350--450 \euro(2016)/ton CO$_2$e would be required for a renewable transition of the Danish shipping sector. \citep[p.197]{Raucci2017} reports similar prices of around 430 \$(2013)/ton CO$_2$ for a global transition.
+Derived from the cost differences for fuel, ship and infrastructure, a carbon price in the range of 350--450 \euro(2016)/ton CO$_2$e would be required for a renewable transition of the Danish shipping sector. There are no directly comparable studies, but, to put our results in perspective, \citep[p.197]{Raucci2017} reports similar prices of around 430 \$/ton CO$_2$ for a global transition with a global shipping carbon budget double as high as in our case. In that setting, he concludes, that hydrogen requires an emission price of 1400 \$/ton CO$_2$ to become an economic option. An indication from the other side gives a global study on country- and sector-wise CO$_2$ abatement costs \cite{}. Although shipping is not included, road transport is indicated with about 200 \euro/ton CO$_2$. Specific costs for climate emission abatement costs in shipping can be expected to be higher than that, since shipping poses special challenges due to high range requirements. More specifically on CO$_2$ abatement costs for shipping, \citet{DNVGL2018b}, assumes costs in the range of 150--200 \euro/avoided ton CO$_2$ if using LBG, MDO (based on renewables) or BDO.
 
 % applicability of the model on other countries
 % applicability of the findings for the world shipping
-The model code and most of the data references and pre-processing can also be applied for other countries, especially Europe. However, since shipping has a global perspective, the case study for Denmark already gives a good indication of the fuel shares chosen for a cost-optimal path to carbon neutrality in 2050 for the worldwide shipping. Conditions for shipping are similar, the basic parameters, technology, fuel and infrastructure costs are considered as world prices rather than reflecting local particularities. This is also reflected and validated by the similar CO$_2$e-cost range compared to other, worldwide studies. 
+The model code and most of the data references and pre-processing can also be applied for other countries, especially Europe. However, since shipping has a global perspective, the case study for Denmark already gives a good indication of the fuel shares chosen for a cost-optimal path to carbon neutrality in 2050 for the worldwide shipping. Conditions for shipping are similar, the basic parameters, technology, fuel and infrastructure costs are considered as world prices rather than reflecting local particularities. %This is also reflected and validated by the similar CO$_2$e-cost range compared to other, worldwide studies. 
 
 % Why the mentioned costs are rather the upper end
-Compared to other sectors like electricity and heat, these mitigation costs per ton CO$_2$e seem high, one has to consider several points. First, this is the upper bound of cost: Technologies considered are all applicable today, developments in other sectors applying similar fuel switch options could further influence costs, additional alternatives could evolve. Second, as shown in the demand reduction scenarios, any decrease in transport demand would save costs even beyond the proportional saving. This is due to not only fuel savings (proportional) but, also due to avoided investments in new ships (disproportionate). And third, refits and hybrid solutions have not been considered to a great extent in the model functionality and could further decrease costs and ease the shift to different fuels.
+Compared to other sectors like electricity and heat, these mitigation costs per ton CO$_2$e seem high, one has to consider several points. First, this is the upper bound of cost: Technologies considered are all applicable today, developments in other sectors applying similar fuel switch options could further influence costs, additional alternatives could evolve. Second, as shown in the demand reduction scenarios, any decrease in transport demand would save costs even beyond the proportional saving. This is due to not only fuel savings (proportional) but, also due to avoided investments in new ships (disproportionate). A decrease in transport demand especially has an effect in the period, in which new investments in ships are required and can thus avoid costs over-proportionally. And third, refits and hybrid solutions have not been considered to a great extent in the model functionality and could further decrease costs and ease the shift to different fuels.
 
 
 % Costs - what does that mean for the cargo cost
