@@ -223,11 +223,11 @@ The objective equation minimises total system expenditures over all time steps a
     \begin{align}
         min. &\sum_{\forall t \in T}\sum_{\forall s \in S}\left( CF_{t, s} + CI_{t, s} + CS_{t, s} \right)\label{eq:objective}\\
         \intertext{s.t.}
-        CF_{t, s} &\geq fa_{t,s} \cdot cf_{t,s}\\
-        CI_{t, s} &\geq \left( faiup_{t,s} - fainit_{t, s} \right) \cdot li_{s} \cdot ci_{t,s}, \forall t \in T_0\\
-        CI_{t, s} &\geq faiup_{t,s} \cdot li_{s} \cdot ci_{t,s}, \forall t \in T_{>0}\\
-        CS_{t, s} &\geq \left( fasup_{t,s} - fainit_{t, s} \right) \cdot ls_{s} \cdot cs_{t,s}, \forall t \in T_0\\
-        CS_{t, s} &\geq fasup_{t,s} \cdot ls_{s} \cdot cs_{t,s}, \forall t \in T_{>0}
+        CF_{t, s} &\geq f_{t,s} \cdot cf_{t,s}\\
+        CI_{t, s} &\geq \left( iup_{t,s} - finit_{t, s} \right) \cdot li_{s} \cdot ci_{t,s}, \forall t \in T_0\\
+        CI_{t, s} &\geq iup_{t,s} \cdot li_{s} \cdot ci_{t,s}, \forall t \in T_{>0}\\
+        CS_{t, s} &\geq \left( sup_{t,s} - finit_{t, s} \right) \cdot ls_{s} \cdot cs_{t,s}, \forall t \in T_0\\
+        CS_{t, s} &\geq sup_{t,s} \cdot ls_{s} \cdot cs_{t,s}, \forall t \in T_{>0}
     \end{align}
 \end{subequations}
 
@@ -236,7 +236,7 @@ Fuel constraints may apply for a selection of ship types and years in the model 
 \textit{Infrastructure capacity: }Defined as the sum of all additional fuel infrastructure built during the elapsed technical lifetime.
 \begin{subequations}
     \begin{align}
-        faicap_{t,s} &\leq \sum_{\textbf{x}}^{t-1} \left( faiup_{x,s} \right), \forall t \in T_{>0}, \forall s \in S\label{eq:faicap}\\
+        icap_{t,s} &\leq \sum_{\textbf{x}}^{t-1} \left( iup_{x,s} \right), \forall t \in T_{>0}, \forall s \in S\label{eq:icap}\\
         \intertext{s.t.}
         x &= T_0, \forall t \leq \left(li_{s} + T_0 - 1\right)\\
         x &= t - li_{s} + 1, \forall t > \left(li_{s} + T_0 - 1\right)
@@ -244,12 +244,12 @@ Fuel constraints may apply for a selection of ship types and years in the model 
 \end{subequations}\\
 \textit{Additional infrastructure: }Additional fuel infrastructure in order to supply the fleet.
 \begin{equation}
-    faiup_{t,s} \geq fa_{t,s} - faicap_{t,s}, \forall t \in T_{>0}, \forall s \in S\label{eq:faiup}
+    iup_{t,s} \geq f_{t,s} - icap_{t,s}, \forall t \in T_{>0}, \forall s \in S\label{eq:iup}
 \end{equation}\\
 \textit{Existing ships: }Defined as the sum of all additional shipping capacity build during the elapsed technical lifetime.
 \begin{subequations}
     \begin{align}
-        fascap_{t,s} &\leq \sum_{\textbf{x}}^{t-1} \left(fasup_{x,s} \right), \forall t \in T_{>0}, \forall s \in S\label{eq:fascap}\\
+        scap_{t,s} &\leq \sum_{\textbf{x}}^{t-1} \left(sup_{x,s} \right), \forall t \in T_{>0}, \forall s \in S\label{eq:scap}\\
         \intertext{s.t.}
         x &= T_0, \forall t \leq \left(ls_{s} + T_0 - 1\right)\\
         x &= t - ls_{s} + 1, \forall t > \left(ls_{s} + T_0 - 1\right)
@@ -257,34 +257,34 @@ Fuel constraints may apply for a selection of ship types and years in the model 
 \end{subequations}\\
 \textit{Additional ships: }Additional ships in order to supply the cargo transport required.
 \begin{equation}
-    fasup_{t,s} \geq fa_{t,s} - fascap_{t,s}, \forall t \in T_{>0}, \forall s \in S\label{eq:fasup}
+    sup_{t,s} \geq f_{t,s} - scap_{t,s}, \forall t \in T_{>0}, \forall s \in S\label{eq:sup}
 \end{equation}\\
 \textit{Refit capacity: }Defines for each year the old ship's capacity possible to refit.
 \begin{subequations}\label{eq:refitships}
     \begin{align}
-    fa_{t,s} + fa_{t,r} - fa_{T_0, s} &\leq 0, \forall t \in T_{<\left(T_0+ls_{s}\right)}, \forall s, r \in RO\\
-    fa_{t,s} + fa_{t,r} & = 0, \forall t \in T_{\geq\left(T_0+ls_{s}\right)}, \forall s, r \in RO
+    f_{t,s} + f_{t,r} - f_{T_0, s} &\leq 0, \forall t \in T_{<\left(T_0+ls_{s}\right)}, \forall s, r \in SRO\\
+    f_{t,s} + f_{t,r} & = 0, \forall t \in T_{\geq\left(T_0+ls_{s}\right)}, \forall s, r \in SRO
     \end{align}
 \end{subequations}\\
 \textit{Bio-fuel capacity: }Defines for each year the upper limit of bio-fuel available -- based on own assumptions.
 \begin{equation}
-    \sum_{\forall s \in SB} \left(fa_{t,s} \right) - ba_{t} \leq 0, \forall t \in T\label{eq:biofuel}
+    \sum_{\forall s \in SB} \left(f_{t,s} \right) - ba_{t} \leq 0, \forall t \in T\label{eq:biofuel}
 \end{equation}
 
 \subsubsection{Constraints on transport demand}
 \label{subsubsec:tdemand}
-Transport demand constraints may apply for a selection of ship types and years in the model, depending on the range category -- either short or long -- and the emission regulations -- in- or outside ECAs.\\\par\noindent
+Transport demand constraints may apply for a selection of ship types and years in the model, depending on the range category -- either short or long -- and the emission regulations -- in- or outside ECA.\\\par\noindent
 \textit{Total transport demand: }Defines for each year that the transport supply per ships must be greater or equal to the total transport demand.
 \begin{equation}
-    tdtotal_t \leq \sum_{\forall s \in S} \left( fa_{t,s} \cdot ts_{t,s}\right), \forall t \in T \label{eq:td_total}
+    dtotal_t \leq \sum_{\forall s \in S} \left( f_{t,s} \cdot sts_{t,s}\right), \forall t \in T \label{eq:td_total}
 \end{equation}
 \textit{Short transport demand: }Defines for each year the maximum transport supply of all ships categorised as short range (926 km).
 \begin{equation}
-    tdshort_t \geq \sum_{\forall s \in SR} \left( fa_{t,s} \cdot ts_{t,s}\right), \forall t \in T \label{eq:td_short}
+    dshort_t \geq \sum_{\forall s \in SSR} \left( f_{t,s} \cdot sts_{t,s}\right), \forall t \in T \label{eq:td_short}
 \end{equation}
-\textit{Non-SECAs transport demand: }Defines for each year the maximum transport supply of all ships only allowed for operation outside of the ECAs.
+\textit{Non-ECAS transport demand: }Defines for each year the maximum transport supply of all ships only allowed for operation outside of the ECA.
 \begin{equation}
-    tdnoneca_t \geq \sum_{\forall s \in SNE} \left( fa_{t,s} \cdot ts_{t,s}\right), \forall t \in T \label{eq:td_noneca}
+    dnoneca_t \geq \sum_{\forall s \in SNS} \left( f_{t,s} \cdot sts_{t,s}\right), \forall t \in T \label{eq:td_noneca}
 \end{equation}
 
 \subsubsection{Constraints on emissions}
@@ -296,21 +296,21 @@ Emission constraints may apply for a selection of ship types and years in the mo
     \begin{align}
     eb &\geq \sum_{\forall t \in T}\sum_{\forall s \in S}\left(EC_{t,s} + EM_{t,s} \right) \label{eq:co2ebudget}\\
     \intertext{s.t.}
-    EC_{t,s} &= fa_{t,s} \cdot ec_{t,s}, \forall t \in T, \forall s \in S\\
-    EM_{t,s} &= fa_{t,s} \cdot em_{t,s}, \forall t \in T, \forall s \in S
+    EC_{t,s} &= f_{t,s} \cdot ec_{t,s}, \forall t \in T, \forall s \in S\\
+    EM_{t,s} &= f_{t,s} \cdot em_{t,s}, \forall t \in T, \forall s \in S
     \end{align}
 \end{subequations}\\
 \textit{Emission target: }Defines the maximal amount of total GHG emission in the target year.
 \begin{equation}
-    \frac{\sum_{\forall s \in S} \left(EC_{T_0,s}+EM_{T_0,s}\right)}{\sum_{\forall s \in S} \left(EC_{t,s}+EM_{t,s}\right)} \cdot et \geq 1, \forall t \in T_{\geq \left(etyr-T_0\right)}
+    \frac{\sum_{\forall s \in S} \left(EC_{T_0,s}+EM_{T_0,s}\right)}{\sum_{\forall s \in S} \left(EC_{t,s}+EM_{t,s}\right)} \cdot et \geq 1, \forall t \in T_{\geq \left(tet-T_0\right)}
 \end{equation}\\
 \textit{Global SO$_X$ regulations: }Defines the set of ships as of 2020 prohibited to operate globally with respect to global SO$_X$ regulations.
 \begin{equation}
-    fa_{t,s} = 0, \forall t \in T_{\geq slnonecayr-T_0}, \forall s \in SNG \label{eq:sox_global}
+    f_{t,s} = 0, \forall t \in T_{\geq teca-T_0}, \forall s \in SNGS \label{eq:sox_global}
 \end{equation}\\
-\textit{NO$_X$ regulations: }Defines the set of ships as of 2021 prohibited to operate within NECAs.
+\textit{NO$_X$ regulations: }Defines the set of ships as of 2021 prohibited to operate within ECAN.
 \begin{equation}
-   fa_{t,s} = 0, \forall t \in T_{\geq tlecayr-T_0},\forall s \in NT \label{eq:tier}
+   f_{t,s} = 0, \forall t \in T_{\geq tneca-T_0},\forall s \in SNN \label{eq:tier}
 \end{equation}
 
 
@@ -426,8 +426,9 @@ Other decisive parameters are bio-fuel availability and transport demand. Bio-fu
     \resizebox{\textwidth}{!}{%
     \begin{tabular}{lrcr}
         \toprule
-        Modified & Percentage change & Affected Technologies & References \\
-        parameters & from 2016 to 2050 & & \\
+        Modified & Percentage & Affected Technologies & References \\
+        para- & change & & \\
+        meters & 2016-2050 & & \\
         \midrule
         ic  & -20   & LNG,LBG,H2,CH3OH,NH3,ELEC         & \cite[fig.~6,~p.~13]{Brynolf2018}     \\
         cf  & 110   & HFO,MDO,BDO,LNG                   & \cite[fig.~13,~p.~3]{JAE-KNY/MDA2017} \\
