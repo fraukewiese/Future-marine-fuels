@@ -195,7 +195,7 @@ While the core components of the model are the equations describing the objectiv
 The problem is formulated in a linear, non-integer manner, aiming to minimise the objective function. Model variables in the first time step are initialised with data compiled for the current shipping fleet. For the following time steps, different constraints trigger the necessary investment decisions for new technologies and lead to decommissioning of existing ships that are not in compliance with legal obligations or emission targets. Since the objective is to minimise total system costs  (see \autoref{eq:objective}), investments are interpreted as conflicting, yet inevitable actions to cope with the constraints, such as lowering emissions to air (\autoref{subsubsec:emconstraints}) and supplying the transport demand in each time step (\autoref{subsubsec:tdemand}). All model variable domains are within non-negative real numbers, including zero $\left(R_{0}^{+}\right)$. The nomenclature of sets, variables and parameters used in the equations and can be found in the nomenclature list.
 \glsdisablehyper
 \glsaddall
-\begin{table*}[h]
+\begin{table*}[htbp]
 %\renewcommand\tablename{Nomenclature list}
 \begin{mdframed}
 \footnotesize{
@@ -319,28 +319,28 @@ Main input data for the model are fuel and ship type specifications for the init
 \subsubsection{Fuel data}
 The fuel parameters (\autoref{tab:fuel_data}) include CO$_2$ and CH$_4$ emission factors from well-to-tank (w2t), sulphur content as well as cost parameters. Costs are specified for fuel and infrastructure and along with that, the respective lifetime. For fuels that are currently applied on a large scale -- heavy fuel oil (HFO), marine diesel oil (MDO), bio-diesel oil (BDO) -- the bunker index prices are used. It is assumed that these include all cost components from well to tank including fixed costs for a sufficient supply infrastructure. Thus, for these, infrastructure and fuel costs are not further specified. In contrast, new fuel technology costs are divided into fixed and variable components, since sufficient supply infrastructure has not been installed yet. If fuel upgrading is required, it is assumed to be done at berth to avoid additional grid investments. In the case of Denmark, the gas grid could handle any conceivable amount of natural gas and transport of upgraded biogas.
 
-\begin{table}[h]
-    \centering
-    \resizebox{\textwidth}{!}{
-    \begin{tabular}{lrrrrrrrr}
-        \toprule
-        Fuel type & cf & ci & cf + ci & ec(w2t) & em(w2t) & sulphur content & li & References \\
-        & $\left[\frac{EUR_{2016}}{GJ_{fuel}}\right]$ & $\left[\frac{EUR_{2016}}{GJ_{fuel}}\right]$ & $\left[\frac{EUR_{2016}}{GJ_{fuel}}\right]$ & $\left[\frac{g_{CO2}}{MJ_{fuel}}\right]$ & $\left[\frac{g_{CH4}}{MJ_{fuel}}\right]$ & $\left[\%_{mass}\right]$ & $\left[a\right]$ & \\
-        \midrule
-        HFO   & -        & -        & 6.547     & 8.148         & 0.090            & 2.9525   & 40   & \cite{BIX2018,Gilbert2018,Bengtsson2012,BRYNOLF2014}    \\
-        MDO   & -        & -        & 12.775    & 7.728         & 0.090            & 0.7500   & 40   & \cite{BIX2018,Gilbert2018,Bengtsson2012,Andersson2015}    \\
-        BDO   & -        & -        & 24.240    & 0             & 0.030            & 0.1498   & 40   & \cite{SSI2018,Bengtsson2012}    \\
-        LNG   & 4.888    & 0.139    & -         & 6.600         & 0.033            & 0.0500   & 36   & \cite{EnerginNet2018,Gilbert2018,BRYNOLF2014,Andersson2015}    \\
-        LBG   & 27.847   & 1.599    & -         & 0             & 0.130            & 0.0750   & 25   & \cite{Brynolf2018,Bengtsson2012}    \\
-        H2    & 20.885   & 1.199    & -         & 0             & 0                & 0        & 25   & \cite{Brynolf2018}    \\
-        CH3OH & 29.240   & 1.679    & -         & 0             & 0.042            & 0.0912   & 25   & \cite{Brynolf2018,BRYNOLF2014}    \\
-        NH3   & 26.803   & 1.802    & -         & 0             & 0                & 0        & 20   & \cite{Morgan2017}    \\
-        ELEC  & 13.889   & 2.929    & -         & 0             & 0                & 0        & 20   & \cite{Vree2008}    \\
-        \bottomrule
-    \end{tabular}}
-    \caption[Fuel type data]{Fuel type data for each parameter (for abbreviations see the nomenclature list in \cref{box:nomenclature}). Further explanation of data can be found in \cite{Thesis2018}.}
-    \label{tab:fuel_data}
-\end{table}
+% \begin{table}[htbp]
+%     \centering
+%     \resizebox{\textwidth}{!}{
+%     \begin{tabular}{lrrrrrrrr}
+%         \toprule
+%         Fuel type & cf & ci & cf + ci & ec(w2t) & em(w2t) & sulphur content & li & References \\
+%         & $\left[\frac{EUR_{2016}}{GJ_{fuel}}\right]$ & $\left[\frac{EUR_{2016}}{GJ_{fuel}}\right]$ & $\left[\frac{EUR_{2016}}{GJ_{fuel}}\right]$ & $\left[\frac{g_{CO2}}{MJ_{fuel}}\right]$ & $\left[\frac{g_{CH4}}{MJ_{fuel}}\right]$ & $\left[\%_{mass}\right]$ & $\left[a\right]$ & \\
+%         \midrule
+%         HFO   & -        & -        & 6.547     & 8.148         & 0.090            & 2.9525   & 40   & \cite{BIX2018,Gilbert2018,Bengtsson2012,BRYNOLF2014}    \\
+%         MDO   & -        & -        & 12.775    & 7.728         & 0.090            & 0.7500   & 40   & \cite{BIX2018,Gilbert2018,Bengtsson2012,Andersson2015}    \\
+%         BDO   & -        & -        & 24.240    & 0             & 0.030            & 0.1498   & 40   & \cite{SSI2018,Bengtsson2012}    \\
+%         LNG   & 4.888    & 0.139    & -         & 6.600         & 0.033            & 0.0500   & 36   & \cite{EnerginNet2018,Gilbert2018,BRYNOLF2014,Andersson2015}    \\
+%         LBG   & 27.847   & 1.599    & -         & 0             & 0.130            & 0.0750   & 25   & \cite{Brynolf2018,Bengtsson2012}    \\
+%         H2    & 20.885   & 1.199    & -         & 0             & 0                & 0        & 25   & \cite{Brynolf2018}    \\
+%         CH3OH & 29.240   & 1.679    & -         & 0             & 0.042            & 0.0912   & 25   & \cite{Brynolf2018,BRYNOLF2014}    \\
+%         NH3   & 26.803   & 1.802    & -         & 0             & 0                & 0        & 20   & \cite{Morgan2017}    \\
+%         ELEC  & 13.889   & 2.929    & -         & 0             & 0                & 0        & 20   & \cite{Vree2008}    \\
+%         \bottomrule
+%     \end{tabular}}
+%     \caption[Fuel type data]{Fuel type data for each parameter (for abbreviations see the nomenclature list in \cref{box:nomenclature}). Further explanation of data can be found in \cite{Thesis2018}.}
+%     \label{tab:fuel_data}
+% \end{table}
 
 \subsubsection{Ship and technology data}
 Ship type input parameter (see \autoref{tab:ship_data}) include emission factors, compliance with sulphur and NO$_x$ regulation, lifetime, options for refit, costs, transport supply as well as application options regarding range. The amounts of fuels used today are additionally provided in the tables since these are applied as the starting point in the modelling, while future amounts are determined endogenously by the model.
@@ -351,44 +351,44 @@ The average remaining lifetime for existing ships is 11 years since the average 
 
 Regarding the range options, only full electric ships are restricted to radius of 500 nautical miles, equivalent to 926 km (derived from \cite{Stensvold2018a}), all other have an unlimited range.
 
-\begin{table}[htb]
-    \centering
-    \resizebox{\textwidth}{!}{
-    \begin{tabular}{llrrrrrrrrrrr}
-        \toprule
-                       Ship-type & Range & ls & fa$_{2016}$ & ts & cs & ec(t2p) & em(t2p) & Refit & Refit opt. & Tier & Scrubber & References \\
-                       &       & $\left[a\right]$ & $\left[PJ_{fuel}\right]$ & $\left[\frac{Ttkm}{GJ_{fuel}}\right]$ & $\left[\frac{EUR_{2016}}{GJ_{fuel}}\right]$ & $\left[\frac{g_{CO2}}{MJ_{fuel}}\right]$ & $\left[\frac{g_{CH4}}{MJ_{fuel}}\right]$ & & & & & \\
-        \midrule
-        IC HFO (old)   & long  & 11     & 9.93   & 9.69        & 8.72     & 76.06            & 0.00045          & yes   & IC HFO (refit) & 0           & no     & \cite{UNCTAD2017,Eurostat2018,Wisdom2017,Kristensen2012,Rex2017} \\
-        IC MDO (old)   & long  & 11     & 5.99   & 9.40        & 8.45     & 74.36            & 0.00045          & yes   & IC BDO (refit) & 0           & yes    & \cite{UNCTAD2017,Eurostat2018,Wisdom2017,Kristensen2012,Rex2017} \\
-        IC HFO         & long  & 25     & 0      & 9.40        & 8.45     & 75.90            & 0.00045          & no    & -              & 3           & yes    & \cite{UNCTAD2017,Kristensen2012,Rex2017} \\
-        IC MDO         & long  & 25     & 0      & 9.40        & 8.45     & 74.32            & 0.00045          & no    & -              & 3           & yes    & \cite{UNCTAD2017,Kristensen2012,Rex2017} \\
-        IC HFO (refit) & long  & 11     & 0      & 9.40        & 0.02     & 75.90            & 0.00045          & no    & -              & 3           & yes    & \cite{UNCTAD2017,McGill2013} \\
-        IC BDO (refit) & long  & 11     & 0      & 9.40        & 0        & 0                & 0.00045          & no    & -              & 3           & yes    & \cite{UNCTAD2017,Wisdom2017} \\
-        IC BDO         & long  & 25     & 0      & 9.40        & 8.45     & 0                & 0.00045          & no    & -              & 3           & yes    & \cite{UNCTAD2017,Bengtsson2012} \\
-        IC LNG         & long  & 25     & 0      & 10.13       & 96.98    & 54.36            & 0.71000          & no    & -              & 3           & no     & \cite{UNCTAD2017,Kristensen2012,Rex2017} \\
-        IC LBG         & long  & 25     & 0      & 10.13       & 96.98    & 0                & 0.79000          & no    & -              & 3           & no     & \cite{UNCTAD2017,Bengtsson2012} \\
-        IC H2          & long  & 25     & 0      & 10.13       & 109.29   & 0                & 0                & no    & -              & 3           & no     & \cite{UNCTAD2017,ElGohary2013} \\
-        IC CH3OH       & long  & 25     & 0      & 10.13       & 109.29   & 0                & 0.79000          & no    & -              & 3           & no     & \cite{UNCTAD2017,Andersson2015,BRYNOLF2014} \\
-        IC NH3         & long  & 25     & 0      & 10.13       & 109.29   & 0                & 0                & no    & -              & 3           & no     & \cite{UNCTAD2017} \\
-        FC LNG         & long  & 25     & 0      & 22.47       & 134.80   & 54.36            & 0.22763          & no    & -              & 3           & no     & \cite{UNCTAD2017,VanBiert2016} \\
-        FC LBG         & long  & 25     & 0      & 22.47       & 134.80   & 0                & 0.22763          & no    & -              & 3           & no     & \cite{UNCTAD2017,VanBiert2016} \\
-        FC H2          & long  & 25     & 0      & 22.47       & 134.80   & 0                & 0                & no    & -              & 3           & no     & \cite{UNCTAD2017,USDE2015} \\
-        FC CH3OH       & long  & 25     & 0      & 22.47       & 134.80   & 0                & 0.22763          & no    & -              & 3           & no     & \cite{UNCTAD2017,VanBiert2016} \\
-        FC NH3         & long  & 25     & 0      & 22.47       & 134.80   & 0                & 0                & no    & -              & 3           & no     & \cite{UNCTAD2017} \\
-        EM ELEC        & short & 30     & 0      & 11.86       & 1,047.05 & 0                & 0                & no    & -              & 3           & no     & \cite{DNVGL2015} \\
-        WIND ELEC      & long  & 30     & 0      & 35.58       & 2,094.11 & 0                & 0                & no    & -              & 3           & no     &  \\  
-    \bottomrule
-    \end{tabular}}
-    \caption[Ship type data]{Ship type data for each specific parameter (for abbreviations see the nomenclature list in \cref{box:nomenclature}). Further explanation and references of data can be found in \cite{Thesis2018}.}
-    \label{tab:ship_data}
-\end{table}
+% \begin{table}[htb]
+%     \centering
+%     \resizebox{\textwidth}{!}{
+%     \begin{tabular}{llrrrrrrrrrrr}
+%         \toprule
+%                       Ship-type & Range & ls & fa$_{2016}$ & ts & cs & ec(t2p) & em(t2p) & Refit & Refit opt. & Tier & Scrubber & References \\
+%                       &       & $\left[a\right]$ & $\left[PJ_{fuel}\right]$ & $\left[\frac{Ttkm}{GJ_{fuel}}\right]$ & $\left[\frac{EUR_{2016}}{GJ_{fuel}}\right]$ & $\left[\frac{g_{CO2}}{MJ_{fuel}}\right]$ & $\left[\frac{g_{CH4}}{MJ_{fuel}}\right]$ & & & & & \\
+%         \midrule
+%         IC HFO (old)   & long  & 11     & 9.93   & 9.69        & 8.72     & 76.06            & 0.00045          & yes   & IC HFO (refit) & 0           & no     & \cite{UNCTAD2017,Eurostat2018,Wisdom2017,Kristensen2012,Rex2017} \\
+%         IC MDO (old)   & long  & 11     & 5.99   & 9.40        & 8.45     & 74.36            & 0.00045          & yes   & IC BDO (refit) & 0           & yes    & \cite{UNCTAD2017,Eurostat2018,Wisdom2017,Kristensen2012,Rex2017} \\
+%         IC HFO         & long  & 25     & 0      & 9.40        & 8.45     & 75.90            & 0.00045          & no    & -              & 3           & yes    & \cite{UNCTAD2017,Kristensen2012,Rex2017} \\
+%         IC MDO         & long  & 25     & 0      & 9.40        & 8.45     & 74.32            & 0.00045          & no    & -              & 3           & yes    & \cite{UNCTAD2017,Kristensen2012,Rex2017} \\
+%         IC HFO (refit) & long  & 11     & 0      & 9.40        & 0.02     & 75.90            & 0.00045          & no    & -              & 3           & yes    & \cite{UNCTAD2017,McGill2013} \\
+%         IC BDO (refit) & long  & 11     & 0      & 9.40        & 0        & 0                & 0.00045          & no    & -              & 3           & yes    & \cite{UNCTAD2017,Wisdom2017} \\
+%         IC BDO         & long  & 25     & 0      & 9.40        & 8.45     & 0                & 0.00045          & no    & -              & 3           & yes    & \cite{UNCTAD2017,Bengtsson2012} \\
+%         IC LNG         & long  & 25     & 0      & 10.13       & 96.98    & 54.36            & 0.71000          & no    & -              & 3           & no     & \cite{UNCTAD2017,Kristensen2012,Rex2017} \\
+%         IC LBG         & long  & 25     & 0      & 10.13       & 96.98    & 0                & 0.79000          & no    & -              & 3           & no     & \cite{UNCTAD2017,Bengtsson2012} \\
+%         IC H2          & long  & 25     & 0      & 10.13       & 109.29   & 0                & 0                & no    & -              & 3           & no     & \cite{UNCTAD2017,ElGohary2013} \\
+%         IC CH3OH       & long  & 25     & 0      & 10.13       & 109.29   & 0                & 0.79000          & no    & -              & 3           & no     & \cite{UNCTAD2017,Andersson2015,BRYNOLF2014} \\
+%         IC NH3         & long  & 25     & 0      & 10.13       & 109.29   & 0                & 0                & no    & -              & 3           & no     & \cite{UNCTAD2017} \\
+%         FC LNG         & long  & 25     & 0      & 22.47       & 134.80   & 54.36            & 0.22763          & no    & -              & 3           & no     & \cite{UNCTAD2017,VanBiert2016} \\
+%         FC LBG         & long  & 25     & 0      & 22.47       & 134.80   & 0                & 0.22763          & no    & -              & 3           & no     & \cite{UNCTAD2017,VanBiert2016} \\
+%         FC H2          & long  & 25     & 0      & 22.47       & 134.80   & 0                & 0                & no    & -              & 3           & no     & \cite{UNCTAD2017,USDE2015} \\
+%         FC CH3OH       & long  & 25     & 0      & 22.47       & 134.80   & 0                & 0.22763          & no    & -              & 3           & no     & \cite{UNCTAD2017,VanBiert2016} \\
+%         FC NH3         & long  & 25     & 0      & 22.47       & 134.80   & 0                & 0                & no    & -              & 3           & no     & \cite{UNCTAD2017} \\
+%         EM ELEC        & short & 30     & 0      & 11.86       & 1,047.05 & 0                & 0                & no    & -              & 3           & no     & \cite{DNVGL2015} \\
+%         WIND ELEC      & long  & 30     & 0      & 35.58       & 2,094.11 & 0                & 0                & no    & -              & 3           & no     &  \\  
+%     \bottomrule
+%     \end{tabular}}
+%     \caption[Ship type data]{Ship type data for each specific parameter (for abbreviations see the nomenclature list in \cref{box:nomenclature}). Further explanation and references of data can be found in \cite{Thesis2018}.}
+%     \label{tab:ship_data}
+% \end{table}
 
 \subsubsection{Emission budget}
 \label{subsec:em_budget}
 The remaining emission budget of CO$_2$e for the temporal scope of the model is a decisive constraint in the calculation. Since there are no agreed or standardised ways of attributing GHG emissions from international shipping to countries, we have devised a method for distributing global shipping emissions and the respective remaining carbon budget to countries (see \ref{subsec:Scope}). We apply a global emission budget estimate by the IPCC \cite[Tab.~SPM.3, RCP2.6]{IPCC2013} and derive the shipping's budget by its annual estimated global GHG emission share from \citet{Olmer2017}.
 
-The comparison of global maritime CO$_2$e emissions in 2012 with the Danish emissions in 2016 and its application to the global maritime budget leads to the Danish GHG budget. The absolute level of Danish cargo shipping emissions of 1.2 Mt CO$_2$e in 2016 is derived from the fuel specific emission operation factors, multiplied by total fuel consumed in that year. The relation of global maritime emissions in 2012 with the Danish ones in 2016 leads to rather over-estimated Danish budget since the global transport demand was increasing in that period \cite[Tab.~3,~p.~5]{UNCTAD2017}. Keeping the resulting emission level constant would deplete the budgets within the next 15 years and allows for less GHG emissions compared to a linear decrease from today until 2050.
+The comparison of global maritime CO$_2$e emissions in 2012 with the Danish emissions in 2016 and its application to the global maritime budget leads to the Danish GHG budget (\autoref{tab:dk_em_budget}). The absolute level of Danish cargo shipping emissions of 1.2 Mt CO$_2$e in 2016 is derived from the fuel specific emission operation factors, multiplied by total fuel consumed in that year. The relation of global maritime emissions in 2012 with the Danish ones in 2016 leads to rather over-estimated Danish budget since the global transport demand was increasing in that period \cite[Tab.~3,~p.~5]{UNCTAD2017}. Keeping the resulting emission level constant would deplete the budgets within the next 15 years and allows for less GHG emissions compared to a linear decrease from today until 2050.
 \begin{table}[htb]
     \centering
     \begin{tabular}{llrr}
@@ -420,29 +420,29 @@ The development of cost and other parameters is decisive for the model results. 
 
 Other decisive parameters are bio-fuel availability and transport demand. Bio-fuel availability increases from 0 \% in 2016 to 40 \% in 2050 in relation to the total fuel consumption in 2016 \cite{DEA2016}. The transport demand stays constant based on \cite[p.~18]{ITF2018} and \cite[p.~19]{Rex2017}.
 
-\begin{table}[htb]
-    \centering
-    \resizebox{\textwidth}{!}{%
-    \begin{tabular}{lrlr}
-        \toprule
-        Modified & Percentage & Affected Technologies & References \\
-        para- & change & & \\
-        meters & 2016-2050 & & \\
-        \midrule
-        ic  & -20           & LNG,LBG,H2,CH3OH,NH3,ELEC                         & \cite[fig.~6,~p.~13]{Brynolf2018}     \\[1.5ex]
-        \multirow{2}{*}{cf} & 110   & HFO,MDO,BDO,LNG                           & \cite[fig.~13,~p.~3]{JAE-KNY/MDA2017} \\
-            & -20           & LBG,H2,CH3OH,NH3,ELEC                             & \cite[fig.~6,~p.~13]{Brynolf2018}     \\[1.5ex]
-        \multirow{2}{*}{cs} & -40   & Internal combustion: LNG,LBG,H2,CH3OH,NH3 & \cite{Rex2017}                        \\
-            & -50           & Fuel cell: LNG,LBG,H2,CH3OH,NH3                   & \cite{Rex2017}                        \\
-            & -75           & Eletric motor, WIND: ELEC                         & \cite{Rex2017}                        \\[1.5ex]
-        ts  & +15           & All except old ships                              & \cite[tab.~51,~p.~282]{Smith2014}     \\[1.5ex]
-        ec  & -10           & IC: HFO,MDO,LNG; FC: LNG                          & \cite[tab.~51,~p.~282]{Smith2014}     \\[1.5ex]
-        em  & -10           & IC: HFO,MDO,BDO,LNG; FC: LNG,LBG                  & \cite[tab.~51,~p.~282]{Smith2014}     \\
-        \bottomrule
-    \end{tabular}}
-    \caption{Change of fuel and ship specific parameters from 2016 to 2050 in the Reference scenario (for abbreviations see the nomenclature list in \cref{box:nomenclature}).For additional information about scenarios see \cite{Thesis2018}.}
-    \label{tab:ref_rates}
-\end{table}
+% \begin{table}[htb]
+%     \centering
+%     \resizebox{\textwidth}{!}{%
+%     \begin{tabular}{lrlr}
+%         \toprule
+%         Modified & Percentage & Affected Technologies & References \\
+%         para- & change & & \\
+%         meters & 2016-2050 & & \\
+%         \midrule
+%         ic  & -20           & LNG,LBG,H2,CH3OH,NH3,ELEC                         & \cite[fig.~6,~p.~13]{Brynolf2018}     \\[1.5ex]
+%         \multirow{2}{*}{cf} & 110   & HFO,MDO,BDO,LNG                           & \cite[fig.~13,~p.~3]{JAE-KNY/MDA2017} \\
+%             & -20           & LBG,H2,CH3OH,NH3,ELEC                             & \cite[fig.~6,~p.~13]{Brynolf2018}     \\[1.5ex]
+%         \multirow{2}{*}{cs} & -40   & Internal combustion: LNG,LBG,H2,CH3OH,NH3 & \cite{Rex2017}                        \\
+%             & -50           & Fuel cell: LNG,LBG,H2,CH3OH,NH3                   & \cite{Rex2017}                        \\
+%             & -75           & Eletric motor, WIND: ELEC                         & \cite{Rex2017}                        \\[1.5ex]
+%         ts  & +15           & All except old ships                              & \cite[tab.~51,~p.~282]{Smith2014}     \\[1.5ex]
+%         ec  & -10           & IC: HFO,MDO,LNG; FC: LNG                          & \cite[tab.~51,~p.~282]{Smith2014}     \\[1.5ex]
+%         em  & -10           & IC: HFO,MDO,BDO,LNG; FC: LNG,LBG                  & \cite[tab.~51,~p.~282]{Smith2014}     \\
+%         \bottomrule
+%     \end{tabular}}
+%     \caption{Change of fuel and ship specific parameters from 2016 to 2050 in the Reference scenario (for abbreviations see the nomenclature list in \cref{box:nomenclature}).For additional information about scenarios see \cite{Thesis2018}.}
+%     \label{tab:ref_rates}
+% \end{table}
 
 \subsubsection{Scenario overview}
 \autoref{tab:scn_overview} provides an overview of the fourteen scenario variations and the respective modified parameters. The extent to which the respective scenario parameters are modified is stated alongside the results in \autoref{sec:Results}.
@@ -483,12 +483,12 @@ Other decisive parameters are bio-fuel availability and transport demand. Bio-fu
 
 \autoref{fig:BAU} displays the fuel consumption and cumulative CO$_2$e emissions in the business as usual scenario (BAU) when no GHG regime is in place. Although SO$_X$- and NO$_X$-restrictions are applied, no major change in fuel usage can be detected. That shows, that scrubbers instead of fuel switch are the most cost-efficient solution if no GHG restrictions are implemented. Applying the IMO goal to halve climate emissions of shipping in 2050 does not lead to significant changes except a minor switch to BDO instead of HFO (see \autoref{fig:IMO}). In comparison, the climate emission budget restriction in the reference scenario  results in a significant fuel switch: Mainly hydrogen in fuel cells and BDO with scrubber in internal combustion engines are chosen (see \autoref{fig:REF}). The comparison shows, that without any kind of climate emission restriction, the total cumulative emissions are twice as high and the IMO plans do not have a significant impact. 
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{figures/BAU_fuels_emissions.eps}
-    \caption{Fuel consumption (y-axis left) and cumulative emissions (y-axis right) in the business-as-usual scenario without carbon restrictions.}
-    \label{fig:BAU}.
-\end{figure}
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=\textwidth]{figures/BAU_fuels_emissions.eps}
+%     \caption{Fuel consumption (y-axis left) and cumulative emissions (y-axis right) in the business-as-usual scenario without carbon restrictions.}
+%     \label{fig:BAU}.
+% \end{figure}
 
 \begin{figure}
     \centering
@@ -517,12 +517,12 @@ Other decisive parameters are bio-fuel availability and transport demand. Bio-fu
 % Demand variation - Cheapest?, Cost reduction bigger than transport reduction
 % aus Tills Arbeit: Since transport demand declines over time, less investments are needed so that the system costs fall by 25 % to 15 billion EUR2016. These overall cost reductions are much greater than the entire transport demand reduction of 17 %. The faster the demand curves in Fig. 8.12 fall before it reaches the year of major investments into new fuel technologies, the greater this cost benefit would be.
 
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=.75\textwidth]{figures/costVariation.eps}
-    \caption{Total fuel shares from 2016-2050 (y-axis) in relation to different cost range changes (x-axis) compared to the reference case.}
-    \label{fig:costVariation}
-\end{figure}
+% \begin{figure}[t]
+%     \centering
+%     \includegraphics[width=.75\textwidth]{figures/costVariation.eps}
+%     \caption{Total fuel shares from 2016-2050 (y-axis) in relation to different cost range changes (x-axis) compared to the reference case.}
+%     \label{fig:costVariation}
+% \end{figure}
 
 
 
@@ -546,12 +546,12 @@ Due to the high level of uncertainty of cost development of infrastructure, fuel
 % LNG is no option, LBG just if methane leakage phase out
 For LBG, the development of the methane leakage problem is of outstanding importance. Under the assumption that methane leakage can be coped with until 2050 (dashed line in \autoref{fig:costVariation}) and a cost reduction of -40\% (see \autoref{fig:LBG}), LBG is close to hydrogen, methanol and ammonia as choice to be the dominate fuel in 2050. Contrary to that, LNG would not only require a methane leakage phase out, but also a very favourable cost development to play a major role.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{figures/LBG_MP_fuels_emissions.eps}
-    \caption{Fuel consumption (y-axis left) and cumulative emissions (y-axis right) in the bio-methane scenario (LBG(mp), r-40) and assuming methane leakage phase-out.}
-    \label{fig:LBG}
-\end{figure}
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=\textwidth]{figures/LBG_MP_fuels_emissions.eps}
+%     \caption{Fuel consumption (y-axis left) and cumulative emissions (y-axis right) in the bio-methane scenario (LBG(mp), r-40) and assuming methane leakage phase-out.}
+%     \label{fig:LBG}
+% \end{figure}
 
 % BATW has to be decreased significantly, but the conditions applied were rather unfavorable for BATW.
 Sailing cargo ships, driven by a combination of wind and electricity from batteries seem to only be cost efficient in case of a very strong drop in costs. However, the influence factors have more dimensions than just the pure battery and ship costs. In this model, it is assumed that one third of the propulsion of wind driven ships is still done by electricity. For long distance cargo, that mainly has to use the engine for manoeuvring into and out of the harbour, the wind share and potentially additional solar input can be significantly increased and thus the required battery and electricity costs reduced. Thus the conditions in our model application are rather unfavourable for wind propulsion.
@@ -617,7 +617,130 @@ This work was carried out as part of the FutureGas project (\url{www.futuregas.d
 
 
 \section*{References}
-
 \bibliography{mybibfile}
+
+\appendix
+
+\section{Tables}
+\begin{table}[h]
+    \centering
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{lrrrrrrrr}
+        \toprule
+        Fuel type & cf & ci & cf + ci & ec(w2t) & em(w2t) & sulphur content & li & References \\
+        & $\left[\frac{EUR_{2016}}{GJ_{fuel}}\right]$ & $\left[\frac{EUR_{2016}}{GJ_{fuel}}\right]$ & $\left[\frac{EUR_{2016}}{GJ_{fuel}}\right]$ & $\left[\frac{g_{CO2}}{MJ_{fuel}}\right]$ & $\left[\frac{g_{CH4}}{MJ_{fuel}}\right]$ & $\left[\%_{mass}\right]$ & $\left[a\right]$ & \\
+        \midrule
+        HFO   & -        & -        & 6.547     & 8.148         & 0.090            & 2.9525   & 40   & \cite{BIX2018,Gilbert2018,Bengtsson2012,BRYNOLF2014}    \\
+        MDO   & -        & -        & 12.775    & 7.728         & 0.090            & 0.7500   & 40   & \cite{BIX2018,Gilbert2018,Bengtsson2012,Andersson2015}    \\
+        BDO   & -        & -        & 24.240    & 0             & 0.030            & 0.1498   & 40   & \cite{SSI2018,Bengtsson2012}    \\
+        LNG   & 4.888    & 0.139    & -         & 6.600         & 0.033            & 0.0500   & 36   & \cite{EnerginNet2018,Gilbert2018,BRYNOLF2014,Andersson2015}    \\
+        LBG   & 27.847   & 1.599    & -         & 0             & 0.130            & 0.0750   & 25   & \cite{Brynolf2018,Bengtsson2012}    \\
+        H2    & 20.885   & 1.199    & -         & 0             & 0                & 0        & 25   & \cite{Brynolf2018}    \\
+        CH3OH & 29.240   & 1.679    & -         & 0             & 0.042            & 0.0912   & 25   & \cite{Brynolf2018,BRYNOLF2014}    \\
+        NH3   & 26.803   & 1.802    & -         & 0             & 0                & 0        & 20   & \cite{Morgan2017}    \\
+        ELEC  & 13.889   & 2.929    & -         & 0             & 0                & 0        & 20   & \cite{Vree2008}    \\
+        \bottomrule
+    \end{tabular}}
+    \caption[Fuel type data]{Fuel type data for each parameter (for abbreviations see the nomenclature list in \cref{box:nomenclature}). Further explanation of data can be found in \cite{Thesis2018}.}
+    \label{tab:fuel_data}
+\end{table}
+\begin{table}[h]
+    \centering
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{llrrrrrrrrrrr}
+        \toprule
+                       Ship-type & Range & ls & fa$_{2016}$ & ts & cs & ec(t2p) & em(t2p) & Refit & Refit opt. & Tier & Scrubber & References \\
+                       &       & $\left[a\right]$ & $\left[PJ_{fuel}\right]$ & $\left[\frac{Ttkm}{GJ_{fuel}}\right]$ & $\left[\frac{EUR_{2016}}{GJ_{fuel}}\right]$ & $\left[\frac{g_{CO2}}{MJ_{fuel}}\right]$ & $\left[\frac{g_{CH4}}{MJ_{fuel}}\right]$ & & & & & \\
+        \midrule
+        IC HFO (old)   & long  & 11     & 9.93   & 9.69        & 8.72     & 76.06            & 0.00045          & yes   & IC HFO (refit) & 0           & no     & \cite{UNCTAD2017,Eurostat2018,Wisdom2017,Kristensen2012,Rex2017} \\
+        IC MDO (old)   & long  & 11     & 5.99   & 9.40        & 8.45     & 74.36            & 0.00045          & yes   & IC BDO (refit) & 0           & yes    & \cite{UNCTAD2017,Eurostat2018,Wisdom2017,Kristensen2012,Rex2017} \\
+        IC HFO         & long  & 25     & 0      & 9.40        & 8.45     & 75.90            & 0.00045          & no    & -              & 3           & yes    & \cite{UNCTAD2017,Kristensen2012,Rex2017} \\
+        IC MDO         & long  & 25     & 0      & 9.40        & 8.45     & 74.32            & 0.00045          & no    & -              & 3           & yes    & \cite{UNCTAD2017,Kristensen2012,Rex2017} \\
+        IC HFO (refit) & long  & 11     & 0      & 9.40        & 0.02     & 75.90            & 0.00045          & no    & -              & 3           & yes    & \cite{UNCTAD2017,McGill2013} \\
+        IC BDO (refit) & long  & 11     & 0      & 9.40        & 0        & 0                & 0.00045          & no    & -              & 3           & yes    & \cite{UNCTAD2017,Wisdom2017} \\
+        IC BDO         & long  & 25     & 0      & 9.40        & 8.45     & 0                & 0.00045          & no    & -              & 3           & yes    & \cite{UNCTAD2017,Bengtsson2012} \\
+        IC LNG         & long  & 25     & 0      & 10.13       & 96.98    & 54.36            & 0.71000          & no    & -              & 3           & no     & \cite{UNCTAD2017,Kristensen2012,Rex2017} \\
+        IC LBG         & long  & 25     & 0      & 10.13       & 96.98    & 0                & 0.79000          & no    & -              & 3           & no     & \cite{UNCTAD2017,Bengtsson2012} \\
+        IC H2          & long  & 25     & 0      & 10.13       & 109.29   & 0                & 0                & no    & -              & 3           & no     & \cite{UNCTAD2017,ElGohary2013} \\
+        IC CH3OH       & long  & 25     & 0      & 10.13       & 109.29   & 0                & 0.79000          & no    & -              & 3           & no     & \cite{UNCTAD2017,Andersson2015,BRYNOLF2014} \\
+        IC NH3         & long  & 25     & 0      & 10.13       & 109.29   & 0                & 0                & no    & -              & 3           & no     & \cite{UNCTAD2017} \\
+        FC LNG         & long  & 25     & 0      & 22.47       & 134.80   & 54.36            & 0.22763          & no    & -              & 3           & no     & \cite{UNCTAD2017,VanBiert2016} \\
+        FC LBG         & long  & 25     & 0      & 22.47       & 134.80   & 0                & 0.22763          & no    & -              & 3           & no     & \cite{UNCTAD2017,VanBiert2016} \\
+        FC H2          & long  & 25     & 0      & 22.47       & 134.80   & 0                & 0                & no    & -              & 3           & no     & \cite{UNCTAD2017,USDE2015} \\
+        FC CH3OH       & long  & 25     & 0      & 22.47       & 134.80   & 0                & 0.22763          & no    & -              & 3           & no     & \cite{UNCTAD2017,VanBiert2016} \\
+        FC NH3         & long  & 25     & 0      & 22.47       & 134.80   & 0                & 0                & no    & -              & 3           & no     & \cite{UNCTAD2017} \\
+        EM ELEC        & short & 30     & 0      & 11.86       & 1,047.05 & 0                & 0                & no    & -              & 3           & no     & \cite{DNVGL2015} \\
+        WIND ELEC      & long  & 30     & 0      & 35.58       & 2,094.11 & 0                & 0                & no    & -              & 3           & no     &  \\  
+    \bottomrule
+    \end{tabular}}
+    \caption[Ship type data]{Ship type data for each specific parameter (for abbreviations see the nomenclature list in \cref{box:nomenclature}). Further explanation and references of data can be found in \cite{Thesis2018}.}
+    \label{tab:ship_data}
+\end{table}
+\begin{table}[h]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{lrlr}
+        \toprule
+        Modified & Percentage & Affected Technologies & References \\
+        para- & change & & \\
+        meters & 2016-2050 & & \\
+        \midrule
+        ic  & -20           & LNG,LBG,H2,CH3OH,NH3,ELEC                         & \cite[fig.~6,~p.~13]{Brynolf2018}     \\[1.5ex]
+        \multirow{2}{*}{cf} & 110   & HFO,MDO,BDO,LNG                           & \cite[fig.~13,~p.~3]{JAE-KNY/MDA2017} \\
+            & -20           & LBG,H2,CH3OH,NH3,ELEC                             & \cite[fig.~6,~p.~13]{Brynolf2018}     \\[1.5ex]
+        \multirow{2}{*}{cs} & -40   & Internal combustion: LNG,LBG,H2,CH3OH,NH3 & \cite{Rex2017}                        \\
+            & -50           & Fuel cell: LNG,LBG,H2,CH3OH,NH3                   & \cite{Rex2017}                        \\
+            & -75           & Eletric motor, WIND: ELEC                         & \cite{Rex2017}                        \\[1.5ex]
+        ts  & +15           & All except old ships                              & \cite[tab.~51,~p.~282]{Smith2014}     \\[1.5ex]
+        ec  & -10           & IC: HFO,MDO,LNG; FC: LNG                          & \cite[tab.~51,~p.~282]{Smith2014}     \\[1.5ex]
+        em  & -10           & IC: HFO,MDO,BDO,LNG; FC: LNG,LBG                  & \cite[tab.~51,~p.~282]{Smith2014}     \\
+        \bottomrule
+    \end{tabular}}
+    \caption{Change of fuel and ship specific parameters from 2016 to 2050 in the Reference scenario (for abbreviations see the nomenclature list in \cref{box:nomenclature}).For additional information about scenarios see \cite{Thesis2018}.}
+    \label{tab:ref_rates}
+\end{table}
+% \glsdisablehyper
+% \glsaddall
+% \begin{table*}[h]
+% %\renewcommand\tablename{Nomenclature list}
+% \begin{mdframed}
+% \footnotesize{
+% %\begin{mdframed}[style=mdfexample1]
+% \begin{multicols}{2}
+% \printglossary[style=tree,type=a]
+% \vspace{-0.3cm}
+% \printglossary[style=tree,type=s]
+% \vspace{-0.3cm}
+% \printglossary[style=tree,type=v]
+% \vspace{-0.3cm}
+% \printglossary[style=tree,type=p]
+% \end{multicols}
+% }
+% \end{mdframed}
+% \caption*{Nomenclature list.}
+% \label{box:nomenclature}.
+% \end{table*}
+
+\newpage
+\section{Figures}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figures/BAU_fuels_emissions.eps}
+    \caption{Fuel consumption (y-axis left) and cumulative emissions (y-axis right) in the business-as-usual scenario without carbon restrictions.}
+    \label{fig:BAU}.
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figures/LBG_MP_fuels_emissions.eps}
+    \caption{Fuel consumption (y-axis left) and cumulative emissions (y-axis right) in the bio-methane scenario (LBG(mp), r-40) and assuming methane leakage phase-out.}
+    \label{fig:LBG}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.75\textwidth]{figures/costVariation.eps}
+    \caption{Total fuel shares from 2016-2050 (y-axis) in relation to different cost range changes (x-axis) compared to the reference case.}
+    \label{fig:costVariation}
+\end{figure}
+
 
 \end{document}
