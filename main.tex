@@ -13,7 +13,8 @@
 \newglossary{v}{vas}{vao}{Variables}
 \newglossary{s}{ses}{seo}{Sets}
 \newglossary{p}{pas}{pao}{Parameters}
-\newglossary{a}{aas}{aao}{Abbreviations}
+\newglossary{a}{abs}{abo}{Abbreviations}
+\newglossary{obj}{obs}{obo}{Nomenclature -- Obj. eq.}
 \makeglossaries
 
 \input{glossaries.tex}
@@ -192,35 +193,35 @@ While the core components of the model are the equations describing the objectiv
 
 \subsection{Mathematical Formulation}
 \label{subsec:Mat}
-The problem is formulated in a linear, non-integer manner, aiming to minimise the objective function. Model variables in the first time step are initialised with data compiled for the current shipping fleet. For the following time steps, different constraints trigger the necessary investment decisions for new technologies and lead to decommissioning of existing ships that are not in compliance with legal obligations or emission targets. Since the objective is to minimise total system costs  (see \autoref{eq:objective}), investments are interpreted as conflicting, yet inevitable actions to cope with the constraints, such as lowering emissions to air (\autoref{subsubsec:emconstraints}) and supplying the transport demand in each time step (\autoref{subsubsec:tdemand}). All model variable domains are within non-negative real numbers, including zero $\left(R_{0}^{+}\right)$. The nomenclature of sets, variables and parameters used in the equations and can be found in the nomenclature list.
-\glsdisablehyper
-\glsaddall
-\begin{table*}[htbp]
-%\renewcommand\tablename{Nomenclature list}
-\begin{mdframed}
-\footnotesize{
-%\begin{mdframed}[style=mdfexample1]
-\begin{multicols}{2}
-\printglossary[style=tree,type=a]
-\vspace{-0.3cm}
-\printglossary[style=tree,type=s]
-\vspace{-0.3cm}
-\printglossary[style=tree,type=v]
-\vspace{-0.3cm}
-\printglossary[style=tree,type=p]
-\end{multicols}
-}
-\end{mdframed}
-\caption*{Nomenclature list.}
-\label{box:nomenclature}.
-\end{table*}
+The problem is formulated in a linear, non-integer manner, aiming to minimise the objective function. Model variables in the first time step are initialised with data compiled for the current shipping fleet. For the following time steps, different constraints trigger the necessary investment decisions for new technologies and lead to decommissioning of existing ships that are not in compliance with legal obligations or emission targets. Since the objective is to minimise total system costs  (\autoref{eq:objective}), investments are interpreted as conflicting, yet inevitable actions to cope with the constraints, such as lowering emissions to air (\autoref{subsubsec:emconstraints}) and supplying the transport demand in each time step (\autoref{subsubsec:tdemand}). All model variable domains are within non-negative real numbers, including zero $\left(R_{0}^{+}\right)$. The nomenclature of sets, variables and parameters used in the equations can be found in the nomenclature list (\autoref{box:nomenclature}). Below, \autoref{subsubsec:obj} illustrates exemplarily the formulation of the objective equation. The complete set of equations is listed in \ref{app:equations}.
+% \glsdisablehyper
+% \glsaddall
+% \begin{table*}[htbp]
+% %\renewcommand\tablename{Nomenclature list}
+% \begin{mdframed}
+% \footnotesize{
+% %\begin{mdframed}[style=mdfexample1]
+% \begin{multicols}{2}
+% \printglossary[style=tree,type=a]
+% \vspace{-0.3cm}
+% \printglossary[style=tree,type=s]
+% \vspace{-0.3cm}
+% \printglossary[style=tree,type=v]
+% \vspace{-0.3cm}
+% \printglossary[style=tree,type=p]
+% \end{multicols}
+% }
+% \end{mdframed}
+% \caption*{Nomenclature list.}
+% \label{box:nomenclature}.
+% \end{table*}
 
-\subsubsection{Model objective}
-The objective equation minimises total system expenditures over all time steps and ship types (aggregated by main engine and fuel). It comprises the sum of  costs for fuel consumption, additional infrastructure as well as ship capacity for all years (35 time steps in the described application). Costs for fixed assets -- fuel infrastructure (CI) and ships (CS) -- are given as annuities and account only with the annual added capacities. The value of the existing amount in the start year ($finit_{t,s}$ in $T_0$) is not included in $CI$ and $CS$.
+\subsubsection{Objective function}\label{subsubsec:obj}
+The objective equation (obj. eq.) minimises total system expenditures over all time steps and ship types (aggregated by main engine and fuel). It comprises the sum of  costs for fuel consumption, additional infrastructure as well as ship capacity for all years (35 time steps in the described application). Costs for fixed assets -- fuel infrastructure (CI) and ships (CS) -- are given as annuities and account only with the annual added capacities. The value of the existing amount in the start year ($finit_{t,s}$ in $T_0$) is not included in $CI$ and $CS$.
 \begin{subequations}
     \begin{align}
         min. &\sum_{\forall t \in T}\sum_{\forall s \in S}\left( CF_{t, s} + CI_{t, s} + CS_{t, s} \right)\label{eq:objective}\\
-        \intertext{s.t.}
+        \intertext{subject to (s.t.)}
         CF_{t, s} &\geq f_{t,s} \cdot cf_{t,s}\\
         CI_{t, s} &\geq \left( iup_{t,s} - finit_{t, s} \right) \cdot li_{s} \cdot ci_{t,s}, \forall t \in T_0\\
         CI_{t, s} &\geq iup_{t,s} \cdot li_{s} \cdot ci_{t,s}, \forall t \in T_{>0}\\
@@ -229,87 +230,103 @@ The objective equation minimises total system expenditures over all time steps a
     \end{align}
 \end{subequations}
 
-\subsubsection{Constraints on fuel utilisation, infrastructure and ship capacity}
-Fuel constraints may apply for a selection of ship types and years in the model (see \autoref{eq:biofuel}). With regard to infrastructure and ships, only the incremental capacity is cost effective while taking into account expiry dates of existing capacities. The expiry dates relate to the technical lifetimes, which differ between ships and infrastructure of same type.\\\par\noindent
-\textit{Infrastructure capacity: }Defined as the sum of all additional fuel infrastructure built during the elapsed technical lifetime.
-\begin{subequations}
-    \begin{align}
-        icap_{t,s} &\leq \sum_{\textbf{x}}^{t-1} \left( iup_{x,s} \right), \forall t \in T_{>0}, \forall s \in S\label{eq:icap}\\
-        \intertext{s.t.}
-        x &= T_0, \forall t \leq \left(li_{s} + T_0 - 1\right)\\
-        x &= t - li_{s} + 1, \forall t > \left(li_{s} + T_0 - 1\right)
-    \end{align}
-\end{subequations}\\
-\textit{Additional infrastructure: }Additional fuel infrastructure in order to supply the fleet.
-\begin{equation}
-    iup_{t,s} \geq f_{t,s} - icap_{t,s}, \forall t \in T_{>0}, \forall s \in S\label{eq:iup}
-\end{equation}\\
-\textit{Existing ships: }Defined as the sum of all additional shipping capacity build during the elapsed technical lifetime.
-\begin{subequations}
-    \begin{align}
-        scap_{t,s} &\leq \sum_{\textbf{x}}^{t-1} \left(sup_{x,s} \right), \forall t \in T_{>0}, \forall s \in S\label{eq:scap}\\
-        \intertext{s.t.}
-        x &= T_0, \forall t \leq \left(ls_{s} + T_0 - 1\right)\\
-        x &= t - ls_{s} + 1, \forall t > \left(ls_{s} + T_0 - 1\right)
-    \end{align}
-\end{subequations}\\
-\textit{Additional ships: }Additional ships in order to supply the cargo transport demand.
-\begin{equation}
-    sup_{t,s} \geq f_{t,s} - scap_{t,s}, \forall t \in T_{>0}, \forall s \in S\label{eq:sup}
-\end{equation}\\
-\textit{Refit capacity: }Defines for each year the old ships' capacity possible to refit.
-\begin{subequations}\label{eq:refitships}
-    \begin{align}
-    f_{t,s} + f_{t,r} - f_{T_0, s} &\leq 0, \forall t \in T_{<\left(T_0+ls_{s}\right)}, \forall s, r \in SRO\\
-    f_{t,s} + f_{t,r} & = 0, \forall t \in T_{\geq\left(T_0+ls_{s}\right)}, \forall s, r \in SRO
-    \end{align}
-\end{subequations}\\
-\textit{Bio-fuel capacity: }Defines for each year the upper limit of bio-fuel available -- based on own assumptions.
-\begin{equation}
-    \sum_{\forall s \in SB} \left(f_{t,s} \right) - ba_{t}\cdot finit_{T_0} \leq 0, \forall t \in T\label{eq:biofuel}
-\end{equation}
+\glsdisablehyper
+\glsaddall
+\begin{table*}[h]
+%\renewcommand\tablename{Nomenclature list}
+\begin{mdframed}
+\footnotesize{
+%\begin{mdframed}[style=mdfexample1]
+\begin{multicols}{2}
+\printglossary[style=tree,type=obj]
+\end{multicols}
+}
+\end{mdframed}
+% \caption*{Nomenclature -- Objective function.}
+\label{box:nomenclature_obj}.
+\end{table*}
 
-\subsubsection{Constraints on transport demand}
-\label{subsubsec:tdemand}
-Transport demand constraints may apply for a selection of ship types and years in the model, depending on the range category -- either short or long -- and the emission regulations -- in- or outside emission control areas (ECA).\\\par\noindent
-\textit{Total transport demand: }Defines for each year that the total transport supply by all ships must be greater or equal to the total transport demand.
-\begin{equation}
-    dtotal_t \leq \sum_{\forall s \in S} \left( f_{t,s} \cdot sts_{t,s}\right), \forall t \in T \label{eq:td_total}
-\end{equation}
-\textit{Short transport demand: }Defines for each year the maximum transport supply of all ships categorised as short range (926 km).
-\begin{equation}
-    dshort_t \geq \sum_{\forall s \in SSR} \left( f_{t,s} \cdot sts_{t,s}\right), \forall t \in T \label{eq:td_short}
-\end{equation}
-\textit{Non-ECAS transport demand: }Defines for each year the maximum transport supply of all ships only allowed for operation outside of the ECAs.
-\begin{equation}
-    dnoneca_t \geq \sum_{\forall s \in SNS} \left( f_{t,s} \cdot sts_{t,s}\right), \forall t \in T \label{eq:td_noneca}
-\end{equation}
+% \subsubsection{Constraints on fuel utilisation, infrastructure and ship capacity}
+% Fuel constraints may apply for a selection of ship types and years in the model (see \autoref{eq:biofuel}). With regard to infrastructure and ships, only the incremental capacity is cost effective while taking into account expiry dates of existing capacities. The expiry dates relate to the technical lifetimes, which differ between ships and infrastructure of same type.\\\par\noindent
+% \textit{Infrastructure capacity: }Defined as the sum of all additional fuel infrastructure built during the elapsed technical lifetime.
+% \begin{subequations}
+%     \begin{align}
+%         icap_{t,s} &\leq \sum_{\textbf{x}}^{t-1} \left( iup_{x,s} \right), \forall t \in T_{>0}, \forall s \in S\label{eq:icap}\\
+%         \intertext{s.t.}
+%         x &= T_0, \forall t \leq \left(li_{s} + T_0 - 1\right)\\
+%         x &= t - li_{s} + 1, \forall t > \left(li_{s} + T_0 - 1\right)
+%     \end{align}
+% \end{subequations}\\
+% \textit{Additional infrastructure: }Additional fuel infrastructure in order to supply the fleet.
+% \begin{equation}
+%     iup_{t,s} \geq f_{t,s} - icap_{t,s}, \forall t \in T_{>0}, \forall s \in S\label{eq:iup}
+% \end{equation}\\
+% \textit{Existing ships: }Defined as the sum of all additional shipping capacity build during the elapsed technical lifetime.
+% \begin{subequations}
+%     \begin{align}
+%         scap_{t,s} &\leq \sum_{\textbf{x}}^{t-1} \left(sup_{x,s} \right), \forall t \in T_{>0}, \forall s \in S\label{eq:scap}\\
+%         \intertext{s.t.}
+%         x &= T_0, \forall t \leq \left(ls_{s} + T_0 - 1\right)\\
+%         x &= t - ls_{s} + 1, \forall t > \left(ls_{s} + T_0 - 1\right)
+%     \end{align}
+% \end{subequations}\\
+% \textit{Additional ships: }Additional ships in order to supply the cargo transport demand.
+% \begin{equation}
+%     sup_{t,s} \geq f_{t,s} - scap_{t,s}, \forall t \in T_{>0}, \forall s \in S\label{eq:sup}
+% \end{equation}\\
+% \textit{Refit capacity: }Defines for each year the old ships' capacity possible to refit.
+% \begin{subequations}\label{eq:refitships}
+%     \begin{align}
+%     f_{t,s} + f_{t,r} - f_{T_0, s} &\leq 0, \forall t \in T_{<\left(T_0+ls_{s}\right)}, \forall s, r \in SRO\\
+%     f_{t,s} + f_{t,r} & = 0, \forall t \in T_{\geq\left(T_0+ls_{s}\right)}, \forall s, r \in SRO
+%     \end{align}
+% \end{subequations}\\
+% \textit{Bio-fuel capacity: }Defines for each year the upper limit of bio-fuel available -- based on own assumptions.
+% \begin{equation}
+%     \sum_{\forall s \in SB} \left(f_{t,s} \right) - ba_{t}\cdot finit_{T_0} \leq 0, \forall t \in T\label{eq:biofuel}
+% \end{equation}
 
-\subsubsection{Constraints on emissions}
-\label{subsubsec:emconstraints}
-Emission constraints may apply for a selection of ship types and years in the model. The constraint set imposes limitations to the deployment of certain fuel types in the model based on the defined CO$_2$e budget and target as well as the legal restrictions for SO$_X$ and NO$_X$ as defined by the IMO.
-\\\par\noindent
-\textit{Emission budget: }Defines the maximal amount of accumulated total GHG emissions.
-\begin{subequations}
-    \begin{align}
-    eb &\geq \sum_{\forall t \in T}\sum_{\forall s \in S}\left(EC_{t,s} + EM_{t,s} \right) \label{eq:co2ebudget}\\
-    \intertext{s.t.}
-    EC_{t,s} &= f_{t,s} \cdot ec_{t,s}, \forall t \in T, \forall s \in S\\
-    EM_{t,s} &= f_{t,s} \cdot em_{t,s}, \forall t \in T, \forall s \in S
-    \end{align}
-\end{subequations}\\
-\textit{Emission target: }Defines the amount of GHG emissions allowed in the target year, based on a percentage reduction from the start year.
-\begin{equation}
-    \frac{\sum_{\forall s \in S} \left(EC_{T_0,s}+EM_{T_0,s}\right)}{\sum_{\forall s \in S} \left(EC_{t,s}+EM_{t,s}\right)} \cdot et \geq 1, \forall t \in T_{\geq \left(tet-T_0\right)}
-\end{equation}\\
-\textit{Global SO$_X$ regulations: }Defines the set of ships as of 2020 prohibited to operate globally with respect to global SO$_X$ regulations.
-\begin{equation}
-    f_{t,s} = 0, \forall t \in T_{\geq teca-T_0}, \forall s \in SNGS \label{eq:sox_global}
-\end{equation}\\
-\textit{NO$_X$ regulations: }Defines the set of ships as of 2021 prohibited to operate within ECAN.
-\begin{equation}
-   f_{t,s} = 0, \forall t \in T_{\geq tneca-T_0},\forall s \in SNN \label{eq:tier}
-\end{equation}
+% \subsubsection{Constraints on transport demand}
+% \label{subsubsec:tdemand}
+% Transport demand constraints may apply for a selection of ship types and years in the model, depending on the range category -- either short or long -- and the emission regulations -- in- or outside emission control areas (ECA).\\\par\noindent
+% \textit{Total transport demand: }Defines for each year that the total transport supply by all ships must be greater or equal to the total transport demand.
+% \begin{equation}
+%     dtotal_t \leq \sum_{\forall s \in S} \left( f_{t,s} \cdot sts_{t,s}\right), \forall t \in T \label{eq:td_total}
+% \end{equation}
+% \textit{Short transport demand: }Defines for each year the maximum transport supply of all ships categorised as short range (926 km).
+% \begin{equation}
+%     dshort_t \geq \sum_{\forall s \in SSR} \left( f_{t,s} \cdot sts_{t,s}\right), \forall t \in T \label{eq:td_short}
+% \end{equation}
+% \textit{Non-ECAS transport demand: }Defines for each year the maximum transport supply of all ships only allowed for operation outside of the ECAs.
+% \begin{equation}
+%     dnoneca_t \geq \sum_{\forall s \in SNS} \left( f_{t,s} \cdot sts_{t,s}\right), \forall t \in T \label{eq:td_noneca}
+% \end{equation}
+
+% \subsubsection{Constraints on emissions}
+% \label{subsubsec:emconstraints}
+% Emission constraints may apply for a selection of ship types and years in the model. The constraint set imposes limitations to the deployment of certain fuel types in the model based on the defined CO$_2$e budget and target as well as the legal restrictions for SO$_X$ and NO$_X$ as defined by the IMO.
+% \\\par\noindent
+% \textit{Emission budget: }Defines the maximal amount of accumulated total GHG emissions.
+% \begin{subequations}
+%     \begin{align}
+%     eb &\geq \sum_{\forall t \in T}\sum_{\forall s \in S}\left(EC_{t,s} + EM_{t,s} \right) \label{eq:co2ebudget}\\
+%     \intertext{s.t.}
+%     EC_{t,s} &= f_{t,s} \cdot ec_{t,s}, \forall t \in T, \forall s \in S\\
+%     EM_{t,s} &= f_{t,s} \cdot em_{t,s}, \forall t \in T, \forall s \in S
+%     \end{align}
+% \end{subequations}\\
+% \textit{Emission target: }Defines the amount of GHG emissions allowed in the target year, based on a percentage reduction from the start year.
+% \begin{equation}
+%     \frac{\sum_{\forall s \in S} \left(EC_{T_0,s}+EM_{T_0,s}\right)}{\sum_{\forall s \in S} \left(EC_{t,s}+EM_{t,s}\right)} \cdot et \geq 1, \forall t \in T_{\geq \left(tet-T_0\right)}
+% \end{equation}\\
+% \textit{Global SO$_X$ regulations: }Defines the set of ships as of 2020 prohibited to operate globally with respect to global SO$_X$ regulations.
+% \begin{equation}
+%     f_{t,s} = 0, \forall t \in T_{\geq teca-T_0}, \forall s \in SNGS \label{eq:sox_global}
+% \end{equation}\\
+% \textit{NO$_X$ regulations: }Defines the set of ships as of 2021 prohibited to operate within ECAN.
+% \begin{equation}
+%   f_{t,s} = 0, \forall t \in T_{\geq tneca-T_0},\forall s \in SNN \label{eq:tier}
+% \end{equation}
 
 
 \subsection{Data}
@@ -585,7 +602,6 @@ The model code and most of the data references and pre-processing can also be ap
 % Why the mentioned costs are rather the upper end
 Compared to other sectors like electricity and heat, these mitigation costs per ton CO$_2$e seem high, but one has to consider several points. First, our results can be interpreted as the upper bound of cost: Technologies considered are all applicable today, developments in other sectors applying similar technology options could further decrease costs and additional alternatives could evolve. Second, as shown in the demand reduction scenarios, any decrease in transport demand would save costs even beyond the proportional saving. This is due to not only fuel savings (proportional) but, also due to avoided investments in new ships (disproportionate). A decrease in transport demand especially has an effect in the period, in which new investments in ships are required and can thus avoid costs over-proportionally. And third, refits and hybrid solutions have not been considered to a great extent in the model functionality and could further decrease costs and ease the shift to different fuels.
 
-
 % Costs - what does that mean for the cargo cost
 Transport costs in the BAU scenario amount to roughly 3 \euro$_{2016}$/ton cargo. For climate compatible pathways they are likely to more than double. With \cite[p.~50]{UNCTAD2015} reporting average transport costs of around 5 \euro/ton and including more detail, our results seem to be acceptably precise. Further, \cite[p.~55]{UNCTAD2015} states that transport costs in developed countries are equal to 7 \% of the cargo's import value. Under the assumption of an equal share in BAU, cargo import values for the climate compatible pathways would increase by 6 to 8 \%.
 
@@ -619,7 +635,127 @@ This work was carried out as part of the FutureGas project (\url{www.futuregas.d
 \section*{References}
 \bibliography{mybibfile}
 
+\newpage
 \appendix
+\section{Equations}\label{app:equations}
+\subsubsection{Nomenclature}\label{box:nomenclature}
+\glsdisablehyper
+\glsaddall
+\begin{table*}[h]
+%\renewcommand\tablename{Nomenclature list}
+\begin{mdframed}
+\footnotesize{
+%\begin{mdframed}[style=mdfexample1]
+\begin{multicols}{2}
+\printglossary[style=tree,type=a]
+\vspace{-0.3cm}
+\printglossary[style=tree,type=s]
+\vspace{-0.3cm}
+\printglossary[style=tree,type=v]
+\vspace{-0.3cm}
+\printglossary[style=tree,type=p]
+\end{multicols}
+}
+\end{mdframed}
+\caption*{Nomenclature list.}
+% \label{box:nomenclature}.
+\end{table*}
+
+\subsubsection{Objective function}
+The objective equation minimises total system expenditures over all time steps and ship types (aggregated by main engine and fuel). It comprises the sum of  costs for fuel consumption, additional infrastructure as well as ship capacity for all years (35 time steps in the described application). Costs for fixed assets -- fuel infrastructure (CI) and ships (CS) -- are given as annuities and account only with the annual added capacities. The value of the existing amount in the start year ($finit_{t,s}$ in $T_0$) is not included in $CI$ and $CS$.
+\begin{subequations}
+    \begin{align}
+        min. &\sum_{\forall t \in T}\sum_{\forall s \in S}\left( CF_{t, s} + CI_{t, s} + CS_{t, s} \right)\\
+        \intertext{subject to (s.t.)}
+        CF_{t, s} &\geq f_{t,s} \cdot cf_{t,s}\\
+        CI_{t, s} &\geq \left( iup_{t,s} - finit_{t, s} \right) \cdot li_{s} \cdot ci_{t,s}, \forall t \in T_0\\
+        CI_{t, s} &\geq iup_{t,s} \cdot li_{s} \cdot ci_{t,s}, \forall t \in T_{>0}\\
+        CS_{t, s} &\geq \left( sup_{t,s} - finit_{t, s} \right) \cdot ls_{s} \cdot cs_{t,s}, \forall t \in T_0\\
+        CS_{t, s} &\geq sup_{t,s} \cdot ls_{s} \cdot cs_{t,s}, \forall t \in T_{>0}
+    \end{align}
+\end{subequations}
+
+\subsubsection{Constraints on fuel utilisation, infrastructure and ship capacity}
+Fuel constraints may apply for a selection of ship types and years in the model (see \autoref{eq:biofuel}). With regard to infrastructure and ships, only the incremental capacity is cost effective while taking into account expiry dates of existing capacities. The expiry dates relate to the technical lifetimes, which differ between ships and infrastructure of same type.\\\par\noindent
+\textit{Infrastructure capacity: }Defined as the sum of all additional fuel infrastructure built during the elapsed technical lifetime.
+\begin{subequations}
+    \begin{align}
+        icap_{t,s} &\leq \sum_{\textbf{x}}^{t-1} \left( iup_{x,s} \right), \forall t \in T_{>0}, \forall s \in S\label{eq:icap}\\
+        \intertext{s.t.}
+        x &= T_0, \forall t \leq \left(li_{s} + T_0 - 1\right)\\
+        x &= t - li_{s} + 1, \forall t > \left(li_{s} + T_0 - 1\right)
+    \end{align}
+\end{subequations}\\
+\textit{Additional infrastructure: }Additional fuel infrastructure in order to supply the fleet.
+\begin{equation}
+    iup_{t,s} \geq f_{t,s} - icap_{t,s}, \forall t \in T_{>0}, \forall s \in S\label{eq:iup}
+\end{equation}\\
+\textit{Existing ships: }Defined as the sum of all additional shipping capacity build during the elapsed technical lifetime.
+\begin{subequations}
+    \begin{align}
+        scap_{t,s} &\leq \sum_{\textbf{x}}^{t-1} \left(sup_{x,s} \right), \forall t \in T_{>0}, \forall s \in S\label{eq:scap}\\
+        \intertext{s.t.}
+        x &= T_0, \forall t \leq \left(ls_{s} + T_0 - 1\right)\\
+        x &= t - ls_{s} + 1, \forall t > \left(ls_{s} + T_0 - 1\right)
+    \end{align}
+\end{subequations}\\
+\textit{Additional ships: }Additional ships in order to supply the cargo transport demand.
+\begin{equation}
+    sup_{t,s} \geq f_{t,s} - scap_{t,s}, \forall t \in T_{>0}, \forall s \in S\label{eq:sup}
+\end{equation}\\
+\textit{Refit capacity: }Defines for each year the old ships' capacity possible to refit.
+\begin{subequations}\label{eq:refitships}
+    \begin{align}
+    f_{t,s} + f_{t,r} - f_{T_0, s} &\leq 0, \forall t \in T_{<\left(T_0+ls_{s}\right)}, \forall s, r \in SRO\\
+    f_{t,s} + f_{t,r} & = 0, \forall t \in T_{\geq\left(T_0+ls_{s}\right)}, \forall s, r \in SRO
+    \end{align}
+\end{subequations}\\
+\textit{Bio-fuel capacity: }Defines for each year the upper limit of bio-fuel available -- based on own assumptions.
+\begin{equation}
+    \sum_{\forall s \in SB} \left(f_{t,s} \right) - ba_{t}\cdot finit_{T_0} \leq 0, \forall t \in T\label{eq:biofuel}
+\end{equation}
+
+\subsubsection{Constraints on transport demand}
+\label{subsubsec:tdemand}
+Transport demand constraints may apply for a selection of ship types and years in the model, depending on the range category -- either short or long -- and the emission regulations -- in- or outside emission control areas (ECA).\\\par\noindent
+\textit{Total transport demand: }Defines for each year that the total transport supply by all ships must be greater or equal to the total transport demand.
+\begin{equation}
+    dtotal_t \leq \sum_{\forall s \in S} \left( f_{t,s} \cdot sts_{t,s}\right), \forall t \in T \label{eq:td_total}
+\end{equation}
+\textit{Short transport demand: }Defines for each year the maximum transport supply of all ships categorised as short range (926 km).
+\begin{equation}
+    dshort_t \geq \sum_{\forall s \in SSR} \left( f_{t,s} \cdot sts_{t,s}\right), \forall t \in T \label{eq:td_short}
+\end{equation}
+\textit{Non-ECAS transport demand: }Defines for each year the maximum transport supply of all ships only allowed for operation outside of the ECAs.
+\begin{equation}
+    dnoneca_t \geq \sum_{\forall s \in SNS} \left( f_{t,s} \cdot sts_{t,s}\right), \forall t \in T \label{eq:td_noneca}
+\end{equation}
+
+\subsubsection{Constraints on emissions}
+\label{subsubsec:emconstraints}
+Emission constraints may apply for a selection of ship types and years in the model. The constraint set imposes limitations to the deployment of certain fuel types in the model based on the defined CO$_2$e budget and target as well as the legal restrictions for SO$_X$ and NO$_X$ as defined by the IMO.
+\\\par\noindent
+\textit{Emission budget: }Defines the maximal amount of accumulated total GHG emissions.
+\begin{subequations}
+    \begin{align}
+    eb &\geq \sum_{\forall t \in T}\sum_{\forall s \in S}\left(EC_{t,s} + EM_{t,s} \right) \label{eq:co2ebudget}\\
+    \intertext{s.t.}
+    EC_{t,s} &= f_{t,s} \cdot ec_{t,s}, \forall t \in T, \forall s \in S\\
+    EM_{t,s} &= f_{t,s} \cdot em_{t,s}, \forall t \in T, \forall s \in S
+    \end{align}
+\end{subequations}\\
+\textit{Emission target: }Defines the amount of GHG emissions allowed in the target year, based on a percentage reduction from the start year.
+\begin{equation}
+    \frac{\sum_{\forall s \in S} \left(EC_{T_0,s}+EM_{T_0,s}\right)}{\sum_{\forall s \in S} \left(EC_{t,s}+EM_{t,s}\right)} \cdot et \geq 1, \forall t \in T_{\geq \left(tet-T_0\right)}
+\end{equation}\\
+\textit{Global SO$_X$ regulations: }Defines the set of ships as of 2020 prohibited to operate globally with respect to global SO$_X$ regulations.
+\begin{equation}
+    f_{t,s} = 0, \forall t \in T_{\geq teca-T_0}, \forall s \in SNGS \label{eq:sox_global}
+\end{equation}\\
+\textit{NO$_X$ regulations: }Defines the set of ships as of 2021 prohibited to operate within ECAN.
+\begin{equation}
+   f_{t,s} = 0, \forall t \in T_{\geq tneca-T_0},\forall s \in SNN \label{eq:tier}
+\end{equation}
 
 \section{Tables}
 \begin{table}[h]
