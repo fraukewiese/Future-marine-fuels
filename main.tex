@@ -331,7 +331,7 @@ The objective equation (obj. eq.) minimises total system expenditures over all t
 
 \subsection{Data}
 \label{subsec:Dat}
-Main input data for the model are fuel and ship type specifications for the initial set of the start year as well as future options for ship-technology combinations. For fuel data, the unique identifier is the fuel type, for ship data it is ship type. Ship types can use the same fuel, but different engine types like internal combustion (IC), fuel cell (FC), electric motor (EM).
+Main input data for the model are fuel and ship type specifications for the initial set of the start year as well as future options for ship-technology combinations. For fuel data, the unique identifier is the fuel type, for ship data it is the ship type. Ship types can use the same fuel, but different engine types like internal combustion (IC), fuel cell (FC), electric motor (EM).
 
 \subsubsection{Fuel data}
 The fuel parameters (\autoref{tab:fuel_data}) include CO$_2$ and CH$_4$ emission factors from well-to-tank (w2t), sulphur content as well as cost parameters. Costs are specified for fuel and infrastructure and along with that, the respective lifetime. For fuels that are currently applied on a large scale -- heavy fuel oil (HFO), marine diesel oil (MDO), bio-diesel oil (BDO) -- the bunker index prices are used. It is assumed that these include all cost components from well to tank including fixed costs for a sufficient supply infrastructure. Thus, for these, infrastructure and fuel costs are not further specified. In contrast, new fuel technology costs are divided into fixed and variable components, since sufficient supply infrastructure has not been installed yet. If fuel upgrading is required, it is assumed to be done at berth to avoid additional grid investments. In the case of Denmark, the gas grid could handle any conceivable amount of natural gas and transport of upgraded biogas.
@@ -360,7 +360,7 @@ The fuel parameters (\autoref{tab:fuel_data}) include CO$_2$ and CH$_4$ emission
 % \end{table}
 
 \subsubsection{Ship and technology data}
-Ship type input parameter (\autoref{tab:ship_data}) include emission factors, compliance with sulphur and NO$_x$ regulation, lifetime, options for refit, costs, transport supply as well as application options regarding range. The amounts of fuels used today are additionally provided in the tables since these are applied as the starting point in the modelling, while future amounts are determined endogenously by the model.
+Ship type input parameters (\autoref{tab:ship_data}) include emission factors, compliance with sulphur and NO$_x$ regulation, lifetime, options for refit, costs, transport supply as well as application options regarding range. The amounts of fuels used today are additionally provided in the tables since these are applied as the starting point in the modelling, while future amounts are determined endogenously by the model.
 
 The emission factors for CO$_2$ and CH$_4$ only include the tank-to-propeller emissions, since the upstream emissions are already covered by the fuel parameters. Regarding sulphur and NO$_x$ compliance, Tier rating defines if a ship complies with IMO NO$_x$ regulations and can thus be operated in a NECA. Old ships in the model do not have sufficient TIER rating and thus either have to be scrapped or refitted when the regulation enters into force in 2021. New built ships are generally assumed to have a TIER 3 rating. Scrubber installations for sulphur are defined for each ship type.
 
@@ -405,7 +405,7 @@ Regarding the range options, only full electric ships are restricted to radius o
 \label{subsec:em_budget}
 The remaining emission budget of CO$_2$e for the temporal scope of the model is a decisive constraint in the calculation. Since there are no agreed or standardised ways of attributing GHG emissions from international shipping to countries, we have devised a method for distributing global shipping emissions and the respective remaining carbon budget to countries \ref{subsec:Scope}). We apply a global emission budget estimate by the IPCC \cite[Tab.~SPM.3, RCP2.6]{IPCC2013} and derive the shipping's budget by its annual estimated global GHG emission share from \citet{Olmer2017}.
 
-The comparison of global maritime CO$_2$e emissions in 2012 with the Danish emissions in 2016 and its application to the global maritime budget leads to the Danish GHG budget (\autoref{tab:dk_em_budget}). The absolute level of Danish cargo shipping emissions of 1.2 Mt CO$_2$e in 2016 is derived from the fuel specific emission operation factors, multiplied by total fuel consumed in that year. The relation of global maritime emissions in 2012 with the Danish ones in 2016 leads to rather over-estimated Danish budget since the global transport demand was increasing in that period \cite[Tab.~3,~p.~5]{UNCTAD2017}. Keeping the resulting emission level constant would deplete the budgets within the next 15 years and allows for less GHG emissions compared to a linear decrease from today until 2050.
+The comparison of global maritime CO$_2$e emissions in 2012 with the Danish emissions in 2016 and its application to the global maritime budget leads to the Danish GHG budget (\autoref{tab:dk_em_budget}). The absolute level of Danish cargo shipping emissions of 1.2 Mt CO$_2$e in 2016 is derived from the fuel specific emission operation factors, multiplied by total fuel consumed in that year. The relation of global maritime emissions in 2012 with the Danish ones in 2016 leads to a rather over-estimated Danish budget since the global transport demand was increasing in that period \cite[Tab.~3,~p.~5]{UNCTAD2017}. Keeping the resulting emission level constant would deplete the budgets within the next 15 years and allows for less GHG emissions compared to a linear decrease from today until 2050.
 \begin{table}[htb]
     \centering
     \begin{tabular}{llrr}
@@ -431,9 +431,7 @@ The comparison of global maritime CO$_2$e emissions in 2012 with the Danish emis
 In general, all scenarios except the business as usual (BAU) and IMO-scenario are modifications of the reference scenario's input parameters. The reference scenario and its modifications all comply with the carbon budget restriction. In the variations, one or a cluster of parameters are changed in a ceteris paribus manner and by the same percentage. If appropriate, changing rates are clustered due to market coupling effects. For example, electro-fuel cost parameter are all changed in the same way in the respective variation scenarios, as they all depend primarily on electricity. Additionally, the transport demand variation (TDV) scenario illustrates the possible effects of a decreasing transport demand by 30\% until 2050 -- else it is kept constant.
 
 \subsubsection{Scenario data}
-The development of cost and other parameters is decisive for the model results. To make the assumptions behind that transparent, the variations are expressed as percentage change rates from 2016 to 2050 (\autoref{tab:ref_rates}). Derived from that number, equal annual changing rates are applied.
-
-\autoref{tab:ref_rates} shows the parameter changes and thus future development of the reference scenario.
+The development of cost and other parameters is decisive for the model results. To make the assumptions behind that transparent, the variations are expressed as percentage change rates from 2016 to 2050 (\autoref{tab:ref_rates}). Derived from that number, equal annual changing rates are applied. \autoref{tab:ref_rates} shows the parameter changes and thus future development of the reference scenario.
 
 Other decisive parameters are bio-fuel availability and transport demand. Bio-fuel availability increases from 0 \% in 2016 to 40 \% in 2050 in relation to the total fuel consumption in 2016 \cite{DEA2016}. The transport demand stays constant based on \cite[p.~18]{ITF2018} and \cite[p.~19]{Rex2017}.
 
@@ -488,7 +486,7 @@ Other decisive parameters are bio-fuel availability and transport demand. Bio-fu
         NH3     & Cost variation of ammonia & cf, ci, cs \\
         \bottomrule
     \end{tabular}}
-    \caption[Scenario overview]{Scenario overview with description and modified parameters. For additional information about scenarios see \cite{Thesis2018}.}
+    \caption[Scenario overview]{Scenario overview with description and modified parameters. For additional information about scenarios see \cite{Thesis2018}. (cf: fuel costs; ci: infrastructure costs; cs: ship costs; eb: emission budget; em: CH$_4$ emissions; et: emission target; tdtotal: total transport demand)}
     \label{tab:scn_overview}
 \end{table}
 
@@ -810,7 +808,7 @@ Emission constraints may apply for a selection of ship types and years in the mo
         WIND ELEC      & long  & 30     & 0      & 35.58       & 2,094.11 & 0                & 0                & no    & -              & 3           & no     &  \\  
     \bottomrule
     \end{tabular}}
-    \caption[Ship type data]{Ship type data for each specific parameter (for abbreviations see the nomenclature list in \cref{box:nomenclature}). Further explanation and references of data can be found in \cite{Thesis2018}.}
+    \caption[Ship type data]{Ship type data for each specific parameter (for abbreviations see the nomenclature list in \ref{box:nomenclature}). Further explanation and references of data can be found in \cite{Thesis2018}.}
     \label{tab:ship_data}
 \end{table}
 \begin{table}[h]
@@ -833,7 +831,7 @@ Emission constraints may apply for a selection of ship types and years in the mo
         em  & -10           & IC: HFO,MDO,BDO,LNG; FC: LNG,LBG                  & \cite[tab.~51,~p.~282]{Smith2014}     \\
         \bottomrule
     \end{tabular}}
-    \caption{Change of fuel and ship specific parameters from 2016 to 2050 in the Reference scenario (for abbreviations see the nomenclature list in \cref{box:nomenclature}).For additional information about scenarios see \cite{Thesis2018}.}
+    \caption{Change of fuel and ship specific parameters from 2016 to 2050 in the Reference scenario (for abbreviations see the nomenclature list in \ref{box:nomenclature}).For additional information about scenarios see \cite{Thesis2018}.}
     \label{tab:ref_rates}
 \end{table}
 % \glsdisablehyper
