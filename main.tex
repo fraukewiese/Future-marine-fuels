@@ -182,18 +182,18 @@ The overall remaining GHG emission budget is derived from the IPCC's RCP2.6 scen
 
 \subsection{Model Structure}
 \label{subsec:Structure}
-While the core components of the model are the equations describing the objective function and constraints of the optimisation, pre-processing of the input and post-processing of the output data also constitute an important part of the modelling framework. \autoref{fig:model_boxflow} illustrates the model flow with white boxes representing data instances and blue arrows representing processes. These scripts are written in Python with the pre-processing applying the data package \textit{panda}, the optimisation utilising the optimisation package \textit{pyomo} and the output processing additionally to pandas \textit{mathplotlib} for illustrating the results in plots. All scripts, raw and processed data including documentation are available on GitHub \cite{GitHub2018}, where further development of the model takes place. To allow for barrier-free reproducibilty of the presented results, the entire deployed software is open-source and the version of data and code deployed for this research is available at \cite{Zenodo2018}. Both are published under the GNU general public license version 3.
+While the core components of the model are the equations describing the objective equation and constraints of the optimisation, pre-processing of the input and post-processing of the output data also constitute an important part of the modelling framework. \autoref{fig:model_boxflow} illustrates the model flow with white boxes representing data instances and blue arrows representing processes. These scripts are written in Python with the pre-processing applying the data package \textit{panda}, the optimisation utilising the optimisation package \textit{pyomo} and the output processing additionally to pandas \textit{mathplotlib} for illustrating the results in plots. All scripts, raw and processed data including documentation are available on GitHub \cite{GitHub2018}, where further development of the model takes place. To allow for barrier-free reproducibilty of the presented results, the entire deployed software is open-source and the version of data and code deployed for this research is available at \cite{Zenodo2018}. Both are published under the GNU general public license version 3.
 
 \begin{figure}[tbh]
     \centering
     \includegraphics[width=\textwidth]{figures/model_boxflow_paper.eps}
-    \caption{Model boxflow: The core model consists of the components inside the green box.}
+    \caption{Model boxflow: The core model consists of the components inside the green box. (NB: Notebook; GLPK: GNU Linear Programming Kit)}
     \label{fig:model_boxflow}
 \end{figure}
 
 \subsection{Mathematical Formulation}
 \label{subsec:Mat}
-The problem is formulated in a linear, non-integer manner, aiming to minimise the objective function. Model variables in the first time step are initialised with data compiled for the current shipping fleet. For the following time steps, different constraints trigger the necessary investment decisions for new technologies and lead to decommissioning of existing ships that are not in compliance with legal obligations or emission targets. Since the objective is to minimise total system costs  (\autoref{eq:objective}), investments are interpreted as conflicting, yet inevitable actions to cope with the constraints, such as lowering emissions to air (\autoref{subsubsec:emconstraints}) and supplying the transport demand in each time step (\autoref{subsubsec:tdemand}). All model variable domains are within non-negative real numbers, including zero $\left(R_{0}^{+}\right)$. The nomenclature of sets, variables and parameters used in the equations can be found in the nomenclature list (\autoref{box:nomenclature}). Below, \autoref{subsubsec:obj} illustrates exemplarily the formulation of the objective equation. The complete set of equations is listed in \ref{app:equations}.
+The problem is formulated in a linear, non-integer manner, aiming to minimise the objective equation. Model variables in the first time step are initialised with data compiled for the current shipping fleet. For the following time steps, different constraints trigger the necessary investment decisions for new technologies and lead to decommissioning of existing ships that are not in compliance with legal obligations or emission targets. Since the objective is to minimise total system costs  (\autoref{eq:objective}), investments are interpreted as conflicting, yet inevitable actions to cope with the constraints, such as lowering emissions to air (\ref{subsubsec:emconstraints}) and supplying the transport demand in each time step (\ref{subsubsec:tdemand}). All model variable domains are within non-negative real numbers, including zero $\left(R_{0}^{+}\right)$. The nomenclature of sets, variables and parameters used in the equations can be found in the nomenclature list (\ref{box:nomenclature}). Below, \autoref{subsubsec:obj} illustrates exemplarily the formulation of the objective equation. The entire mathematical formulation is described in \ref{app:equations}.
 % \glsdisablehyper
 % \glsaddall
 % \begin{table*}[htbp]
@@ -216,7 +216,7 @@ The problem is formulated in a linear, non-integer manner, aiming to minimise th
 % \label{box:nomenclature}.
 % \end{table*}
 
-\subsubsection{Objective function}\label{subsubsec:obj}
+\subsubsection{Objective equation}\label{subsubsec:obj}
 The objective equation (obj. eq.) minimises total system expenditures over all time steps and ship types (aggregated by main engine and fuel). It comprises the sum of  costs for fuel consumption, additional infrastructure as well as ship capacity for all years (35 time steps in the described application). Costs for fixed assets -- fuel infrastructure (CI) and ships (CS) -- are given as annuities and account only with the annual added capacities. The value of the existing amount in the start year ($finit_{t,s}$ in $T_0$) is not included in $CI$ and $CS$.
 \begin{subequations}
     \begin{align}
@@ -243,11 +243,11 @@ The objective equation (obj. eq.) minimises total system expenditures over all t
 }
 \end{mdframed}
 % \caption*{Nomenclature -- Objective function.}
-\label{box:nomenclature_obj}.
+\label{box:nomenclature_obj}
 \end{table*}
 
 % \subsubsection{Constraints on fuel utilisation, infrastructure and ship capacity}
-% Fuel constraints may apply for a selection of ship types and years in the model (see \autoref{eq:biofuel}). With regard to infrastructure and ships, only the incremental capacity is cost effective while taking into account expiry dates of existing capacities. The expiry dates relate to the technical lifetimes, which differ between ships and infrastructure of same type.\\\par\noindent
+% Fuel constraints may apply for a selection of ship types and years in the model (\autoref{eq:biofuel}). With regard to infrastructure and ships, only the incremental capacity is cost effective while taking into account expiry dates of existing capacities. The expiry dates relate to the technical lifetimes, which differ between ships and infrastructure of same type.\\\par\noindent
 % \textit{Infrastructure capacity: }Defined as the sum of all additional fuel infrastructure built during the elapsed technical lifetime.
 % \begin{subequations}
 %     \begin{align}
@@ -360,7 +360,7 @@ The fuel parameters (\autoref{tab:fuel_data}) include CO$_2$ and CH$_4$ emission
 % \end{table}
 
 \subsubsection{Ship and technology data}
-Ship type input parameter (see \autoref{tab:ship_data}) include emission factors, compliance with sulphur and NO$_x$ regulation, lifetime, options for refit, costs, transport supply as well as application options regarding range. The amounts of fuels used today are additionally provided in the tables since these are applied as the starting point in the modelling, while future amounts are determined endogenously by the model.
+Ship type input parameter (\autoref{tab:ship_data}) include emission factors, compliance with sulphur and NO$_x$ regulation, lifetime, options for refit, costs, transport supply as well as application options regarding range. The amounts of fuels used today are additionally provided in the tables since these are applied as the starting point in the modelling, while future amounts are determined endogenously by the model.
 
 The emission factors for CO$_2$ and CH$_4$ only include the tank-to-propeller emissions, since the upstream emissions are already covered by the fuel parameters. Regarding sulphur and NO$_x$ compliance, Tier rating defines if a ship complies with IMO NO$_x$ regulations and can thus be operated in a NECA. Old ships in the model do not have sufficient TIER rating and thus either have to be scrapped or refitted when the regulation enters into force in 2021. New built ships are generally assumed to have a TIER 3 rating. Scrubber installations for sulphur are defined for each ship type.
 
@@ -403,7 +403,7 @@ Regarding the range options, only full electric ships are restricted to radius o
 
 \subsubsection{Emission budget}
 \label{subsec:em_budget}
-The remaining emission budget of CO$_2$e for the temporal scope of the model is a decisive constraint in the calculation. Since there are no agreed or standardised ways of attributing GHG emissions from international shipping to countries, we have devised a method for distributing global shipping emissions and the respective remaining carbon budget to countries (see \ref{subsec:Scope}). We apply a global emission budget estimate by the IPCC \cite[Tab.~SPM.3, RCP2.6]{IPCC2013} and derive the shipping's budget by its annual estimated global GHG emission share from \citet{Olmer2017}.
+The remaining emission budget of CO$_2$e for the temporal scope of the model is a decisive constraint in the calculation. Since there are no agreed or standardised ways of attributing GHG emissions from international shipping to countries, we have devised a method for distributing global shipping emissions and the respective remaining carbon budget to countries \ref{subsec:Scope}). We apply a global emission budget estimate by the IPCC \cite[Tab.~SPM.3, RCP2.6]{IPCC2013} and derive the shipping's budget by its annual estimated global GHG emission share from \citet{Olmer2017}.
 
 The comparison of global maritime CO$_2$e emissions in 2012 with the Danish emissions in 2016 and its application to the global maritime budget leads to the Danish GHG budget (\autoref{tab:dk_em_budget}). The absolute level of Danish cargo shipping emissions of 1.2 Mt CO$_2$e in 2016 is derived from the fuel specific emission operation factors, multiplied by total fuel consumed in that year. The relation of global maritime emissions in 2012 with the Danish ones in 2016 leads to rather over-estimated Danish budget since the global transport demand was increasing in that period \cite[Tab.~3,~p.~5]{UNCTAD2017}. Keeping the resulting emission level constant would deplete the budgets within the next 15 years and allows for less GHG emissions compared to a linear decrease from today until 2050.
 \begin{table}[htb]
@@ -498,7 +498,7 @@ Other decisive parameters are bio-fuel availability and transport demand. Bio-fu
 
 % BAU compared to IMO, compared to REF
 
-\autoref{fig:BAU} displays the fuel consumption and cumulative CO$_2$e emissions in the business as usual scenario (BAU) when no GHG regime is in place. Although SO$_X$- and NO$_X$-restrictions are applied, no major change in fuel usage can be detected. That shows, that scrubbers instead of fuel switch are the most cost-efficient solution if no GHG restrictions are implemented. Applying the IMO goal to halve climate emissions of shipping in 2050 does not lead to significant changes except a minor switch to BDO instead of HFO (see \autoref{fig:IMO}). In comparison, the climate emission budget restriction in the reference scenario  results in a significant fuel switch: Mainly hydrogen in fuel cells and BDO with scrubber in internal combustion engines are chosen (see \autoref{fig:REF}). The comparison shows, that without any kind of climate emission restriction, the total cumulative emissions are twice as high and the IMO plans do not have a significant impact. 
+\autoref{fig:BAU} displays the fuel consumption and cumulative CO$_2$e emissions in the business as usual scenario (BAU) when no GHG regime is in place. Although SO$_X$- and NO$_X$-restrictions are applied, no major change in fuel usage can be detected. That shows, that scrubbers instead of fuel switch are the most cost-efficient solution if no GHG restrictions are implemented. Applying the IMO goal to halve climate emissions of shipping in 2050 does not lead to significant changes except a minor switch to BDO instead of HFO (\autoref{fig:IMO}). In comparison, the climate emission budget restriction in the reference scenario  results in a significant fuel switch: Mainly hydrogen in fuel cells and BDO with scrubber in internal combustion engines are chosen (\autoref{fig:REF}). The comparison shows, that without any kind of climate emission restriction, the total cumulative emissions are twice as high and the IMO plans do not have a significant impact. 
 
 % \begin{figure}
 %     \centering
@@ -522,7 +522,7 @@ Other decisive parameters are bio-fuel availability and transport demand. Bio-fu
 \end{figure}
 
 % REF compared to REF methane leakage?
-%The comparison between the REF scenario with a methane leakage phase out scenario (see \autoref{fig:RS_MP}) illustrates the impact, methane emissions have on the possible application of LNG and LBG in a climate emission reduction regime. (MISSING: Explanation)
+%The comparison between the REF scenario with a methane leakage phase out scenario (\autoref{fig:RS_MP}) illustrates the impact, methane emissions have on the possible application of LNG and LBG in a climate emission reduction regime. (MISSING: Explanation)
 
 % \begin{figure}
 %     \centering
@@ -561,7 +561,7 @@ Due to the high level of uncertainty of cost development of infrastructure, fuel
 \end{figure}
 
 % LNG is no option, LBG just if methane leakage phase out
-For LBG, the development of the methane leakage problem is of outstanding importance. Under the assumption that methane leakage can be coped with until 2050 (dashed line in \autoref{fig:costVariation}) and a cost reduction of -40\% (see \autoref{fig:LBG}), LBG is close to hydrogen, methanol and ammonia as choice to be the dominate fuel in 2050. Contrary to that, LNG would not only require a methane leakage phase out, but also a very favourable cost development to play a major role.
+For LBG, the development of the methane leakage problem is of outstanding importance. Under the assumption that methane leakage can be coped with until 2050 (dashed line in (\autoref{fig:costVariation}) and a cost reduction of -40\% (\autoref{fig:LBG}), LBG is close to hydrogen, methanol and ammonia as choice to be the dominate fuel in 2050. Contrary to that, LNG would not only require a methane leakage phase out, but also a very favourable cost development to play a major role.
 
 % \begin{figure}
 %     \centering
@@ -661,7 +661,7 @@ This work was carried out as part of the FutureGas project (\url{www.futuregas.d
 % \label{box:nomenclature}.
 \end{table*}
 
-\subsubsection{Objective function}
+\subsubsection{Objective equation}
 The objective equation minimises total system expenditures over all time steps and ship types (aggregated by main engine and fuel). It comprises the sum of  costs for fuel consumption, additional infrastructure as well as ship capacity for all years (35 time steps in the described application). Costs for fixed assets -- fuel infrastructure (CI) and ships (CS) -- are given as annuities and account only with the annual added capacities. The value of the existing amount in the start year ($finit_{t,s}$ in $T_0$) is not included in $CI$ and $CS$.
 \begin{subequations}
     \begin{align}
@@ -676,7 +676,7 @@ The objective equation minimises total system expenditures over all time steps a
 \end{subequations}
 
 \subsubsection{Constraints on fuel utilisation, infrastructure and ship capacity}
-Fuel constraints may apply for a selection of ship types and years in the model (see \autoref{eq:biofuel}). With regard to infrastructure and ships, only the incremental capacity is cost effective while taking into account expiry dates of existing capacities. The expiry dates relate to the technical lifetimes, which differ between ships and infrastructure of same type.\\\par\noindent
+Fuel constraints may apply for a selection of ship types and years in the model (\autoref{eq:biofuel}). With regard to infrastructure and ships, only the incremental capacity is cost effective while taking into account expiry dates of existing capacities. The expiry dates relate to the technical lifetimes, which differ between ships and infrastructure of same type.\\\par\noindent
 \textit{Infrastructure capacity: }Defined as the sum of all additional fuel infrastructure built during the elapsed technical lifetime.
 \begin{subequations}
     \begin{align}
