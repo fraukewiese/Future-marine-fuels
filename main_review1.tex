@@ -333,7 +333,7 @@ The objective equation (obj. eq.) minimises total system expenditures over all t
 Main input data for the model are fuel and ship type specifications for the initial set of the start year as well as future options for ship-technology combinations. For fuel data, the unique identifier is the fuel type, for ship data it is the ship type. Ship types can use the same fuel, but different engine types like internal combustion (IC), fuel cell (FC), electric motor (EM).
 
 \subsubsection{Fuel data}
-The fuel parameters (\autoref{tab:fuel_data}) include CO$_2$ and CH$_4$ emission factors from well-to-tank (w2t), sulphur content as well as cost parameters. Costs are specified for fuel and infrastructure and along with that, the respective lifetime. For fuels that are currently applied on a large scale -- heavy fuel oil (HFO), marine diesel oil (MDO), bio-diesel oil (BDO) -- the bunker index prices are used. It is assumed that these include all cost components from well to tank including fixed costs for a sufficient supply infrastructure. Thus, for these, infrastructure and fuel costs are not further specified. In contrast, new fuel technology costs are divided into fixed and variable components, since sufficient supply infrastructure has not been installed yet. If fuel upgrading is required, it is assumed to be done at berth to avoid additional grid investments. In the case of Denmark, the gas grid could handle any conceivable amount of natural gas and transport of upgraded biogas.
+The fuel parameters (\autoref{tab:fuel_data}) include CO$_2$ and CH$_4$ emission factors from well-to-tank (w2t), sulphur content as well as cost parameters. Costs are specified for fuel and infrastructure and along with that, the respective lifetime. For fuels that are currently applied on a large scale -- heavy fuel oil (HFO), marine diesel oil (MDO), bio-diesel oil (BDO) -- the bunker index prices are used. It is assumed that these include all cost components from well to tank including fixed costs for a sufficient supply infrastructure. Thus, for these, infrastructure and fuel costs are not further specified. In contrast, new fuel technology costs are divided into fixed and variable components, since sufficient supply infrastructure has not been installed yet. If fuel upgrading is required, it is assumed to be done at berth to avoid additional grid investments. In the case of Denmark, the gas grid could handle any conceivable amount of natural gas and transport of upgraded biogas. Liquefied biogas (LBG) is considered an potential future carbon-based electrofuel produced from CO$_2$ and water using electricity as the primary energy source.
 
 % \begin{table}[htbp]
 %     \centering
@@ -592,7 +592,7 @@ For comparison, the total fuel use of all scenarios for 2016-2050 is displayed i
 \end{minipage}\\[0.75cm]
 
 % Costs - resulting EURO/CO$_2$e
-Derived from the cost differences for fuel, ship and infrastructure, a carbon price in the range of 350--450 \euro$_{2016}$/ton CO$_2$e would be required for a renewable transition of the Danish shipping sector. There are no directly comparable studies, but, to put our results in perspective, \citet[p.197]{Raucci2017} reports similar prices of around 430 \$/ton CO$_2$ for a global transition with a global shipping carbon budget double as high as in our case. In that setting, he concludes, that hydrogen requires an emission price of 1400 \$/ton CO$_2$ to become an economic option. In contrast, a global study on country- and sector-wise CO$_2$ abatement costs \cite{OECD2016} represent the lower range: Although shipping is not included, road transport is indicated with about 200 \euro/ton CO$_2$. Specific costs for climate emission abatement costs in shipping can be expected to be higher than that, since shipping poses special challenges due to high range requirements. More specifically on CO$_2$ abatement costs for shipping, \citet{DNVGL2017}, assumes costs in the range of 150--200 \euro/avoided ton CO$_2$ if using LBG, methanol based on renewables or BDO.
+Derived from the cost differences for fuel, ship and infrastructure, a carbon price in the range of 350--450 \euro$_{2016}$/ton CO$_2$e would be required for a renewable transition of the Danish shipping sector. There are no directly comparable studies, but, to put our results in perspective, \citet[p.197]{Raucci2017} reports similar prices of around 430 \$/ton CO$_2$ for a global transition with a global shipping carbon budget double as high as in our case. In that setting, he concludes, that hydrogen requires an emission price of 1400 \$/ton CO$_2$ to become an economic option. In contrast, a global study on country- and sector-wise CO$_2$ abatement costs \cite{OECD2016} represent the lower range: Although shipping is not included, road transport is indicated with about 200 \euro/ton CO$_2$. Specific costs for climate emission abatement costs in shipping can be expected to be higher than that, since shipping poses special challenges due to high range requirements. More specifically on CO$_2$ abatement costs for shipping, \citet{DNVGL2017}, assumes costs in the range of 150--200 \euro/avoided ton CO$_2$ if using LBG, methanol based on renewables or BDO. In realty it can be challenging for a single country to introduce a carbon price on its own and the analysis should be scaled to an appropriate level. Thus, the numbers provide an indication of the upper boundary of a necessary worldwide carbon price.
 
 % applicability of the model on other countries
 % applicability of the findings for the world shipping
@@ -811,7 +811,7 @@ Emission constraints may apply for a selection of ship types and years in the mo
     \caption[Ship type data]{Ship type data for each specific parameter (for abbreviations see the nomenclature list in \ref{box:nomenclature}). Further explanation and references of data can be found in \cite{Thesis2018}.}
     \label{tab:ship_data}
 \end{table}
-\begin{table}[h]
+\begin{table}[t]
     \centering
     \resizebox{\textwidth}{!}{%
     \begin{tabular}{lrlr}
@@ -856,13 +856,19 @@ Emission constraints may apply for a selection of ship types and years in the mo
 % \label{box:nomenclature}.
 % \end{table*}
 
-\newpage
+\clearpage
 \section{Figures}
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{figures/BAU_fuels_emissions.eps}
     \caption{Fuel consumption (y-axis left) and cumulative emissions (y-axis right) in the business-as-usual scenario without carbon restrictions.}
-    \label{fig:BAU}.
+    \label{fig:BAU}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figures/TDVAR_fuels_emissions.eps}
+    \caption{Fuel consumption (y-axis left) and cumulative emissions (y-axis right) in the reduced transport demand scenario with a limited carbon budget.}
+    \label{fig:TDV}
 \end{figure}
 \begin{figure}[h]
     \centering
